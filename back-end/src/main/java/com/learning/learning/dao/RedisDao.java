@@ -21,57 +21,13 @@ import java.util.*;
 @Slf4j
 @Component
 public class RedisDao {
-
-    static int pagecount = 20;
     //分页的每一页的结果数
     static int pageRecord = 20;
-
     public int pageNum = 0;
     @Autowired
     JedisUtil jedisUtil;
-
     /**
-     * 根据页码查询id
-     * @param query 检索词
-     * @param page 页码
-     * @return keys
-     */
-//    public List<String> getIDListOnPage(String query, int page) {
-//        int start = (page - 1 ) * pagecount;
-//        int end = start + pagecount - 1;
-//        log.info("jedisUtil.toString(): "+jedisUtil.toString());
-//        List<String> queries = FuzzySearchQueryByKeys(query);
-//        Jedis jedis= jedisUtil.getClient();
-//        List<String> keys = new ArrayList<String>();
-//        try {
-//            if (jedis.exists(query)) {
-//                log.info("使用redis查询query返回idList");
-//                keys.addAll(jedis.zrevrange(query,start,end));
-//            } else {
-//                log.info("redis没有找到query");
-//            }
-//        } catch (NullPointerException e) {
-//            e.printStackTrace();
-//        }
-//        return keys;
-//    }
-//
-//    /**
-//     * 返回页码总数
-//     * @param query 检索词
-//     * @return page
-//     */
-//    public long getPageNumber(String query)
-//    {
-//        Jedis jedis= jedisUtil.getClient();
-//        long num = jedis.zcard(query);
-//        long page = num/pagecount + 1;
-//        return page;
-//    }
-
-    /**
-     * 查询首页的id
-     *
+     * 根据标题查询
      * @param query 检索词
      * @return keys
      */
@@ -93,6 +49,11 @@ public class RedisDao {
         return res;
     }
 
+    /**
+     * 根据内容查询
+     * @param query
+     * @return
+     */
     public ArrayList<String> getIDListByContent(String query) {
         List<String> list = new ArrayList<>();
         for (int i = 0; i<query.length(); i++){
@@ -111,6 +72,11 @@ public class RedisDao {
         return res;
     }
 
+    /**
+     * 根据年份查询
+     * @param query
+     * @return
+     */
     public ArrayList<String> getIDListByYear(String query) {
         ArrayList<String> res = new ArrayList<String>();
         Jedis jedis = jedisUtil.getClient();
@@ -123,6 +89,11 @@ public class RedisDao {
         return res;
     }
 
+    /**
+     * 根据类别查询
+     * @param query
+     * @return
+     */
     public ArrayList<String> getIDListByType(String query) {
         ArrayList<String> res = new ArrayList<String>();
         Jedis jedis = jedisUtil.getClient();
@@ -137,7 +108,6 @@ public class RedisDao {
 
     /**
      * 根据query进行模糊匹配找相应的检索词
-     *
      * @param query
      * @return
      */
@@ -155,8 +125,7 @@ public class RedisDao {
     }
 
     /**
-     * 根据query找相应的skuId
-     *
+     * 根据query找相应的newsId
      * @param query
      * @return
      */
@@ -191,8 +160,7 @@ public class RedisDao {
     }
 
     /**
-     * 根据模糊的query找到所有的检索词
-     *
+     * 根据模糊的query找到所有的newsId
      * @param pattern
      * @return
      */
@@ -222,7 +190,7 @@ public class RedisDao {
     }
 
     /**
-     *
+     * 求交集，并按分页返回对应的newsId
      * @param title
      * @param content
      * @param type
@@ -236,9 +204,9 @@ public class RedisDao {
         ArrayList<String> list3 = new ArrayList<String>();
         ArrayList<String> list4 = new ArrayList<String>();
         list1 = getIDListByTitle(title);
-        list2 = getIDListByTitle(content);
-        list3 = getIDListByTitle(type);
-        list4 = getIDListByTitle(year);
+        list2 = getIDListByContent(content);
+        list3 = getIDListByType(type);
+        list4 = getIDListByYear(year);
         list1.retainAll(list2);
         list1.retainAll(list3);
         list1.retainAll(list4);
@@ -253,15 +221,5 @@ public class RedisDao {
         lp.setList(res);
         lp.setPageNum((int) (num / pageRecord + 1));
         return lp;
-    }
-
-    /**
-     * 返回要显示的页码总数
-     *
-     * @param query
-     * @return
-     */
-    public int getPageNumber(String query) {
-        return pageNum;
     }
 }

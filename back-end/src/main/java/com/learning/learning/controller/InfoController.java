@@ -26,8 +26,10 @@ public class InfoController {
 
 
     @RequestMapping("/getNews/{title}/{content}/{type}/{year}/{page}")
-    public String news(@PathVariable("title") String title, @PathVariable("content") String content, @PathVariable("type") String type, @PathVariable("year") String year, @PathVariable("page") String page) {
-        log.info("Receive news request : title= " + title + "content= "+content+"type= "+type+"year= "+year+" page= " + page);
+    public String news(@PathVariable("title") String title,
+                       @PathVariable("content") String content, @PathVariable("type") String type,
+                       @PathVariable("year") String year, @PathVariable("page") String page) {
+        log.info("Receive news request: title= " + title + "content= "+content+"type= "+type+"year= "+year+" page= " + page);
         long start = System.currentTimeMillis();
         NewsResponse response = this.searchServiceBlockingStub
                 .searchNews(NewsRequest.newBuilder()
