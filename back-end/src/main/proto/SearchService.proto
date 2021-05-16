@@ -1,6 +1,6 @@
 syntax = "proto3";
 option java_multiple_files = true;
-package com.trace.trace.grpc;
+package com.learning.learning.grpc;
 
 //请求
 message NewsRequest {
@@ -16,13 +16,29 @@ message NewsRequest {
     string page = 5;
 }
 
+message GraphRequest {
+
+}
+
+message WordCloudRequest {
+
+}
+
 //返回
 message NewsResponse {
     string response = 1;
 }
 
+message GraphResponse {
+    string response = 1;
+}
 
+message WordCloudResponse {
+    string response = 1;
+}
 
 service SearchService {
     rpc searchNews(NewsRequest) returns (NewsResponse);
+    rpc searchGraph(GraphRequest) returns (GraphResponse);
+    rpc searchWordCloud(WordCloudRequest) returns (WordCloudResponse);
 }

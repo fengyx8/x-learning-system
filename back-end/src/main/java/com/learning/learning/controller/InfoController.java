@@ -1,8 +1,6 @@
 package com.learning.learning.controller;
 
-import com.trace.trace.grpc.NewsRequest;
-import com.trace.trace.grpc.NewsResponse;
-import com.trace.trace.grpc.SearchServiceGrpc;
+import com.learning.learning.grpc.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -34,6 +32,30 @@ public class InfoController {
         NewsResponse response = this.searchServiceBlockingStub
                 .searchNews(NewsRequest.newBuilder()
                         .setTitle(title).setContent(content).setType(type).setYear(year).setPage(page).build());
+        long end = System.currentTimeMillis();
+        log.info("Search result: " + response.getResponse());
+        log.info("Retrieval time: " + (end - start));
+        return response.getResponse();
+    }
+
+    @RequestMapping("/getGraph")
+    public String graph(){
+        log.info("Receive graph request");
+        long start = System.currentTimeMillis();
+        GraphResponse response = this.searchServiceBlockingStub
+                .searchGraph(GraphRequest.newBuilder().build());
+        long end = System.currentTimeMillis();
+        log.info("Search result: " + response.getResponse());
+        log.info("Retrieval time: " + (end - start));
+        return response.getResponse();
+    }
+
+    @RequestMapping("/getWordCloud")
+    public String wordCloud(){
+        log.info("Receive wordCloud request");
+        long start = System.currentTimeMillis();
+        WordCloudResponse response = this.searchServiceBlockingStub
+                .searchWordCloud(WordCloudRequest.newBuilder().build());
         long end = System.currentTimeMillis();
         log.info("Search result: " + response.getResponse());
         log.info("Retrieval time: " + (end - start));

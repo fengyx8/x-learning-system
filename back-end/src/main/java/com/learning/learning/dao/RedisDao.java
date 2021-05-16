@@ -199,27 +199,110 @@ public class RedisDao {
      * @return List<String>
      */
     public ListAndPage getIDListOnPage(String title, String content, String type, String year, int page){
+        Boolean first = true;
+        ArrayList<String> list = new ArrayList<String>();
         ArrayList<String> list1 = new ArrayList<String>();
         ArrayList<String> list2 = new ArrayList<String>();
         ArrayList<String> list3 = new ArrayList<String>();
         ArrayList<String> list4 = new ArrayList<String>();
-        list1 = getIDListByTitle(title);
-        list2 = getIDListByContent(content);
-        list3 = getIDListByType(type);
-        list4 = getIDListByYear(year);
-        list1.retainAll(list2);
-        list1.retainAll(list3);
-        list1.retainAll(list4);
-        long num = list1.size();
+        if (!title.equals("")){
+            list1 = getIDListByTitle(title);
+            if (first){
+                list.addAll(list1);
+                first = false;
+            }
+        }
+        if (!content.equals("")) {
+            list2 = getIDListByContent(content);
+            if (first){
+                list.addAll(list2);
+                first = false;
+            } else {
+              list.retainAll(list2);
+            }
+        }
+        if (!type.equals("")) {
+            list3 = getIDListByType(type);
+            if (first){
+                list.addAll(list3);
+                first = false;
+            } else {
+                list.retainAll(list3);
+            }
+        }
+        if (!year.equals("")) {
+            list4 = getIDListByYear(year);
+            if (first){
+                list.addAll(list4);
+                first = false;
+            } else {
+                list.retainAll(list4);
+            }
+        }
+        long num = list.size();
         int start = (page-1)*pageRecord;
         int end = start+pageRecord-1;
         List<String> res = new ArrayList<>();
-        if(list1.size()>=end) {
-            res = list1.subList(start,end+1);
+        if(list.size()>=end) {
+            res = list.subList(start,end+1);
         }
         ListAndPage lp = null;
         lp.setList(res);
         lp.setPageNum((int) (num / pageRecord + 1));
         return lp;
+    }
+
+    public String getWordCloud(){
+        StringBuilder sb = new StringBuilder();
+        sb.append("{\"wordCloud\": [");
+        Jedis jedis = jedisUtil.getClient();
+        jedis.select(5);
+        List<String> wordAl = new ArrayList<>(jedis.zrange("WordCloud", -50, -1));
+        for(int i=0; i<wordAl.size(); i++){
+            if(i == wordAl.size()-1){
+                sb.append("{\"word\":");
+                sb.append("\""+wordAl.get(i)+"\",");
+                sb.append("\"count\":");
+                sb.append(jedis.get(wordAl.get(i))+"}]}");
+            }
+            else {
+                sb.append("{\"word\":");
+                sb.append("\"" + wordAl.get(i) + "\",");
+                sb.append("\"count\":");
+                sb.append(jedis.get(wordAl.get(i)) + "},");
+            }
+        }
+        jedis.close();
+        return sb.toString();
+    }
+
+    public String getGraph(){
+        StringBuilder sb = new StringBuilder();
+        sb.append("{\"geo\": [");
+        Jedis jedis = jedisUtil.getClient();
+        jedis.select(4);
+        List<String> graphList = new ArrayList<>();
+        Set<String> s = jedis.keys("*");
+        Iterator<String> it = s.iterator();
+        while(it.hasNext()){
+            sb.append("{");
+            String key = it.next();
+            if(it.hasNext()) {
+                sb.append("\"lng\":" + jedis.hget(key, "log") + ",");
+                sb.append("\"lat\":" + jedis.hget(key, "lat") + ",");
+                sb.append("\"name\":" + key + ",");
+                sb.append("\"value\":" + jedis.hget(key, "freq"));
+                sb.append("},");
+            }
+            else{
+                sb.append("\"lng\":" + jedis.hget(key, "log") + ",");
+                sb.append("\"lat\":" + jedis.hget(key, "lat") + ",");
+                sb.append("\"name\":" + key + ",");
+                sb.append("\"value\":" + jedis.hget(key, "freq"));
+                sb.append("}]}");
+            }
+        }
+        jedis.close();
+        return sb.toString();
     }
 }

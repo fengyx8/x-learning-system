@@ -1,8 +1,6 @@
 package com.learning.learning.service;
 
-import com.trace.trace.grpc.NewsRequest;
-import com.trace.trace.grpc.NewsResponse;
-import com.trace.trace.grpc.SearchServiceGrpc;
+import com.learning.learning.grpc.*;
 import io.grpc.stub.StreamObserver;
 import lombok.extern.slf4j.Slf4j;
 import org.lognet.springboot.grpc.GRpcService;
@@ -22,6 +20,10 @@ import org.springframework.stereotype.Service;
 public class SearchServiceImpl extends SearchServiceGrpc.SearchServiceImplBase {
     @Autowired
     SearchNews searchNews;
+    @Autowired
+    SearchGraph searchGraph;
+    @Autowired
+    SearchWordCloud searchWordCloud;
 
     /**
      * 新闻查询模块
@@ -45,7 +47,7 @@ public class SearchServiceImpl extends SearchServiceGrpc.SearchServiceImplBase {
         //返回结果初始化
         String jsonInfo = "";
 
-        //分页检索，每次返回二十条商品
+        //分页检索，每次返回二十条记录
         log.info("SearchServiceImpl start searching!");
         try {
             jsonInfo = searchNews.searchNews(title, content, type, year, page);
@@ -60,4 +62,34 @@ public class SearchServiceImpl extends SearchServiceGrpc.SearchServiceImplBase {
         responseObserver.onCompleted();
     }
 
+    @Override
+    public void searchGraph(GraphRequest request, StreamObserver<GraphResponse> responseObserver){
+        log.info("Starting searching graph!");
+        String jsonInfo = "";
+        try{
+            jsonInfo = searchGraph.searchGraph();
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        GraphResponse graphResponse = GraphResponse.newBuilder().setResponse(jsonInfo).build();
+        //放入response，传回客户端
+        responseObserver.onNext(graphResponse);
+        //表示此次连接结束
+        responseObserver.onCompleted();
+    }
+
+    public void searchWordCloud(WordCloudRequest request, StreamObserver<WordCloudResponse> responseObserver){
+        log.info("Starting searching wordCloud!");
+        String jsonInfo = "";
+        try{
+            jsonInfo = searchWordCloud.searchWordCloud();
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        WordCloudResponse wordCloudResponse = WordCloudResponse.newBuilder().setResponse(jsonInfo).build();
+        //放入response，传回客户端
+        responseObserver.onNext(wordCloudResponse);
+        //表示此次连接结束
+        responseObserver.onCompleted();
+    }
 }

@@ -26,7 +26,7 @@ spring:
       pool:
         min-idle: 0
         max-idle: 10
-    password: nopassword
+    password:
   application:
     name: hello-grpc-server
 
@@ -41,3 +41,8 @@ mybatis:
   # 指定映射文件的位置
   mapper-locations: classpath:mapper/*.xml
   type-aliases-package: com.trace.trace.entity
+
+app-config:
+  grpc-server-name: localhost
+  grpc-server-port: 8289
+  max-message-size: 1073741824
