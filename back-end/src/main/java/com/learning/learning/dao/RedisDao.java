@@ -5,6 +5,7 @@ import com.learning.learning.util.JedisUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.ScanParams;
 import redis.clients.jedis.ScanResult;
@@ -19,13 +20,18 @@ import java.util.*;
  * @create: 2021-04-25
  */
 @Slf4j
-@Component
+@Repository
 public class RedisDao {
     //分页的每一页的结果数
     static int pageRecord = 20;
     public int pageNum = 0;
+    final JedisUtil jedisUtil;
+
     @Autowired
-    JedisUtil jedisUtil;
+    public RedisDao(JedisUtil jedisUtil) {
+        this.jedisUtil = jedisUtil;
+    }
+
     /**
      * 根据标题查询
      * @param query 检索词

@@ -40,6 +40,9 @@ server:
 mybatis:
   # 指定映射文件的位置
   mapper-locations: classpath:mapper/*.xml
-  type-aliases-package: com.trace.trace.entity
+  type-aliases-package: com.learning.learning.entity
 
-
+app-config:
+  grpc-server-name: localhost
+  grpc-server-port: 8289
+  max-message-size: 1073741824

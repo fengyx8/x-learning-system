@@ -1,6 +1,12 @@
 package com.learning.learning.controller;
 
-import com.learning.learning.grpc.*;
+import com.learning.learning.grpc.GraphRequest;
+import com.learning.learning.grpc.GraphResponse;
+import com.learning.learning.grpc.NewsRequest;
+import com.learning.learning.grpc.NewsResponse;
+import com.learning.learning.grpc.SearchServiceGrpc;
+import com.learning.learning.grpc.WordCloudRequest;
+import com.learning.learning.grpc.WordCloudResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -19,8 +25,12 @@ public class InfoController {
     /**
      * 从容器中获取调用GRpc stub
      */
+    final SearchServiceGrpc.SearchServiceBlockingStub searchServiceBlockingStub;
+
     @Autowired
-    SearchServiceGrpc.SearchServiceBlockingStub searchServiceBlockingStub;
+    public InfoController(SearchServiceGrpc.SearchServiceBlockingStub searchServiceBlockingStub) {
+        this.searchServiceBlockingStub = searchServiceBlockingStub;
+    }
 
 
     @RequestMapping("/getNews/{title}/{content}/{type}/{year}/{page}")
