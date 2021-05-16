@@ -44,6 +44,16 @@ public final class SearchServiceOuterClass {
   static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_com_learning_learning_grpc_WordCloudResponse_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_com_learning_learning_grpc_UserInfoRequest_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_com_learning_learning_grpc_UserInfoRequest_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_com_learning_learning_grpc_UserInfoResponse_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_com_learning_learning_grpc_UserInfoResponse_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -60,15 +70,20 @@ public final class SearchServiceOuterClass {
       "rdCloudRequest\" \n\014NewsResponse\022\020\n\010respon" +
       "se\030\001 \001(\t\"!\n\rGraphResponse\022\020\n\010response\030\001 " +
       "\001(\t\"%\n\021WordCloudResponse\022\020\n\010response\030\001 \001" +
-      "(\t2\304\002\n\rSearchService\022_\n\nsearchNews\022\'.com" +
-      ".learning.learning.grpc.NewsRequest\032(.co" +
-      "m.learning.learning.grpc.NewsResponse\022b\n" +
-      "\013searchGraph\022(.com.learning.learning.grp" +
-      "c.GraphRequest\032).com.learning.learning.g" +
-      "rpc.GraphResponse\022n\n\017searchWordCloud\022,.c" +
-      "om.learning.learning.grpc.WordCloudReque" +
-      "st\032-.com.learning.learning.grpc.WordClou" +
-      "dResponseB\002P\001b\006proto3"
+      "(\t\"!\n\017UserInfoRequest\022\016\n\006userId\030\001 \001(\t\"$\n" +
+      "\020UserInfoResponse\022\020\n\010userInfo\030\001 \001(\t2\304\002\n\r" +
+      "SearchService\022_\n\nsearchNews\022\'.com.learni" +
+      "ng.learning.grpc.NewsRequest\032(.com.learn" +
+      "ing.learning.grpc.NewsResponse\022b\n\013search" +
+      "Graph\022(.com.learning.learning.grpc.Graph" +
+      "Request\032).com.learning.learning.grpc.Gra" +
+      "phResponse\022n\n\017searchWordCloud\022,.com.lear" +
+      "ning.learning.grpc.WordCloudRequest\032-.co" +
+      "m.learning.learning.grpc.WordCloudRespon" +
+      "se2|\n\020CommunityService\022h\n\013getUserInfo\022+." +
+      "com.learning.learning.grpc.UserInfoReque" +
+      "st\032,.com.learning.learning.grpc.UserInfo" +
+      "ResponseB\002P\001b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -110,6 +125,18 @@ public final class SearchServiceOuterClass {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_com_learning_learning_grpc_WordCloudResponse_descriptor,
         new java.lang.String[] { "Response", });
+    internal_static_com_learning_learning_grpc_UserInfoRequest_descriptor =
+      getDescriptor().getMessageTypes().get(6);
+    internal_static_com_learning_learning_grpc_UserInfoRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_com_learning_learning_grpc_UserInfoRequest_descriptor,
+        new java.lang.String[] { "UserId", });
+    internal_static_com_learning_learning_grpc_UserInfoResponse_descriptor =
+      getDescriptor().getMessageTypes().get(7);
+    internal_static_com_learning_learning_grpc_UserInfoResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_com_learning_learning_grpc_UserInfoResponse_descriptor,
+        new java.lang.String[] { "UserInfo", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

@@ -1,5 +1,6 @@
 package com.learning.learning.config;
 
+import com.learning.learning.grpc.CommunityServiceGrpc;
 import com.learning.learning.grpc.SearchServiceGrpc;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
@@ -32,7 +33,11 @@ public class GrpcConfig {
      * 将proto生成的stub放入容器中，方便调用
      */
     @Bean
-    SearchServiceGrpc.SearchServiceBlockingStub searchServiceBlockingStub(ManagedChannel channel){
+    SearchServiceGrpc.SearchServiceBlockingStub searchServiceBlockingStub(ManagedChannel channel) {
         return SearchServiceGrpc.newBlockingStub(channel);
+    }
+    @Bean
+    CommunityServiceGrpc.CommunityServiceBlockingStub communityServiceBlockingStub(ManagedChannel channel) {
+        return  CommunityServiceGrpc.newBlockingStub(channel);
     }
 }
