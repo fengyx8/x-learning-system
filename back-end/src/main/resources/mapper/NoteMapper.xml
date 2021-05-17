@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.learning.learning.mapper.NoteMapper">
+
+	<!-- 增 [G] -->
+	<insert id="add">
+		insert into 
+		`note` (`noteId`, `content`, `time`, `userId`, `status`) 
+		values (right(#{noteId}, length(#{noteId}) - 1), #{content}, #{time}, #{userId}, #{status})
+	</insert>
+
+	<!-- 删 -->
+	<delete id="delete">
+		delete from `note` 
+		where `noteId` = right(#{noteId}, length(#{noteId}) - 1)
+	</delete>
+
+	<!-- 改 [G] -->
+	<update id="update">
+		update `note` set
+		`noteId` = right(#{noteId}, length(#{noteId}) - 1),
+		`content` = #{content}, 
+		`time` = #{time}, 
+		`userId` = #{userId}, 
+		`status` = #{status}
+		where `noteId` = right(#{noteId}, length(#{noteId}) - 1)
+	</update>
+
+
+	<!-- ================================== 查询相关 ================================== -->
+
+	
+	<!-- 通用映射：手动模式 -->
+	<resultMap id="model" type="com.learning.learning.entity.Note">
+		<result property="noteId" column="noteId" />
+		<result property="content" column="content" />
+		<result property="time" column="time" />
+		<result property="userId" column="userId" />
+		<result property="status" column="status" />
+	</resultMap>
+	
+	<!-- 公共查询sql片段 -->
+	<sql id="select_sql">
+		select concat('n', `noteId`) `noteId`, `content`, `time`, `userId`, `status`
+		from `note` 
+	</sql>
+	
+	<!-- 查 - 根据id -->
+	<select id="getNoteById" resultMap="model">
+		<include refid="select_sql"></include>
+		where `noteId` = right(#{noteId}, length(#{noteId}) - 1)
+	</select>
+	
+	<!-- 查集合 - 根据条件（参数为空时代表忽略指定条件） [G] -->
+<!--	<select id="getList" resultMap="model">-->
+<!--		<include refid="select_sql"></include>-->
+<!--		<where>-->
+<!--			<if test=' this.has("noteId") '> and `noteId` = right(#{noteId}, length(#{noteId}) - 1) </if>-->
+<!--			<if test=' this.has("content") '> and `content` = #{content} </if>-->
+<!--			<if test=' this.has("time") '> and `time` = #{time} </if>-->
+<!--			<if test=' this.has("userId") '> and `userId` = #{userId} </if>-->
+<!--			<if test=' this.has("status") '> and `status` = #{status} </if>-->
+<!--		</where>-->
+<!--		order by-->
+<!--		<choose>-->
+<!--			<when test='sortType == 1'> `noteId` desc </when>-->
+<!--			<when test='sortType == 2'> `content` desc </when>-->
+<!--			<when test='sortType == 3'> `time` desc </when>-->
+<!--			<when test='sortType == 4'> `userId` desc </when>-->
+<!--			<when test='sortType == 5'> `status` desc </when>-->
+<!--			<otherwise> `noteId` desc </otherwise>-->
+<!--		</choose>-->
+<!--	</select>-->
+
+	    <!--  查用户 - 根据用户ID查询某用户发布过的所有心得的列表  -->
+		<select id="getNoteListByUserId" resultMap="model">
+			<include refid="select_sql"></include>
+			<where>
+				`userId` = #{userId} and `status` = 1
+			</where>
+			order by `time` desc
+		</select>
+</mapper>

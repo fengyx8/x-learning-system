@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.learning.learning.mapper.CommentMapper">
+
+	<!-- 增 [G] -->
+	<insert id="add">
+		insert into 
+		`comment` (`commentId`, `content`, `time`, `userId`, `noteId`, `status`) 
+		values (right(#{commentId}, length(#{commentId}) - 1), #{content}, #{time}, #{userId},
+		        right(#{noteId}, length(#{noteId}) - 1), #{status})
+	</insert>
+
+	<!-- 删 -->
+	<delete id="delete">
+		delete from `comment` 
+		where `commentId` = right(#{commentId}, length(#{commentId}) - 1)
+	</delete>
+
+	<!-- 改 [G] -->
+	<update id="update">
+		update `comment` set
+		`commentId` = right(#{commentId}, length(#{commentId}) - 1),
+		`content` = #{content}, 
+		`time` = #{time}, 
+		`userId` = #{userId}, 
+		`noteId` = right(#{noteId}, length(#{noteId}) - 1),
+		`status` = #{status}
+		where `commentId` = right(#{commentId}, length(#{commentId}) - 1)
+	</update>
+
+
+	<!-- ================================== 查询相关 ================================== -->
+
+	
+	<!-- 通用映射：手动模式 -->
+	<resultMap id="model" type="com.learning.learning.entity.Comment">
+		<result property="commentId" column="commentId" />
+		<result property="content" column="content" />
+		<result property="time" column="time" />
+		<result property="userId" column="userId" />
+		<result property="noteId" column="noteId" />
+		<result property="status" column="status" />
+	</resultMap>
+	
+	<!-- 公共查询sql片段 -->
+	<sql id="select_sql">
+		select concat('c', `commentId`) `commentId`, `content`, `time`, `userId`,
+		       concat('n', `noteId`) `noteId`, `status`
+		from `comment`
+	</sql>
+	
+	<!-- 查 - 根据id -->
+	<select id="getCommentById" resultMap="model">
+		<include refid="select_sql"></include>
+		where `commentId` = right(#{commentId}, length(#{commentId}) - 1)
+	</select>
+	
+	<!-- 查集合 - 根据条件（参数为空时代表忽略指定条件） [G] -->
+<!--	<select id="getList" resultMap="model">-->
+<!--		<include refid="select_sql"></include>-->
+<!--		<where>-->
+<!--			<if test=' this.has("commentId") '> and `commentId` = right(#{commentId}, length(#{commentId}) - 1) </if>-->
+<!--			<if test=' this.has("content") '> and `content` = #{content} </if>-->
+<!--			<if test=' this.has("time") '> and `time` = #{time} </if>-->
+<!--			<if test=' this.has("userId") '> and `userId` = #{userId} </if>-->
+<!--			<if test=' this.has("noteId") '> and `noteId` = right(#{noteId}, length(#{noteId}) - 1) </if>-->
+<!--			<if test=' this.has("status") '> and `status` = #{status} </if>-->
+<!--		</where>-->
+<!--		order by-->
+<!--		<choose>-->
+<!--			<when test='sortType == 1'> `commentId` desc </when>-->
+<!--			<when test='sortType == 2'> `content` desc </when>-->
+<!--			<when test='sortType == 3'> `time` desc </when>-->
+<!--			<when test='sortType == 4'> `userId` desc </when>-->
+<!--			<when test='sortType == 5'> `noteId` desc </when>-->
+<!--			<when test='sortType == 6'> `status` desc </when>-->
+<!--			<otherwise> `commentId` desc </otherwise>-->
+<!--		</choose>-->
+<!--	</select>-->
+	<!--  查用户 - 根据用户ID查询comment列表  -->
+	<select id="getCommentListByUserId" resultMap="model">
+		<include refid="select_sql"></include>
+		<where>
+			`userId` = #{userId} and `status` = 1
+			order by `time` desc
+		</where>
+	</select>
+
+</mapper>

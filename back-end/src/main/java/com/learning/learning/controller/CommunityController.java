@@ -7,7 +7,6 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -44,8 +43,8 @@ public class CommunityController {
         UserInfoResponse userInfoResponse = this.communityServiceBlockingStub
                 .getUserInfo(UserInfoRequest.newBuilder()
                         .setUserId(userId).build());
-        String response = userInfoResponse.getUserInfo();
-        log.info("Response: {}, taking {}", response, System.currentTimeMillis() - start);
-        return response;
+        String userInfo = userInfoResponse.getUserInfo();
+        log.info("Response: {}, taking {}", userInfo, System.currentTimeMillis() - start);
+        return userInfo;
     }
 }
