@@ -1,6 +1,6 @@
 package com.learning.learning.controller;
 
-import com.learning.learning.grpc.CommunityServiceGrpc;
+import com.learning.learning.grpc.CommunityLoggedServiceGrpc;
 import com.learning.learning.grpc.UserInfoRequest;
 import com.learning.learning.grpc.UserInfoResponse;
 import io.swagger.annotations.Api;
@@ -24,12 +24,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/community/")
 @RestController
 @Api(tags = "社群功能api")
-public class CommunityController {
-    private final CommunityServiceGrpc.CommunityServiceBlockingStub communityServiceBlockingStub;
+public class CommunityLoggedController {
+    private final CommunityLoggedServiceGrpc.CommunityLoggedServiceBlockingStub communityLoggedServiceBlockingStub;
 
     @Autowired
-    public CommunityController(CommunityServiceGrpc.CommunityServiceBlockingStub communityServiceBlockingStub) {
-        this.communityServiceBlockingStub = communityServiceBlockingStub;
+    public CommunityLoggedController(CommunityLoggedServiceGrpc.CommunityLoggedServiceBlockingStub communityLoggedServiceBlockingStub) {
+        this.communityLoggedServiceBlockingStub = communityLoggedServiceBlockingStub;
     }
 
     @ApiOperation(value = "接收传入的用户id，并与已登录用户的token对比，匹配则返回用户主页所有信息。")
@@ -40,7 +40,7 @@ public class CommunityController {
     public String getUserInfo(@PathVariable("userId") String userId) {
         log.info("Get UserInfo: {}", userId);
         long start = System.currentTimeMillis();
-        UserInfoResponse userInfoResponse = this.communityServiceBlockingStub
+        UserInfoResponse userInfoResponse = this.communityLoggedServiceBlockingStub
                 .getUserInfo(UserInfoRequest.newBuilder()
                         .setUserId(userId).build());
         String userInfo = userInfoResponse.getUserInfo();

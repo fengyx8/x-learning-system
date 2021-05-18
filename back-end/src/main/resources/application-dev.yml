@@ -39,7 +39,7 @@ server:
 
 mybatis:
   # 指定映射文件的位置
-  mapper-locations: classpath:mapper/*.xml
+  mapper-locations: classpath:mapper/*.xml, classpath:mapper/satoken/*.xml
   type-aliases-package: com.learning.learning.entity
 
 app-config:

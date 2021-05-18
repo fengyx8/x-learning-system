@@ -80,10 +80,10 @@ public final class SearchServiceOuterClass {
       "phResponse\022n\n\017searchWordCloud\022,.com.lear" +
       "ning.learning.grpc.WordCloudRequest\032-.co" +
       "m.learning.learning.grpc.WordCloudRespon" +
-      "se2|\n\020CommunityService\022h\n\013getUserInfo\022+." +
-      "com.learning.learning.grpc.UserInfoReque" +
-      "st\032,.com.learning.learning.grpc.UserInfo" +
-      "ResponseB\002P\001b\006proto3"
+      "se2\202\001\n\026CommunityLoggedService\022h\n\013getUser" +
+      "Info\022+.com.learning.learning.grpc.UserIn" +
+      "foRequest\032,.com.learning.learning.grpc.U" +
+      "serInfoResponseB\002P\001b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

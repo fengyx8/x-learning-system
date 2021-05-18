@@ -1,6 +1,6 @@
 package com.learning.learning.config;
 
-import com.learning.learning.grpc.CommunityServiceGrpc;
+import com.learning.learning.grpc.CommunityLoggedServiceGrpc;
 import com.learning.learning.grpc.SearchServiceGrpc;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
@@ -37,7 +37,7 @@ public class GrpcConfig {
         return SearchServiceGrpc.newBlockingStub(channel);
     }
     @Bean
-    CommunityServiceGrpc.CommunityServiceBlockingStub communityServiceBlockingStub(ManagedChannel channel) {
-        return  CommunityServiceGrpc.newBlockingStub(channel);
+    CommunityLoggedServiceGrpc.CommunityLoggedServiceBlockingStub communityLoggedServiceBlockingStub(ManagedChannel channel) {
+        return  CommunityLoggedServiceGrpc.newBlockingStub(channel);
     }
 }

@@ -48,6 +48,6 @@ service SearchService {
     rpc searchWordCloud(WordCloudRequest) returns (WordCloudResponse);
 }
 
-service CommunityService {
+service CommunityLoggedService {
     rpc getUserInfo(UserInfoRequest) returns (UserInfoResponse);
 }
