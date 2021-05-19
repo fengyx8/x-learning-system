@@ -5,11 +5,11 @@ import org.apache.ibatis.annotations.Param;
 
 /**
  * 账号相关 
- * @author kong
+ * @author jbk-xiao
  *
  */
 @Mapper
-public interface SpAccAdminMapper {
+public interface XAccUserMapper {
 
 	/**
 	 * 指定id的账号成功登录一次 

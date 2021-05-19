@@ -1,9 +1,6 @@
 package com.learning.learning.service.satoken;
 
-import com.learning.learning.mapper.satoken.SpRolePermissionMapper;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.Cacheable;
+import com.learning.learning.mapper.satoken.XRolePermissionMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -12,17 +9,17 @@ import java.util.stream.Collectors;
 
 /**
  * 角色权限中间表 
- * @author kong
+ * @author jbk-xiao
  *
  */
 @Service
-public class SpRolePermissionService {
+public class XRolePermissionService {
 
 	
-	private final SpRolePermissionMapper spRolePermissionMapper;
+	private final XRolePermissionMapper xRolePermissionMapper;
 
-	public SpRolePermissionService(SpRolePermissionMapper spRolePermissionMapper) {
-		this.spRolePermissionMapper = spRolePermissionMapper;
+	public XRolePermissionService(XRolePermissionMapper xRolePermissionMapper) {
+		this.xRolePermissionMapper = xRolePermissionMapper;
 	}
 
 	/**
@@ -30,7 +27,7 @@ public class SpRolePermissionService {
 	 */
 //    @Cacheable(value="api_pcode_list", key="#roleId")
     public List<String> getPcodeByRid(long roleId){
-    	return spRolePermissionMapper.getPcodeByRoleId(roleId);
+    	return xRolePermissionMapper.getPcodeByRoleId(roleId);
     }
 
 	/**
@@ -38,7 +35,7 @@ public class SpRolePermissionService {
 	 */
 //    @Cacheable(value="api_pcode_list2", key="#roleId")
     public List<Object> getPcodeByRid2(long roleId){
-		List<String> codeList = spRolePermissionMapper.getPcodeByRoleId(roleId);					
+		List<String> codeList = xRolePermissionMapper.getPcodeByRoleId(roleId);
 		return codeList.stream().map(String::valueOf).collect(Collectors.toList());				
     }
 
@@ -55,11 +52,11 @@ public class SpRolePermissionService {
     	}
     	
     	// 先删
-    	spRolePermissionMapper.deleteByRoleId(roleId);
+    	xRolePermissionMapper.deleteByRoleId(roleId);
     	
     	// 再添加
     	for(String pcode : pcodeArray){
-    		spRolePermissionMapper.add(roleId, pcode);
+    		xRolePermissionMapper.add(roleId, pcode);
         }
     	
     	// 返回

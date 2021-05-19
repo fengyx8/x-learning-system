@@ -16,4 +16,9 @@ public interface UserInfoRequestOrBuilder extends
    */
   com.google.protobuf.ByteString
       getUserIdBytes();
+
+  /**
+   * <code>int32 roleId = 2;</code>
+   */
+  int getRoleId();
 }

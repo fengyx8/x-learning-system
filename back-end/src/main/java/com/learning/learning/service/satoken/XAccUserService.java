@@ -5,37 +5,33 @@ import cn.dev33.satoken.spring.SpringMVCUtil;
 import cn.dev33.satoken.stp.StpUtil;
 import com.learning.learning.config.SystemObject;
 import com.learning.learning.entity.satoken.XUser;
-import com.learning.learning.mapper.satoken.SpAccAdminMapper;
+import com.learning.learning.mapper.satoken.XAccUserMapper;
 import com.learning.learning.mapper.satoken.XUserMapper;
 import com.learning.learning.util.sg.AjaxJson;
 import com.learning.learning.util.sg.NbUtil;
 import com.learning.learning.util.sg.WebNbUtil;
 import com.learning.learning.util.so.SoMap;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
-import java.util.Date;
 
 /**
- * service：admin账号相关
- * @author kong
+ * service：XUser账号相关
+ * @author jbk-xiao
  *
  */
 @Service
-public class SpAccAdminService {
-	private final SpAccAdminMapper spAccAdminMapper;
+public class XAccUserService {
+	private final XAccUserMapper xAccUserMapper;
 
 	private final XUserMapper xUserMapper;
 	
-	private final SpRolePermissionService spRolePermissionService;
+	private final XRolePermissionService xRolePermissionService;
 
-	public SpAccAdminService(SpAccAdminMapper spAccAdminMapper, XUserMapper xUserMapper, SpRolePermissionService spRolePermissionService) {
-		this.spAccAdminMapper = spAccAdminMapper;
+	public XAccUserService(XAccUserMapper xAccUserMapper, XUserMapper xUserMapper, XRolePermissionService xRolePermissionService) {
+		this.xAccUserMapper = xAccUserMapper;
 		this.xUserMapper = xUserMapper;
-		this.spRolePermissionService = spRolePermissionService;
+		this.xRolePermissionService = xRolePermissionService;
 	}
 
 
@@ -93,7 +89,7 @@ public class SpAccAdminService {
         // 组织返回参数  
 		SoMap map = new SoMap();
 		map.put("xUser", xUser);
-		map.put("per_list", spRolePermissionService.getPcodeByRid2(xUser.getRoleId()));
+		map.put("per_list", xRolePermissionService.getPcodeByRid2(xUser.getRoleId()));
 		map.put("tokenInfo", StpUtil.getTokenInfo());
 		return AjaxJson.getSuccessData(map);	
 	}
@@ -106,7 +102,7 @@ public class SpAccAdminService {
 	 */
 	public int successLogin(XUser xUser){
 		String loginIp = WebNbUtil.getIP(SpringMVCUtil.getRequest());
-		int line = spAccAdminMapper.successLogin(xUser.getId(), loginIp);
+		int line = xAccUserMapper.successLogin(xUser.getId(), loginIp);
 		if(line > 0) {
 	        xUser.setLoginIp(loginIp);
 	        xUser.setLoginTime(new Timestamp(System.currentTimeMillis()));
@@ -127,7 +123,7 @@ public class SpAccAdminService {
 //		int line = SP.publicMapper.updateColumnById("sys_admin", "phone", newPhone, adminId);
 //		return AjaxJson.getByLine(line);
 //	}
-	
+	//TODO 大段注释 注意
 	
 	
 	

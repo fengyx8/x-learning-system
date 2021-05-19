@@ -55,6 +55,11 @@ private static final long serialVersionUID = 0L;
             userId_ = s;
             break;
           }
+          case 16: {
+
+            roleId_ = input.readInt32();
+            break;
+          }
           default: {
             if (!parseUnknownField(
                 input, unknownFields, extensionRegistry, tag)) {
@@ -121,6 +126,15 @@ private static final long serialVersionUID = 0L;
     }
   }
 
+  public static final int ROLEID_FIELD_NUMBER = 2;
+  private int roleId_;
+  /**
+   * <code>int32 roleId = 2;</code>
+   */
+  public int getRoleId() {
+    return roleId_;
+  }
+
   private byte memoizedIsInitialized = -1;
   @java.lang.Override
   public final boolean isInitialized() {
@@ -138,6 +152,9 @@ private static final long serialVersionUID = 0L;
     if (!getUserIdBytes().isEmpty()) {
       com.google.protobuf.GeneratedMessageV3.writeString(output, 1, userId_);
     }
+    if (roleId_ != 0) {
+      output.writeInt32(2, roleId_);
+    }
     unknownFields.writeTo(output);
   }
 
@@ -149,6 +166,10 @@ private static final long serialVersionUID = 0L;
     size = 0;
     if (!getUserIdBytes().isEmpty()) {
       size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, userId_);
+    }
+    if (roleId_ != 0) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeInt32Size(2, roleId_);
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -167,6 +188,8 @@ private static final long serialVersionUID = 0L;
 
     if (!getUserId()
         .equals(other.getUserId())) return false;
+    if (getRoleId()
+        != other.getRoleId()) return false;
     if (!unknownFields.equals(other.unknownFields)) return false;
     return true;
   }
@@ -180,6 +203,8 @@ private static final long serialVersionUID = 0L;
     hash = (19 * hash) + getDescriptor().hashCode();
     hash = (37 * hash) + USERID_FIELD_NUMBER;
     hash = (53 * hash) + getUserId().hashCode();
+    hash = (37 * hash) + ROLEID_FIELD_NUMBER;
+    hash = (53 * hash) + getRoleId();
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -315,6 +340,8 @@ private static final long serialVersionUID = 0L;
       super.clear();
       userId_ = "";
 
+      roleId_ = 0;
+
       return this;
     }
 
@@ -342,6 +369,7 @@ private static final long serialVersionUID = 0L;
     public com.learning.learning.grpc.UserInfoRequest buildPartial() {
       com.learning.learning.grpc.UserInfoRequest result = new com.learning.learning.grpc.UserInfoRequest(this);
       result.userId_ = userId_;
+      result.roleId_ = roleId_;
       onBuilt();
       return result;
     }
@@ -393,6 +421,9 @@ private static final long serialVersionUID = 0L;
       if (!other.getUserId().isEmpty()) {
         userId_ = other.userId_;
         onChanged();
+      }
+      if (other.getRoleId() != 0) {
+        setRoleId(other.getRoleId());
       }
       this.mergeUnknownFields(other.unknownFields);
       onChanged();
@@ -488,6 +519,32 @@ private static final long serialVersionUID = 0L;
   checkByteStringIsUtf8(value);
       
       userId_ = value;
+      onChanged();
+      return this;
+    }
+
+    private int roleId_ ;
+    /**
+     * <code>int32 roleId = 2;</code>
+     */
+    public int getRoleId() {
+      return roleId_;
+    }
+    /**
+     * <code>int32 roleId = 2;</code>
+     */
+    public Builder setRoleId(int value) {
+      
+      roleId_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>int32 roleId = 2;</code>
+     */
+    public Builder clearRoleId() {
+      
+      roleId_ = 0;
       onChanged();
       return this;
     }

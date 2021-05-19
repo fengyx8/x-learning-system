@@ -10,7 +10,7 @@ import java.util.List;
 
 /**
  * sa-token user表认证实现
- * @author kong 
+ * @author jbk-xiao 
  */
 public class StpUserUtil {
 

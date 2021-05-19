@@ -75,7 +75,7 @@
 	<!-- 查询，根据名称 -->
 	<select id="getByMail" resultMap="model">
 		<include refid="select_sql"></include>
-		where mail = #{mail}
+		where `mail` = #{mail}
 	</select>
 
 

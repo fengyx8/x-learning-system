@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.learning.learning.mapper.satoken.SpAccAdminMapper">
+<mapper namespace="com.learning.learning.mapper.satoken.XAccUserMapper">
 
 
 	<!-- 指定id的账号成功登录一次  -->

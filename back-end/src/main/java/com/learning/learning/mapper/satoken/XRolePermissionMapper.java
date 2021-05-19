@@ -10,7 +10,7 @@ import java.util.List;
  * @author jbk-xiao
  */
 @Mapper
-public interface SpRolePermissionMapper {
+public interface XRolePermissionMapper {
 
 
 	/**

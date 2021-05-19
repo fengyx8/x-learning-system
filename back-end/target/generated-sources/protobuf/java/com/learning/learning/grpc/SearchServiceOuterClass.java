@@ -70,20 +70,21 @@ public final class SearchServiceOuterClass {
       "rdCloudRequest\" \n\014NewsResponse\022\020\n\010respon" +
       "se\030\001 \001(\t\"!\n\rGraphResponse\022\020\n\010response\030\001 " +
       "\001(\t\"%\n\021WordCloudResponse\022\020\n\010response\030\001 \001" +
-      "(\t\"!\n\017UserInfoRequest\022\016\n\006userId\030\001 \001(\t\"$\n" +
-      "\020UserInfoResponse\022\020\n\010userInfo\030\001 \001(\t2\304\002\n\r" +
-      "SearchService\022_\n\nsearchNews\022\'.com.learni" +
-      "ng.learning.grpc.NewsRequest\032(.com.learn" +
-      "ing.learning.grpc.NewsResponse\022b\n\013search" +
-      "Graph\022(.com.learning.learning.grpc.Graph" +
-      "Request\032).com.learning.learning.grpc.Gra" +
-      "phResponse\022n\n\017searchWordCloud\022,.com.lear" +
-      "ning.learning.grpc.WordCloudRequest\032-.co" +
-      "m.learning.learning.grpc.WordCloudRespon" +
-      "se2\202\001\n\026CommunityLoggedService\022h\n\013getUser" +
-      "Info\022+.com.learning.learning.grpc.UserIn" +
-      "foRequest\032,.com.learning.learning.grpc.U" +
-      "serInfoResponseB\002P\001b\006proto3"
+      "(\t\"1\n\017UserInfoRequest\022\016\n\006userId\030\001 \001(\t\022\016\n" +
+      "\006roleId\030\002 \001(\005\"$\n\020UserInfoResponse\022\020\n\010use" +
+      "rInfo\030\001 \001(\t2\304\002\n\rSearchService\022_\n\nsearchN" +
+      "ews\022\'.com.learning.learning.grpc.NewsReq" +
+      "uest\032(.com.learning.learning.grpc.NewsRe" +
+      "sponse\022b\n\013searchGraph\022(.com.learning.lea" +
+      "rning.grpc.GraphRequest\032).com.learning.l" +
+      "earning.grpc.GraphResponse\022n\n\017searchWord" +
+      "Cloud\022,.com.learning.learning.grpc.WordC" +
+      "loudRequest\032-.com.learning.learning.grpc" +
+      ".WordCloudResponse2\202\001\n\026CommunityLoggedSe" +
+      "rvice\022h\n\013getUserInfo\022+.com.learning.lear" +
+      "ning.grpc.UserInfoRequest\032,.com.learning" +
+      ".learning.grpc.UserInfoResponseB\002P\001b\006pro" +
+      "to3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -130,7 +131,7 @@ public final class SearchServiceOuterClass {
     internal_static_com_learning_learning_grpc_UserInfoRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_com_learning_learning_grpc_UserInfoRequest_descriptor,
-        new java.lang.String[] { "UserId", });
+        new java.lang.String[] { "UserId", "RoleId", });
     internal_static_com_learning_learning_grpc_UserInfoResponse_descriptor =
       getDescriptor().getMessageTypes().get(7);
     internal_static_com_learning_learning_grpc_UserInfoResponse_fieldAccessorTable = new

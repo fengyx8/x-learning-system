@@ -12,7 +12,7 @@ import java.util.Map;
 
 /**
  *  web工具类
- * @author kong
+ * @author jbk-xiao
  *
  */
 public class WebNbUtil {

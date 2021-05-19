@@ -5,7 +5,7 @@ import java.util.List;
 
 /**
  * Ajax发生异常时，直接抛出此异常即可   （比AjaxException更先进的版本）
- * @author kong
+ * @author jbk-xiao
  *
  */
 public class AjaxError extends RuntimeException {

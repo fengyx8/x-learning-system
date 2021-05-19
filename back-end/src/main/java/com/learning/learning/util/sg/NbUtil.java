@@ -17,7 +17,7 @@ import java.util.regex.Pattern;
 
 /**
  * 最nb的工具类
- * @author kong
+ * @author jbk-xiao
  *
  */
 public class NbUtil {
