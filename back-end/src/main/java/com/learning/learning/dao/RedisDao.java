@@ -20,7 +20,7 @@ import java.util.*;
  * @create: 2021-04-25
  */
 @Slf4j
-@Repository
+@Component
 public class RedisDao {
     //分页的每一页的结果数
     static int pageRecord = 20;
@@ -170,7 +170,7 @@ public class RedisDao {
      * @param pattern
      * @return
      */
-    private List<String> jedisScan(String pattern, int database) {
+    public List<String> jedisScan(String pattern, int database) {
         long startTime = System.currentTimeMillis();
         Jedis jedis = jedisUtil.getClient();
         jedis.select(database);
@@ -224,7 +224,7 @@ public class RedisDao {
                 list.addAll(list2);
                 first = false;
             } else {
-              list.retainAll(list2);
+                list.retainAll(list2);
             }
         }
         if (!type.equals("")) {
@@ -296,14 +296,14 @@ public class RedisDao {
             if(it.hasNext()) {
                 sb.append("\"lng\":" + jedis.hget(key, "log") + ",");
                 sb.append("\"lat\":" + jedis.hget(key, "lat") + ",");
-                sb.append("\"name\":" + key + ",");
+                sb.append("\"name\":\"" + key + "\",");
                 sb.append("\"value\":" + jedis.hget(key, "freq"));
                 sb.append("},");
             }
             else{
                 sb.append("\"lng\":" + jedis.hget(key, "log") + ",");
                 sb.append("\"lat\":" + jedis.hget(key, "lat") + ",");
-                sb.append("\"name\":" + key + ",");
+                sb.append("\"name\":\"" + key + "\",");
                 sb.append("\"value\":" + jedis.hget(key, "freq"));
                 sb.append("}]}");
             }

@@ -16,9 +16,12 @@ import org.springframework.stereotype.Component;
 @Component
 public class SearchGraph {
     @Autowired
-    RedisDao redisDao;
+    private RedisDao redisDao;
 
     public String searchGraph(){
+        if(redisDao==null){
+            log.info("NULL");
+        }
         return redisDao.getGraph();
     }
 }

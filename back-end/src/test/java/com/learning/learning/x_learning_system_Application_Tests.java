@@ -6,6 +6,8 @@ import com.learning.learning.service.SearchWordCloud;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import javax.annotation.Resource;
+
 /**
  * @author: Clivia-Han
  * @projectName: x-learning-system
@@ -15,16 +17,16 @@ import org.springframework.boot.test.context.SpringBootTest;
  */
 @SpringBootTest
 public class x_learning_system_Application_Tests {
-
+    @Resource
+    SearchGraph searchGraph = new SearchGraph();
+    @Resource
+    SearchWordCloud searchWordCloud = new SearchWordCloud();
     @Test
     void contextLoads() {
-        SearchGraph searchGraph = new SearchGraph();
         System.out.println(searchGraph.searchGraph().toString());
-
-        SearchWordCloud searchWordCloud = new SearchWordCloud();
         System.out.println(searchWordCloud.searchWordCloud().toString());
 
-        SearchNews searchNews = new SearchNews();
-        System.out.println(searchNews.searchNews("十九大", "北京", "政治", "", "1"));
+//        SearchNews searchNews = new SearchNews();
+//        System.out.println(searchNews.searchNews("十九大", "北京", "政治", "", "1"));
     }
 }
