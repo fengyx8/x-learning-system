@@ -18,6 +18,10 @@ public class ListAndPage {
         this.list = list;
     }
 
+    public ListAndPage(){
+
+    }
+
     public int getPageNum() {
         return pageNum;
     }

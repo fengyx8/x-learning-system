@@ -21,12 +21,12 @@ public class x_learning_system_Application_Tests {
     SearchGraph searchGraph = new SearchGraph();
     @Resource
     SearchWordCloud searchWordCloud = new SearchWordCloud();
+    @Resource
+    SearchNews searchNews = new SearchNews();
     @Test
     void contextLoads() {
         System.out.println(searchGraph.searchGraph().toString());
         System.out.println(searchWordCloud.searchWordCloud().toString());
-
-//        SearchNews searchNews = new SearchNews();
-//        System.out.println(searchNews.searchNews("十九大", "北京", "政治", "", "1"));
+        System.out.println(searchNews.searchNews("十九大", "北京", "政治", "", "1"));
     }
 }

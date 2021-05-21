@@ -13,17 +13,17 @@ import java.util.List;
 public interface NewsMapper {
     /**
      *
-     * @param newsId
+     * @param id
      * @return
      */
-    List<News> selectNewsByNewsIds(@Param("skuIds") List<String> newsId);
+    List<News> selectNewsByNewsIds(@Param("id") List<String> id);
 
     /**
      *
-     * @param newsId
+     * @param id
      * @return Query
      */
-    @Select("SELECT * FROM News WHERE newsId = #{newsId}")
-    List<News> selectNewsByNewsId(@Param("newsId") String newsId);
+    @Select("SELECT * FROM News WHERE id = #{id}")
+    List<News> selectNewsByNewsId(@Param("id") String id);
 
 }

@@ -8,30 +8,26 @@ package com.learning.learning.entity;
  * @create: 2021-04-25
  */
 public class News {
-    private String newsId;
+    private String id;
     private String title;
-    private String newsKind;
-    private String pubDate;
-    private String materialKind;
-    private String content;
-    private String source;
+    private String date;
+    private String origin;
+    private String url;
 
-    public News(String newsId, String title, String newsKind, String pubDate, String materialKind, String content, String source) {
-        this.newsId = newsId;
+    public News(String id, String title, String date, String origin, String url) {
+        this.id = id;
         this.title = title;
-        this.newsKind = newsKind;
-        this.pubDate = pubDate;
-        this.materialKind = materialKind;
-        this.content = content;
-        this.source = source;
+        this.date = date;
+        this.origin = origin;
+        this.url = url;
     }
 
-    public String getNewsId() {
-        return newsId;
+    public String getId() {
+        return id;
     }
 
-    public void setNewsId(String newsId) {
-        this.newsId = newsId;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getTitle() {
@@ -42,43 +38,27 @@ public class News {
         this.title = title;
     }
 
-    public String getNewsKind() {
-        return newsKind;
+    public String getDate() {
+        return date;
     }
 
-    public void setNewsKind(String newsKind) {
-        this.newsKind = newsKind;
+    public void setDate(String date) {
+        this.date = date;
     }
 
-    public String getPubDate() {
-        return pubDate;
+    public String getOrigin() {
+        return origin;
     }
 
-    public void setPubDate(String pubDate) {
-        this.pubDate = pubDate;
+    public void setOrigin(String origin) {
+        this.origin = origin;
     }
 
-    public String getMaterialKind() {
-        return materialKind;
+    public String getUrl() {
+        return url;
     }
 
-    public void setMaterialKind(String materialKind) {
-        this.materialKind = materialKind;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public String getSource() {
-        return source;
-    }
-
-    public void setSource(String source) {
-        this.source = source;
+    public void setUrl(String url) {
+        this.url = url;
     }
 }

@@ -109,6 +109,7 @@ public class RedisDao {
         } catch (NullPointerException e) {
             e.printStackTrace();
         }
+        jedis.close();
         return res;
     }
 
@@ -140,11 +141,12 @@ public class RedisDao {
         long startTime = System.currentTimeMillis();
         List<String> keys = new ArrayList<>(fuzzySearchQueryByKeys(query, db));
         Jedis jedis = jedisUtil.getClient();
+        jedis.select(db);
         log.info("模糊匹配到keys：" + keys.toString());
         List<String> list = new ArrayList<>();
         if (keys.size() > 0) {
             for (String key : keys) {
-                list.addAll(jedis.zrevrange(key, 0, -1));
+                list.addAll(jedis.smembers(key));
             }
             jedis.close();
         } else {
@@ -152,6 +154,7 @@ public class RedisDao {
             jedis.close();
             return list;
         }
+        log.info("test: "+list.size());
         //去重（顺序不变）
         List<String> result1 = new ArrayList<>(new LinkedHashSet<>(list));
         List<String> result = new ArrayList<>();
@@ -213,46 +216,55 @@ public class RedisDao {
         ArrayList<String> list4 = new ArrayList<String>();
         if (!title.equals("")){
             list1 = getIDListByTitle(title);
+            log.info("list1: "+list1.size());
             if (first){
                 list.addAll(list1);
                 first = false;
             }
+            log.info("1.list: "+list.size());
         }
         if (!content.equals("")) {
             list2 = getIDListByContent(content);
+            log.info("list2: "+list2.size());
             if (first){
                 list.addAll(list2);
                 first = false;
             } else {
                 list.retainAll(list2);
             }
+            log.info("2.list: "+list.size());
         }
         if (!type.equals("")) {
             list3 = getIDListByType(type);
+            log.info("list3: "+list3.size());
             if (first){
                 list.addAll(list3);
                 first = false;
             } else {
                 list.retainAll(list3);
             }
+            log.info("3.list: "+list.size());
         }
         if (!year.equals("")) {
             list4 = getIDListByYear(year);
+            log.info("list4: "+list4.size());
             if (first){
                 list.addAll(list4);
                 first = false;
             } else {
                 list.retainAll(list4);
             }
+            log.info("4.list: "+list.size());
         }
         long num = list.size();
+        log.info("list: "+ num + " "+ list.toString());
         int start = (page-1)*pageRecord;
         int end = start+pageRecord-1;
         List<String> res = new ArrayList<>();
         if(list.size()>=end) {
             res = list.subList(start,end+1);
         }
-        ListAndPage lp = null;
+        ListAndPage lp = new ListAndPage();
         lp.setList(res);
         lp.setPageNum((int) (num / pageRecord + 1));
         return lp;
