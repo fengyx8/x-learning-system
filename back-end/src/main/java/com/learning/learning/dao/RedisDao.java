@@ -26,6 +26,7 @@ public class RedisDao {
     static int pageRecord = 20;
     public int pageNum = 0;
     final JedisUtil jedisUtil;
+    Jedis jedis;
 
     @Autowired
     public RedisDao(JedisUtil jedisUtil) {
@@ -85,10 +86,20 @@ public class RedisDao {
      */
     public ArrayList<String> getIDListByYear(String query) {
         ArrayList<String> res = new ArrayList<String>();
-        Jedis jedis = jedisUtil.getClient();
-        jedis.select(3);
+        ArrayList<String> keys = new ArrayList<>();
         try {
-            res.addAll(jedis.smembers(query));
+            keys.addAll(fuzzySearchQueryByKeys(query, 3));
+//            log.info("keys: "+keys.size()+" "+keys.toString());
+            jedis.select(3);
+            if(keys.size()>0) {
+                for (String key : keys) {
+                    res.addAll(jedis.smembers(key));
+                }
+//                log.info("res: "+res.toString());
+            } else {
+                    log.info("redis没有查到，返回" + res.toString());
+                    return res;
+            }
         } catch (NullPointerException e) {
             e.printStackTrace();
         }
@@ -102,14 +113,12 @@ public class RedisDao {
      */
     public ArrayList<String> getIDListByType(String query) {
         ArrayList<String> res = new ArrayList<String>();
-        Jedis jedis = jedisUtil.getClient();
         jedis.select(2);
         try {
             res.addAll(jedis.smembers(query));
         } catch (NullPointerException e) {
             e.printStackTrace();
         }
-        jedis.close();
         return res;
     }
 
@@ -120,7 +129,6 @@ public class RedisDao {
      */
     public List<String> fuzzySearchQueryByKeys(String query, int db) {
         log.info("{} 模糊匹配", query);
-//        Jedis jedis = jedisUtil.getClient();
         String pattern = query.trim().replaceAll("\\s+", "*");
         pattern = "*" + pattern + "*";
         long startTime = System.currentTimeMillis();
@@ -140,7 +148,6 @@ public class RedisDao {
         log.info("使用方法fuzzySearchList");
         long startTime = System.currentTimeMillis();
         List<String> keys = new ArrayList<>(fuzzySearchQueryByKeys(query, db));
-        Jedis jedis = jedisUtil.getClient();
         jedis.select(db);
         log.info("模糊匹配到keys：" + keys.toString());
         List<String> list = new ArrayList<>();
@@ -148,10 +155,8 @@ public class RedisDao {
             for (String key : keys) {
                 list.addAll(jedis.smembers(key));
             }
-            jedis.close();
         } else {
             log.info("redis没有查到，返回" + list.toString());
-            jedis.close();
             return list;
         }
         log.info("test: "+list.size());
@@ -175,7 +180,6 @@ public class RedisDao {
      */
     public List<String> jedisScan(String pattern, int database) {
         long startTime = System.currentTimeMillis();
-        Jedis jedis = jedisUtil.getClient();
         jedis.select(database);
         String cursor = ScanParams.SCAN_POINTER_START;
         List<String> keys = new ArrayList<>();
@@ -194,7 +198,6 @@ public class RedisDao {
         }
         long finishTime = System.currentTimeMillis();
         log.info("jedisScan process time:" + (finishTime - startTime));
-        jedis.close();
         return keys;
     }
 
@@ -208,6 +211,7 @@ public class RedisDao {
      * @return List<String>
      */
     public ListAndPage getIDListOnPage(String title, String content, String type, String year, int page){
+        jedis = jedisUtil.getClient();
         Boolean first = true;
         ArrayList<String> list = new ArrayList<String>();
         ArrayList<String> list1 = new ArrayList<String>();
@@ -216,54 +220,59 @@ public class RedisDao {
         ArrayList<String> list4 = new ArrayList<String>();
         if (!title.equals("")){
             list1 = getIDListByTitle(title);
-            log.info("list1: "+list1.size());
+//            log.info("list1: "+list1.size());
             if (first){
                 list.addAll(list1);
                 first = false;
             }
-            log.info("1.list: "+list.size());
+//            log.info("1.list: "+list.size());
         }
         if (!content.equals("")) {
             list2 = getIDListByContent(content);
-            log.info("list2: "+list2.size());
+//            log.info("list2: "+list2.size());
             if (first){
                 list.addAll(list2);
                 first = false;
             } else {
                 list.retainAll(list2);
             }
-            log.info("2.list: "+list.size());
+//            log.info("2.list: "+list.size());
         }
         if (!type.equals("")) {
             list3 = getIDListByType(type);
-            log.info("list3: "+list3.size());
+//            log.info("list3: "+list3.size());
             if (first){
                 list.addAll(list3);
                 first = false;
             } else {
                 list.retainAll(list3);
             }
-            log.info("3.list: "+list.size());
+//            log.info("3.list: "+list.size());
         }
         if (!year.equals("")) {
             list4 = getIDListByYear(year);
-            log.info("list4: "+list4.size());
+//            log.info("list4: "+list4.size()+list4.toString());
             if (first){
                 list.addAll(list4);
                 first = false;
             } else {
                 list.retainAll(list4);
             }
-            log.info("4.list: "+list.size());
+//            log.info("4.list: "+list.size());
         }
+        jedis.close();
         long num = list.size();
-        log.info("list: "+ num + " "+ list.toString());
-        int start = (page-1)*pageRecord;
-        int end = start+pageRecord-1;
+//        log.info("list: "+ num + " "+ list.toString());
+        int start = (page - 1) * pageRecord;
+        int end = start + pageRecord - 1;
         List<String> res = new ArrayList<>();
-        if(list.size()>=end) {
-            res = list.subList(start,end+1);
+        if(list.size() >= end) {
+            res = list.subList(start,end + 1);
         }
+        else{
+            res = list.subList(start, list.size() - start);
+        }
+//        log.info("res: " + res.toString());
         ListAndPage lp = new ListAndPage();
         lp.setList(res);
         lp.setPageNum((int) (num / pageRecord + 1));
@@ -273,7 +282,7 @@ public class RedisDao {
     public String getWordCloud(){
         StringBuilder sb = new StringBuilder();
         sb.append("{\"wordCloud\": [");
-        Jedis jedis = jedisUtil.getClient();
+        jedis = jedisUtil.getClient();
         jedis.select(5);
         List<String> wordAl = new ArrayList<>(jedis.zrange("WordCloud", -50, -1));
         for(int i=0; i<wordAl.size(); i++){
@@ -297,7 +306,7 @@ public class RedisDao {
     public String getGraph(){
         StringBuilder sb = new StringBuilder();
         sb.append("{\"geo\": [");
-        Jedis jedis = jedisUtil.getClient();
+        jedis = jedisUtil.getClient();
         jedis.select(4);
         List<String> graphList = new ArrayList<>();
         Set<String> s = jedis.keys("*");
