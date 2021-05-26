@@ -39,7 +39,10 @@ public class SearchNews {
         //mysql方法
         String jsonInfo = "";
         try {
-            jsonInfo = json.toJson(lp.getPageNum()+"", newsMapper.selectNewsByNewsIds(lp.getList()));
+            jsonInfo += "{\"totalRecords\":"+lp.getPageNum()+",";
+            jsonInfo += "\"lists\":";
+            jsonInfo += json.toJson(newsMapper.selectNewsByNewsIds(lp.getList()));
+            jsonInfo += "}";
         } catch (Exception e) {
             e.printStackTrace();
         }

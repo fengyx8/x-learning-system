@@ -7,6 +7,8 @@ import org.lognet.springboot.grpc.GRpcService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Calendar;
+
 /**
  * @author: Clivia-Han
  * @projectName: x-learning-system
@@ -24,6 +26,8 @@ public class SearchServiceImpl extends SearchServiceGrpc.SearchServiceImplBase {
     SearchGraph searchGraph;
     @Autowired
     SearchWordCloud searchWordCloud;
+    @Autowired
+    SearchCalender searchCalender;
 
     /**
      * 新闻查询模块
@@ -89,6 +93,22 @@ public class SearchServiceImpl extends SearchServiceGrpc.SearchServiceImplBase {
         WordCloudResponse wordCloudResponse = WordCloudResponse.newBuilder().setResponse(jsonInfo).build();
         //放入response，传回客户端
         responseObserver.onNext(wordCloudResponse);
+        //表示此次连接结束
+        responseObserver.onCompleted();
+    }
+
+    public void searchCalender(CalenderRequest request, StreamObserver<CalenderResponse> responseObserver){
+        log.info("Starting searching calender!");
+        String jsonInfo = "";
+        String date = request.getDate();
+        try{
+            jsonInfo = searchCalender.searchCalender(date);
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        CalenderResponse calenderResponse = CalenderResponse.newBuilder().setResponse(jsonInfo).build();
+        //放入response，传回客户端
+        responseObserver.onNext(calenderResponse);
         //表示此次连接结束
         responseObserver.onCompleted();
     }

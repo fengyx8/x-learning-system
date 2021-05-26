@@ -1,12 +1,6 @@
 package com.learning.learning.controller;
 
-import com.learning.learning.grpc.GraphRequest;
-import com.learning.learning.grpc.GraphResponse;
-import com.learning.learning.grpc.NewsRequest;
-import com.learning.learning.grpc.NewsResponse;
-import com.learning.learning.grpc.SearchServiceGrpc;
-import com.learning.learning.grpc.WordCloudRequest;
-import com.learning.learning.grpc.WordCloudResponse;
+import com.learning.learning.grpc.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -66,6 +60,19 @@ public class InfoController {
         long start = System.currentTimeMillis();
         WordCloudResponse response = this.searchServiceBlockingStub
                 .searchWordCloud(WordCloudRequest.newBuilder().build());
+        long end = System.currentTimeMillis();
+        log.info("Search result: " + response.getResponse());
+        log.info("Retrieval time: " + (end - start));
+        return response.getResponse();
+    }
+
+    @RequestMapping("/getCalender/{date}")
+    public String news(@PathVariable("date") String date) {
+        log.info("Receive news request: date= " + date);
+        long start = System.currentTimeMillis();
+        CalenderResponse response = this.searchServiceBlockingStub
+                .searchCalender(CalenderRequest.newBuilder()
+                        .setDate(date).build());
         long end = System.currentTimeMillis();
         log.info("Search result: " + response.getResponse());
         log.info("Retrieval time: " + (end - start));

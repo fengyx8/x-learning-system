@@ -24,6 +24,15 @@ message WordCloudRequest {
 
 }
 
+message CalenderRequest {
+    string date = 1;
+}
+
+message UserInfoRequest {
+    string userId = 1;
+    int32 roleId = 2;
+}
+
 //返回
 message NewsResponse {
     string response = 1;
@@ -36,17 +45,20 @@ message GraphResponse {
 message WordCloudResponse {
     string response = 1;
 }
-message UserInfoRequest {
-    string userId = 1;
-    int32 roleId = 2;
+
+message CalenderResponse {
+    string response = 1;
 }
+
 message UserInfoResponse {
     string userInfo = 1;
 }
+
 service SearchService {
     rpc searchNews(NewsRequest) returns (NewsResponse);
     rpc searchGraph(GraphRequest) returns (GraphResponse);
     rpc searchWordCloud(WordCloudRequest) returns (WordCloudResponse);
+    rpc searchCalender(CalenderRequest) returns (CalenderResponse);
 }
 
 service CommunityLoggedService {

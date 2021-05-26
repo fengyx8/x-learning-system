@@ -318,18 +318,46 @@ public class RedisDao {
                 sb.append("\"lng\":" + jedis.hget(key, "log") + ",");
                 sb.append("\"lat\":" + jedis.hget(key, "lat") + ",");
                 sb.append("\"name\":\"" + key + "\",");
-                sb.append("\"value\":" + jedis.hget(key, "freq"));
+                sb.append("\"level\":" + jedis.hget(key, "level") + ",");
+                sb.append("\"freq\":" + jedis.hget(key, "freq"));
                 sb.append("},");
             }
             else{
                 sb.append("\"lng\":" + jedis.hget(key, "log") + ",");
                 sb.append("\"lat\":" + jedis.hget(key, "lat") + ",");
                 sb.append("\"name\":\"" + key + "\",");
-                sb.append("\"value\":" + jedis.hget(key, "freq"));
+                sb.append("\"level\":" + jedis.hget(key, "level") + ",");
+                sb.append("\"freq\":" + jedis.hget(key, "freq"));
                 sb.append("}]}");
             }
         }
         jedis.close();
+        return sb.toString();
+    }
+
+    public String getCalender(String date) {
+        jedis = jedisUtil.getClient();
+        jedis.select(3);
+        StringBuilder sb = new StringBuilder();
+        List<String> keys = fuzzySearchQueryByKeys(date, 3);
+//        ArrayList<Map<String, Long>> res = new ArrayList<>();
+        sb.append("[");
+        for (int i = 0; i < keys.size(); i++) {
+            sb.append("{");
+            sb.append("\"title\":");
+            sb.append("\""+jedis.scard(keys.get(i))+"\",");
+            sb.append("\"start\":");
+            sb.append("\""+keys.get(i).split(" ")[0]+"\"");
+            if(i == keys.size() - 1){
+                sb.append("}");
+            } else {
+                sb.append("},");
+            }
+//            Map<String, Long> map = new HashMap<>();
+//            map.put(keys.get(i), jedis.scard(keys.get(i)));
+//            res.add(map);
+        }
+        sb.append("]");
         return sb.toString();
     }
 }

@@ -120,6 +120,37 @@ public final class SearchServiceGrpc {
     return getSearchWordCloudMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<com.learning.learning.grpc.CalenderRequest,
+      com.learning.learning.grpc.CalenderResponse> getSearchCalenderMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "searchCalender",
+      requestType = com.learning.learning.grpc.CalenderRequest.class,
+      responseType = com.learning.learning.grpc.CalenderResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<com.learning.learning.grpc.CalenderRequest,
+      com.learning.learning.grpc.CalenderResponse> getSearchCalenderMethod() {
+    io.grpc.MethodDescriptor<com.learning.learning.grpc.CalenderRequest, com.learning.learning.grpc.CalenderResponse> getSearchCalenderMethod;
+    if ((getSearchCalenderMethod = SearchServiceGrpc.getSearchCalenderMethod) == null) {
+      synchronized (SearchServiceGrpc.class) {
+        if ((getSearchCalenderMethod = SearchServiceGrpc.getSearchCalenderMethod) == null) {
+          SearchServiceGrpc.getSearchCalenderMethod = getSearchCalenderMethod =
+              io.grpc.MethodDescriptor.<com.learning.learning.grpc.CalenderRequest, com.learning.learning.grpc.CalenderResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "searchCalender"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.learning.learning.grpc.CalenderRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.learning.learning.grpc.CalenderResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new SearchServiceMethodDescriptorSupplier("searchCalender"))
+              .build();
+        }
+      }
+    }
+    return getSearchCalenderMethod;
+  }
+
   /**
    * Creates a new async stub that supports all call types for the service
    */
@@ -168,6 +199,13 @@ public final class SearchServiceGrpc {
       asyncUnimplementedUnaryCall(getSearchWordCloudMethod(), responseObserver);
     }
 
+    /**
+     */
+    public void searchCalender(com.learning.learning.grpc.CalenderRequest request,
+        io.grpc.stub.StreamObserver<com.learning.learning.grpc.CalenderResponse> responseObserver) {
+      asyncUnimplementedUnaryCall(getSearchCalenderMethod(), responseObserver);
+    }
+
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
           .addMethod(
@@ -191,6 +229,13 @@ public final class SearchServiceGrpc {
                 com.learning.learning.grpc.WordCloudRequest,
                 com.learning.learning.grpc.WordCloudResponse>(
                   this, METHODID_SEARCH_WORD_CLOUD)))
+          .addMethod(
+            getSearchCalenderMethod(),
+            asyncUnaryCall(
+              new MethodHandlers<
+                com.learning.learning.grpc.CalenderRequest,
+                com.learning.learning.grpc.CalenderResponse>(
+                  this, METHODID_SEARCH_CALENDER)))
           .build();
     }
   }
@@ -236,6 +281,14 @@ public final class SearchServiceGrpc {
       asyncUnaryCall(
           getChannel().newCall(getSearchWordCloudMethod(), getCallOptions()), request, responseObserver);
     }
+
+    /**
+     */
+    public void searchCalender(com.learning.learning.grpc.CalenderRequest request,
+        io.grpc.stub.StreamObserver<com.learning.learning.grpc.CalenderResponse> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(getSearchCalenderMethod(), getCallOptions()), request, responseObserver);
+    }
   }
 
   /**
@@ -275,6 +328,13 @@ public final class SearchServiceGrpc {
     public com.learning.learning.grpc.WordCloudResponse searchWordCloud(com.learning.learning.grpc.WordCloudRequest request) {
       return blockingUnaryCall(
           getChannel(), getSearchWordCloudMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public com.learning.learning.grpc.CalenderResponse searchCalender(com.learning.learning.grpc.CalenderRequest request) {
+      return blockingUnaryCall(
+          getChannel(), getSearchCalenderMethod(), getCallOptions(), request);
     }
   }
 
@@ -319,11 +379,20 @@ public final class SearchServiceGrpc {
       return futureUnaryCall(
           getChannel().newCall(getSearchWordCloudMethod(), getCallOptions()), request);
     }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<com.learning.learning.grpc.CalenderResponse> searchCalender(
+        com.learning.learning.grpc.CalenderRequest request) {
+      return futureUnaryCall(
+          getChannel().newCall(getSearchCalenderMethod(), getCallOptions()), request);
+    }
   }
 
   private static final int METHODID_SEARCH_NEWS = 0;
   private static final int METHODID_SEARCH_GRAPH = 1;
   private static final int METHODID_SEARCH_WORD_CLOUD = 2;
+  private static final int METHODID_SEARCH_CALENDER = 3;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -353,6 +422,10 @@ public final class SearchServiceGrpc {
         case METHODID_SEARCH_WORD_CLOUD:
           serviceImpl.searchWordCloud((com.learning.learning.grpc.WordCloudRequest) request,
               (io.grpc.stub.StreamObserver<com.learning.learning.grpc.WordCloudResponse>) responseObserver);
+          break;
+        case METHODID_SEARCH_CALENDER:
+          serviceImpl.searchCalender((com.learning.learning.grpc.CalenderRequest) request,
+              (io.grpc.stub.StreamObserver<com.learning.learning.grpc.CalenderResponse>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -418,6 +491,7 @@ public final class SearchServiceGrpc {
               .addMethod(getSearchNewsMethod())
               .addMethod(getSearchGraphMethod())
               .addMethod(getSearchWordCloudMethod())
+              .addMethod(getSearchCalenderMethod())
               .build();
         }
       }
