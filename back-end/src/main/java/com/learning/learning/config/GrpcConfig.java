@@ -1,7 +1,9 @@
 package com.learning.learning.config;
 
-import com.learning.learning.grpc.CommunityLoggedServiceGrpc;
+import com.learning.learning.grpc.CommunityUserServiceGrpc;
+import com.learning.learning.grpc.CommunityWholeServiceGrpc;
 import com.learning.learning.grpc.SearchServiceGrpc;
+import com.learning.learning.grpc.UserOperationServiceGrpc;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
 import org.springframework.beans.factory.annotation.Value;
@@ -37,7 +39,15 @@ public class GrpcConfig {
         return SearchServiceGrpc.newBlockingStub(channel);
     }
     @Bean
-    CommunityLoggedServiceGrpc.CommunityLoggedServiceBlockingStub communityLoggedServiceBlockingStub(ManagedChannel channel) {
-        return  CommunityLoggedServiceGrpc.newBlockingStub(channel);
+    CommunityUserServiceGrpc.CommunityUserServiceBlockingStub communityUserServiceBlockingStub(ManagedChannel channel) {
+        return  CommunityUserServiceGrpc.newBlockingStub(channel);
+    }
+    @Bean
+    CommunityWholeServiceGrpc.CommunityWholeServiceBlockingStub communityWholeServiceBlockingStub(ManagedChannel channel) {
+        return CommunityWholeServiceGrpc.newBlockingStub(channel);
+    }
+    @Bean
+    UserOperationServiceGrpc.UserOperationServiceBlockingStub userOperationServiceBlockingStub(ManagedChannel channel) {
+        return UserOperationServiceGrpc.newBlockingStub(channel);
     }
 }

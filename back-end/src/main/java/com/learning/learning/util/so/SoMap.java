@@ -24,6 +24,7 @@ import java.util.regex.Pattern;
  * <p>所以特封装此类，继承Map，进行一些扩展，可以让Map更灵活使用 
  * @author jbk-xiao
  */
+@SuppressWarnings({"unused", "JavaDoc"})
 public class SoMap extends LinkedHashMap<String, Object> {
 
 	private static final long serialVersionUID = 1L;
@@ -147,14 +148,14 @@ public class SoMap extends LinkedHashMap<String, Object> {
 	@SuppressWarnings("unchecked")
 	public List<Object> getList(String key) {
 		Object value = get(key);
-		List<Object> list = null;
+		List<Object> list;
 		if(value == null || value.equals("")) {
-			list = new ArrayList<Object>();
+			list = new ArrayList<>();
 		}
 		else if(value instanceof List) {
 			list = (List<Object>)value;
 		} else {
-			list = new ArrayList<Object>();
+			list = new ArrayList<>();
 			list.add(value);
 		}
 		return list;
@@ -163,7 +164,7 @@ public class SoMap extends LinkedHashMap<String, Object> {
 	/** 获取集合 (指定泛型类型) */
 	public <T> List<T> getList(String key, Class<T> cs) {
 		List<Object> list = getList(key);
-		List<T> list2 = new ArrayList<T>();
+		List<T> list2 = new ArrayList<>();
 		for (Object obj : list) {
 			T objC = getValueByClass(obj, cs);
 			list2.add(objC);
@@ -179,7 +180,7 @@ public class SoMap extends LinkedHashMap<String, Object> {
 		}
 		// 开始转化
 		String [] arr = listStr.split(",");
-		List<T> list = new ArrayList<T>();
+		List<T> list = new ArrayList<>();
 		for (String str : arr) {
 			if(cs == int.class || cs == Integer.class || cs == long.class || cs == Long.class) {
 				str = str.trim();
@@ -234,7 +235,7 @@ public class SoMap extends LinkedHashMap<String, Object> {
 	@SuppressWarnings("unchecked")
 	public static <T> T getValueByClass(Object obj, Class<T> cs) {
 		String obj2 = String.valueOf(obj);
-		Object obj3 = null;
+		Object obj3;
 		if (cs.equals(String.class)) {
 			obj3 = obj2;
 		} else if (cs.equals(int.class) || cs.equals(Integer.class)) {
@@ -252,7 +253,7 @@ public class SoMap extends LinkedHashMap<String, Object> {
 		} else if (cs.equals(boolean.class) || cs.equals(Boolean.class)) {
 			obj3 = Boolean.valueOf(obj2);
 		} else {
-			obj3 = (T)obj;
+			obj3 = obj;
 		}
 		return (T)obj3;
 	}
@@ -272,7 +273,7 @@ public class SoMap extends LinkedHashMap<String, Object> {
 	/** set一个值，连缀风格 */
 	public SoMap set(String key, Object value) {
 		// 防止敏感key 
-		if(key.toLowerCase().equals("this")) {		
+		if(key.equalsIgnoreCase("this")) {
 			return this;
 		}
 		put(key, value);
@@ -398,7 +399,7 @@ public class SoMap extends LinkedHashMap<String, Object> {
 	
 	/** 将一个对象集合解析成为SoMap集合 */
 	public static List<SoMap> getSoMapByList(List<?> list) {
-		List<SoMap> listMap = new ArrayList<SoMap>();
+		List<SoMap> listMap = new ArrayList<>();
 		for (Object model : list) {
 			listMap.add(getSoMapByModel(model));
 		}
@@ -564,7 +565,7 @@ public class SoMap extends LinkedHashMap<String, Object> {
 		}
 		// 当前request
 		HttpServletRequest request = servletRequestAttributes.getRequest(); 
-		if (request.getAttribute("currentSoMap") == null || request.getAttribute("currentSoMap") instanceof SoMap == false ) {
+		if (request.getAttribute("currentSoMap") == null || !(request.getAttribute("currentSoMap") instanceof SoMap)) {
 			initRequestSoMap(request);
 		}
 		return (SoMap)request.getAttribute("currentSoMap");
@@ -668,7 +669,7 @@ public class SoMap extends LinkedHashMap<String, Object> {
 	 */
 	public static List<SoMap> listToTree(List<SoMap> list, String idKey, String parentIdKey, String childListKey) {
 		// 声明新的集合，存储tree形数据 
-		List<SoMap> newTreeList = new ArrayList<SoMap>();
+		List<SoMap> newTreeList = new ArrayList<>();
 		// 声明hash-Map，方便查找数据 
 		SoMap hash = new SoMap();
 		// 将数组转为Object的形式，key为数组中的id 
@@ -689,7 +690,7 @@ public class SoMap extends LinkedHashMap<String, Object> {
 					ch.add(soMap);
 					hashVp.put(childListKey, ch);
 				} else {
-					List<SoMap> ch = new ArrayList<SoMap>();
+					List<SoMap> ch = new ArrayList<>();
 					ch.add(soMap);
 					hashVp.put(childListKey, ch);
 				}
@@ -717,12 +718,12 @@ public class SoMap extends LinkedHashMap<String, Object> {
 
 	/** 将指定单词首字母大写 */
 	private static String wordFirstBig(String str) {
-		return str.substring(0, 1).toUpperCase() + str.substring(1, str.length());
+		return str.substring(0, 1).toUpperCase() + str.substring(1);
 	}
 
 	/** 将指定单词首字母小写 */
 	private static String wordFirstSmall(String str) {
-		return str.substring(0, 1).toLowerCase() + str.substring(1, str.length());
+		return str.substring(0, 1).toLowerCase() + str.substring(1);
 	}
 
 	/** 下划线转中划线 */

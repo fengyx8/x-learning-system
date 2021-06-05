@@ -3,10 +3,15 @@
 <mapper namespace="com.learning.learning.mapper.NoteMapper">
 
 	<!-- 增 [G] -->
+<!--	<insert id="add">-->
+<!--		insert into -->
+<!--		`note` (`noteId`, `content`, `time`, `userId`, `status`) -->
+<!--		values (right(#{noteId}, length(#{noteId}) - 1), #{content}, #{time}, #{userId}, #{status})-->
+<!--	</insert>-->
 	<insert id="add">
-		insert into 
-		`note` (`noteId`, `content`, `time`, `userId`, `status`) 
-		values (right(#{noteId}, length(#{noteId}) - 1), #{content}, #{time}, #{userId}, #{status})
+		insert into
+		`note` (`content`, `userId`)
+		values (#{content}, #{userId})
 	</insert>
 
 	<!-- 删 -->
@@ -71,12 +76,19 @@
 <!--			<otherwise> `noteId` desc </otherwise>-->
 <!--		</choose>-->
 <!--	</select>-->
-
+		<!--  查集合 - 查询所有Note  -->
+		<select id="getAllList" resultMap="model">
+			<include refid="select_sql"></include>
+			<where>
+				`status` = 1
+			</where>
+			order by `time` desc
+		</select>
 	    <!--  查用户 - 根据用户ID查询某用户发布过的所有心得的列表  -->
 		<select id="getNoteListByUserId" resultMap="model">
 			<include refid="select_sql"></include>
 			<where>
-				`userId` = #{userId} and `status` = 1
+				`userId` = #{userId}
 			</where>
 			order by `time` desc
 		</select>

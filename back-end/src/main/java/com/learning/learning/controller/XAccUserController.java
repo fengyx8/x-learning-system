@@ -21,8 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 
 
 /**
- * admin账号相关的接口
- *
+ * 账号登入登出相关的接口
  * @author jbk-xiao
  */
 @Slf4j
@@ -83,17 +82,20 @@ public class XAccUserController {
     }
 
 
-    /** 管理员登录后台时需要返回的信息 */
-//	@RequestMapping("fristOpenAdmin")
-//	AjaxJson fristOpenAdmin(HttpServletRequest request) {
-//		// 当前user
-//		XUser xUser = SpAdminUtil.getCurrAdmin();
-//
-//		// 组织参数 (admin信息，权限信息，配置信息)
-//		SoMap map = new SoMap();
-//		map.set("xUser", SpAdminUtil.getCurrAdmin());
-//		map.set("per_list", spRolePermissionService.getPcodeByRid2(xUser.getRoleId()));
-////		map.set("app_cfg", SpCfgUtil.getAppCfg());
-//		return AjaxJson.getSuccessData(map);
-//	}
+//TODO 大段注释
+    /* 管理员登录后台时需要返回的信息 */
+/*
+	@RequestMapping("firstOpenAdmin")
+	AjaxJson firstOpenAdmin(HttpServletRequest request) {
+		// 当前user
+		XUser xUser = SpAdminUtil.getCurrAdmin();
+
+		// 组织参数 (admin信息，权限信息，配置信息)
+		SoMap map = new SoMap();
+		map.set("xUser", SpAdminUtil.getCurrAdmin());
+		map.set("per_list", spRolePermissionService.getPcodeByRid2(xUser.getRoleId()));
+//		map.set("app_cfg", SpCfgUtil.getAppCfg());
+		return AjaxJson.getSuccessData(map);
+	}
+*/
 }

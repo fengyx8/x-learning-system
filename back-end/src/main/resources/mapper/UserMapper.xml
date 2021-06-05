@@ -45,7 +45,7 @@
 	
 	<!-- 公共查询sql片段 -->
 	<sql id="select_sql">
-		select userId, `name`, secureQue, secureAns, mail, org, score
+		select `userId`, `name`, `secureQue`, `secureAns`, `mail`, `org`, `score`
 		from `user`
 	</sql>
 	
@@ -56,27 +56,33 @@
 	</select>
 	
 	<!-- 查集合 - 根据条件（参数为空时代表忽略指定条件） [G] -->
-<!--	<select id="getList" resultMap="model">-->
-<!--		<include refid="select_sql"></include>-->
-<!--		<where>-->
-<!--			<if test=' this.has("userId") '> and userId = #{userId} </if>-->
-<!--			<if test=' this.has("name") '> and name = #{name} </if>-->
-<!--			<if test=' this.has("secureQue") '> and secureQue = #{secureQue} </if>-->
-<!--			<if test=' this.has("secureAns") '> and secureAns = #{secureAns} </if>-->
-<!--			<if test=' this.has("mail") '> and mail = #{mail} </if>-->
-<!--			<if test=' this.has("org") '> and org = #{org} </if>-->
-<!--			<if test=' this.has("score") '> and score = #{score} </if>-->
-<!--		</where>-->
-<!--		order by-->
-<!--		<choose>-->
-<!--			<when test='sortType == 1'> userId desc </when>-->
-<!--			<when test='sortType == 2'> name desc </when>-->
-<!--			<when test='sortType == 3'> secureQue desc </when>-->
-<!--			<when test='sortType == 4'> secureAns desc </when>-->
-<!--			<when test='sortType == 5'> mail desc </when>-->
-<!--			<when test='sortType == 6'> org desc </when>-->
-<!--			<when test='sortType == 7'> score desc </when>-->
-<!--			<otherwise> userId desc </otherwise>-->
-<!--		</choose>-->
-<!--	</select>-->
+	<select id="getList" resultMap="model">
+		<include refid="select_sql"></include>
+		<where>
+			<if test=' this.has("userId") '> and userId = #{userId} </if>
+			<if test=' this.has("name") '> and name = #{name} </if>
+			<if test=' this.has("secureQue") '> and secureQue = #{secureQue} </if>
+			<if test=' this.has("secureAns") '> and secureAns = #{secureAns} </if>
+			<if test=' this.has("mail") '> and mail = #{mail} </if>
+			<if test=' this.has("org") '> and org = #{org} </if>
+			<if test=' this.has("score") '> and score = #{score} </if>
+		</where>
+		order by
+		<choose>
+			<when test='sortType == 1'> `userId` desc; </when>
+			<when test='sortType == 2'> `name` desc; </when>
+			<when test='sortType == 3'> `secureQue` desc; </when>
+			<when test='sortType == 4'> secureAns desc; </when>
+			<when test='sortType == 5'> mail desc; </when>
+			<when test='sortType == 6'> org desc; </when>
+			<when test='sortType == 7'> score desc; </when>
+			<otherwise> userId desc; </otherwise>
+		</choose>
+	</select>
+
+	<select id="getScoreBoard" resultMap="model">
+		select `userId`, `name`, `score`
+		from `user`
+		order by `score`
+	</select>
 </mapper>

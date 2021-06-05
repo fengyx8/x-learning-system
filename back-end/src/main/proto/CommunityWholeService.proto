@@ -1,0 +1,22 @@
+syntax = "proto3";
+option java_multiple_files = true;
+package com.learning.learning.grpc;
+
+message CommunityWholeRequest {
+  string queId = 1;
+  string contentId = 2;
+}
+
+message CommunityWholeResponse {
+  string noteList = 1;
+  string scoreBoard = 2;
+  string question = 3;
+  string likeList = 4;
+}
+
+service CommunityWholeService {
+  rpc getNoteList(CommunityWholeRequest) returns (CommunityWholeResponse);
+  rpc getScoreBoard(CommunityWholeRequest) returns (CommunityWholeResponse);
+  rpc getQuestion(CommunityWholeRequest) returns (CommunityWholeResponse);
+  rpc getLikeList(CommunityWholeRequest) returns (CommunityWholeResponse);
+}

@@ -19,12 +19,12 @@ import static io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall;
  */
 @javax.annotation.Generated(
     value = "by gRPC proto compiler (version 1.23.0)",
-    comments = "Source: SearchService.proto")
-public final class CommunityLoggedServiceGrpc {
+    comments = "Source: CommunityUserService.proto")
+public final class CommunityUserServiceGrpc {
 
-  private CommunityLoggedServiceGrpc() {}
+  private CommunityUserServiceGrpc() {}
 
-  public static final String SERVICE_NAME = "com.learning.learning.grpc.CommunityLoggedService";
+  public static final String SERVICE_NAME = "com.learning.learning.grpc.CommunityUserService";
 
   // Static method descriptors that strictly reflect the proto.
   private static volatile io.grpc.MethodDescriptor<com.learning.learning.grpc.UserInfoRequest,
@@ -38,10 +38,10 @@ public final class CommunityLoggedServiceGrpc {
   public static io.grpc.MethodDescriptor<com.learning.learning.grpc.UserInfoRequest,
       com.learning.learning.grpc.UserInfoResponse> getGetUserInfoMethod() {
     io.grpc.MethodDescriptor<com.learning.learning.grpc.UserInfoRequest, com.learning.learning.grpc.UserInfoResponse> getGetUserInfoMethod;
-    if ((getGetUserInfoMethod = CommunityLoggedServiceGrpc.getGetUserInfoMethod) == null) {
-      synchronized (CommunityLoggedServiceGrpc.class) {
-        if ((getGetUserInfoMethod = CommunityLoggedServiceGrpc.getGetUserInfoMethod) == null) {
-          CommunityLoggedServiceGrpc.getGetUserInfoMethod = getGetUserInfoMethod =
+    if ((getGetUserInfoMethod = CommunityUserServiceGrpc.getGetUserInfoMethod) == null) {
+      synchronized (CommunityUserServiceGrpc.class) {
+        if ((getGetUserInfoMethod = CommunityUserServiceGrpc.getGetUserInfoMethod) == null) {
+          CommunityUserServiceGrpc.getGetUserInfoMethod = getGetUserInfoMethod =
               io.grpc.MethodDescriptor.<com.learning.learning.grpc.UserInfoRequest, com.learning.learning.grpc.UserInfoResponse>newBuilder()
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
               .setFullMethodName(generateFullMethodName(SERVICE_NAME, "getUserInfo"))
@@ -50,7 +50,7 @@ public final class CommunityLoggedServiceGrpc {
                   com.learning.learning.grpc.UserInfoRequest.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
                   com.learning.learning.grpc.UserInfoResponse.getDefaultInstance()))
-              .setSchemaDescriptor(new CommunityLoggedServiceMethodDescriptorSupplier("getUserInfo"))
+              .setSchemaDescriptor(new CommunityUserServiceMethodDescriptorSupplier("getUserInfo"))
               .build();
         }
       }
@@ -58,38 +58,76 @@ public final class CommunityLoggedServiceGrpc {
     return getGetUserInfoMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<com.learning.learning.grpc.UserInfoRequest,
+      com.learning.learning.grpc.UserInfoResponse> getGetAnsRecordsMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "getAnsRecords",
+      requestType = com.learning.learning.grpc.UserInfoRequest.class,
+      responseType = com.learning.learning.grpc.UserInfoResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<com.learning.learning.grpc.UserInfoRequest,
+      com.learning.learning.grpc.UserInfoResponse> getGetAnsRecordsMethod() {
+    io.grpc.MethodDescriptor<com.learning.learning.grpc.UserInfoRequest, com.learning.learning.grpc.UserInfoResponse> getGetAnsRecordsMethod;
+    if ((getGetAnsRecordsMethod = CommunityUserServiceGrpc.getGetAnsRecordsMethod) == null) {
+      synchronized (CommunityUserServiceGrpc.class) {
+        if ((getGetAnsRecordsMethod = CommunityUserServiceGrpc.getGetAnsRecordsMethod) == null) {
+          CommunityUserServiceGrpc.getGetAnsRecordsMethod = getGetAnsRecordsMethod =
+              io.grpc.MethodDescriptor.<com.learning.learning.grpc.UserInfoRequest, com.learning.learning.grpc.UserInfoResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "getAnsRecords"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.learning.learning.grpc.UserInfoRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.learning.learning.grpc.UserInfoResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new CommunityUserServiceMethodDescriptorSupplier("getAnsRecords"))
+              .build();
+        }
+      }
+    }
+    return getGetAnsRecordsMethod;
+  }
+
   /**
    * Creates a new async stub that supports all call types for the service
    */
-  public static CommunityLoggedServiceStub newStub(io.grpc.Channel channel) {
-    return new CommunityLoggedServiceStub(channel);
+  public static CommunityUserServiceStub newStub(io.grpc.Channel channel) {
+    return new CommunityUserServiceStub(channel);
   }
 
   /**
    * Creates a new blocking-style stub that supports unary and streaming output calls on the service
    */
-  public static CommunityLoggedServiceBlockingStub newBlockingStub(
+  public static CommunityUserServiceBlockingStub newBlockingStub(
       io.grpc.Channel channel) {
-    return new CommunityLoggedServiceBlockingStub(channel);
+    return new CommunityUserServiceBlockingStub(channel);
   }
 
   /**
    * Creates a new ListenableFuture-style stub that supports unary calls on the service
    */
-  public static CommunityLoggedServiceFutureStub newFutureStub(
+  public static CommunityUserServiceFutureStub newFutureStub(
       io.grpc.Channel channel) {
-    return new CommunityLoggedServiceFutureStub(channel);
+    return new CommunityUserServiceFutureStub(channel);
   }
 
   /**
    */
-  public static abstract class CommunityLoggedServiceImplBase implements io.grpc.BindableService {
+  public static abstract class CommunityUserServiceImplBase implements io.grpc.BindableService {
 
     /**
      */
     public void getUserInfo(com.learning.learning.grpc.UserInfoRequest request,
         io.grpc.stub.StreamObserver<com.learning.learning.grpc.UserInfoResponse> responseObserver) {
       asyncUnimplementedUnaryCall(getGetUserInfoMethod(), responseObserver);
+    }
+
+    /**
+     */
+    public void getAnsRecords(com.learning.learning.grpc.UserInfoRequest request,
+        io.grpc.stub.StreamObserver<com.learning.learning.grpc.UserInfoResponse> responseObserver) {
+      asyncUnimplementedUnaryCall(getGetAnsRecordsMethod(), responseObserver);
     }
 
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
@@ -101,26 +139,33 @@ public final class CommunityLoggedServiceGrpc {
                 com.learning.learning.grpc.UserInfoRequest,
                 com.learning.learning.grpc.UserInfoResponse>(
                   this, METHODID_GET_USER_INFO)))
+          .addMethod(
+            getGetAnsRecordsMethod(),
+            asyncUnaryCall(
+              new MethodHandlers<
+                com.learning.learning.grpc.UserInfoRequest,
+                com.learning.learning.grpc.UserInfoResponse>(
+                  this, METHODID_GET_ANS_RECORDS)))
           .build();
     }
   }
 
   /**
    */
-  public static final class CommunityLoggedServiceStub extends io.grpc.stub.AbstractStub<CommunityLoggedServiceStub> {
-    private CommunityLoggedServiceStub(io.grpc.Channel channel) {
+  public static final class CommunityUserServiceStub extends io.grpc.stub.AbstractStub<CommunityUserServiceStub> {
+    private CommunityUserServiceStub(io.grpc.Channel channel) {
       super(channel);
     }
 
-    private CommunityLoggedServiceStub(io.grpc.Channel channel,
+    private CommunityUserServiceStub(io.grpc.Channel channel,
         io.grpc.CallOptions callOptions) {
       super(channel, callOptions);
     }
 
     @java.lang.Override
-    protected CommunityLoggedServiceStub build(io.grpc.Channel channel,
+    protected CommunityUserServiceStub build(io.grpc.Channel channel,
         io.grpc.CallOptions callOptions) {
-      return new CommunityLoggedServiceStub(channel, callOptions);
+      return new CommunityUserServiceStub(channel, callOptions);
     }
 
     /**
@@ -130,24 +175,32 @@ public final class CommunityLoggedServiceGrpc {
       asyncUnaryCall(
           getChannel().newCall(getGetUserInfoMethod(), getCallOptions()), request, responseObserver);
     }
+
+    /**
+     */
+    public void getAnsRecords(com.learning.learning.grpc.UserInfoRequest request,
+        io.grpc.stub.StreamObserver<com.learning.learning.grpc.UserInfoResponse> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(getGetAnsRecordsMethod(), getCallOptions()), request, responseObserver);
+    }
   }
 
   /**
    */
-  public static final class CommunityLoggedServiceBlockingStub extends io.grpc.stub.AbstractStub<CommunityLoggedServiceBlockingStub> {
-    private CommunityLoggedServiceBlockingStub(io.grpc.Channel channel) {
+  public static final class CommunityUserServiceBlockingStub extends io.grpc.stub.AbstractStub<CommunityUserServiceBlockingStub> {
+    private CommunityUserServiceBlockingStub(io.grpc.Channel channel) {
       super(channel);
     }
 
-    private CommunityLoggedServiceBlockingStub(io.grpc.Channel channel,
+    private CommunityUserServiceBlockingStub(io.grpc.Channel channel,
         io.grpc.CallOptions callOptions) {
       super(channel, callOptions);
     }
 
     @java.lang.Override
-    protected CommunityLoggedServiceBlockingStub build(io.grpc.Channel channel,
+    protected CommunityUserServiceBlockingStub build(io.grpc.Channel channel,
         io.grpc.CallOptions callOptions) {
-      return new CommunityLoggedServiceBlockingStub(channel, callOptions);
+      return new CommunityUserServiceBlockingStub(channel, callOptions);
     }
 
     /**
@@ -156,24 +209,31 @@ public final class CommunityLoggedServiceGrpc {
       return blockingUnaryCall(
           getChannel(), getGetUserInfoMethod(), getCallOptions(), request);
     }
+
+    /**
+     */
+    public com.learning.learning.grpc.UserInfoResponse getAnsRecords(com.learning.learning.grpc.UserInfoRequest request) {
+      return blockingUnaryCall(
+          getChannel(), getGetAnsRecordsMethod(), getCallOptions(), request);
+    }
   }
 
   /**
    */
-  public static final class CommunityLoggedServiceFutureStub extends io.grpc.stub.AbstractStub<CommunityLoggedServiceFutureStub> {
-    private CommunityLoggedServiceFutureStub(io.grpc.Channel channel) {
+  public static final class CommunityUserServiceFutureStub extends io.grpc.stub.AbstractStub<CommunityUserServiceFutureStub> {
+    private CommunityUserServiceFutureStub(io.grpc.Channel channel) {
       super(channel);
     }
 
-    private CommunityLoggedServiceFutureStub(io.grpc.Channel channel,
+    private CommunityUserServiceFutureStub(io.grpc.Channel channel,
         io.grpc.CallOptions callOptions) {
       super(channel, callOptions);
     }
 
     @java.lang.Override
-    protected CommunityLoggedServiceFutureStub build(io.grpc.Channel channel,
+    protected CommunityUserServiceFutureStub build(io.grpc.Channel channel,
         io.grpc.CallOptions callOptions) {
-      return new CommunityLoggedServiceFutureStub(channel, callOptions);
+      return new CommunityUserServiceFutureStub(channel, callOptions);
     }
 
     /**
@@ -183,19 +243,28 @@ public final class CommunityLoggedServiceGrpc {
       return futureUnaryCall(
           getChannel().newCall(getGetUserInfoMethod(), getCallOptions()), request);
     }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<com.learning.learning.grpc.UserInfoResponse> getAnsRecords(
+        com.learning.learning.grpc.UserInfoRequest request) {
+      return futureUnaryCall(
+          getChannel().newCall(getGetAnsRecordsMethod(), getCallOptions()), request);
+    }
   }
 
   private static final int METHODID_GET_USER_INFO = 0;
+  private static final int METHODID_GET_ANS_RECORDS = 1;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
       io.grpc.stub.ServerCalls.ServerStreamingMethod<Req, Resp>,
       io.grpc.stub.ServerCalls.ClientStreamingMethod<Req, Resp>,
       io.grpc.stub.ServerCalls.BidiStreamingMethod<Req, Resp> {
-    private final CommunityLoggedServiceImplBase serviceImpl;
+    private final CommunityUserServiceImplBase serviceImpl;
     private final int methodId;
 
-    MethodHandlers(CommunityLoggedServiceImplBase serviceImpl, int methodId) {
+    MethodHandlers(CommunityUserServiceImplBase serviceImpl, int methodId) {
       this.serviceImpl = serviceImpl;
       this.methodId = methodId;
     }
@@ -206,6 +275,10 @@ public final class CommunityLoggedServiceGrpc {
       switch (methodId) {
         case METHODID_GET_USER_INFO:
           serviceImpl.getUserInfo((com.learning.learning.grpc.UserInfoRequest) request,
+              (io.grpc.stub.StreamObserver<com.learning.learning.grpc.UserInfoResponse>) responseObserver);
+          break;
+        case METHODID_GET_ANS_RECORDS:
+          serviceImpl.getAnsRecords((com.learning.learning.grpc.UserInfoRequest) request,
               (io.grpc.stub.StreamObserver<com.learning.learning.grpc.UserInfoResponse>) responseObserver);
           break;
         default:
@@ -224,32 +297,32 @@ public final class CommunityLoggedServiceGrpc {
     }
   }
 
-  private static abstract class CommunityLoggedServiceBaseDescriptorSupplier
+  private static abstract class CommunityUserServiceBaseDescriptorSupplier
       implements io.grpc.protobuf.ProtoFileDescriptorSupplier, io.grpc.protobuf.ProtoServiceDescriptorSupplier {
-    CommunityLoggedServiceBaseDescriptorSupplier() {}
+    CommunityUserServiceBaseDescriptorSupplier() {}
 
     @java.lang.Override
     public com.google.protobuf.Descriptors.FileDescriptor getFileDescriptor() {
-      return com.learning.learning.grpc.SearchServiceOuterClass.getDescriptor();
+      return com.learning.learning.grpc.CommunityUserServiceOuterClass.getDescriptor();
     }
 
     @java.lang.Override
     public com.google.protobuf.Descriptors.ServiceDescriptor getServiceDescriptor() {
-      return getFileDescriptor().findServiceByName("CommunityLoggedService");
+      return getFileDescriptor().findServiceByName("CommunityUserService");
     }
   }
 
-  private static final class CommunityLoggedServiceFileDescriptorSupplier
-      extends CommunityLoggedServiceBaseDescriptorSupplier {
-    CommunityLoggedServiceFileDescriptorSupplier() {}
+  private static final class CommunityUserServiceFileDescriptorSupplier
+      extends CommunityUserServiceBaseDescriptorSupplier {
+    CommunityUserServiceFileDescriptorSupplier() {}
   }
 
-  private static final class CommunityLoggedServiceMethodDescriptorSupplier
-      extends CommunityLoggedServiceBaseDescriptorSupplier
+  private static final class CommunityUserServiceMethodDescriptorSupplier
+      extends CommunityUserServiceBaseDescriptorSupplier
       implements io.grpc.protobuf.ProtoMethodDescriptorSupplier {
     private final String methodName;
 
-    CommunityLoggedServiceMethodDescriptorSupplier(String methodName) {
+    CommunityUserServiceMethodDescriptorSupplier(String methodName) {
       this.methodName = methodName;
     }
 
@@ -264,12 +337,13 @@ public final class CommunityLoggedServiceGrpc {
   public static io.grpc.ServiceDescriptor getServiceDescriptor() {
     io.grpc.ServiceDescriptor result = serviceDescriptor;
     if (result == null) {
-      synchronized (CommunityLoggedServiceGrpc.class) {
+      synchronized (CommunityUserServiceGrpc.class) {
         result = serviceDescriptor;
         if (result == null) {
           serviceDescriptor = result = io.grpc.ServiceDescriptor.newBuilder(SERVICE_NAME)
-              .setSchemaDescriptor(new CommunityLoggedServiceFileDescriptorSupplier())
+              .setSchemaDescriptor(new CommunityUserServiceFileDescriptorSupplier())
               .addMethod(getGetUserInfoMethod())
+              .addMethod(getGetAnsRecordsMethod())
               .build();
         }
       }

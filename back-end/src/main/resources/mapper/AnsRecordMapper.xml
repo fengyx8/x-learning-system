@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.learning.learning.mapper.AnsRecordMapper">
+
+	<!-- 增 [G] -->
+	<insert id="add">
+		insert into 
+		`ansRecord` (`ansId`, `queId`, `userId`, `ans`, `isCorrect`, `time`) 
+		values (right(#{ansId}, length(#{ansId}) - 1), right(#{queId}, length(#{queId}) - 1),
+		        #{userId}, #{ans}, #{isCorrect}, #{time})
+	</insert>
+
+	<!-- 删 -->
+	<delete id="delete">
+		delete from `ansRecord` 
+		where `ansId` = right(#{ansId}, length(#{ansId}) - 1)
+	</delete>
+
+	<!-- 改 [G] -->
+	<update id="update">
+		update `ansRecord` set
+		`ansId` = right(#{ansId}, length(#{ansId}) - 1),
+		`queId` = right(#{queId}, length(#{queId}) - 1),
+		`userId` = #{userId}, 
+		`ans` = #{ans}, 
+		`isCorrect` = #{isCorrect}, 
+		`time` = #{time}
+		where `ansId` = right(#{ansId}, length(#{ansId}) - 1)
+	</update>
+
+
+	<!-- ================================== 查询相关 ================================== -->
+
+	
+	<!-- 通用映射：手动模式 -->
+	<resultMap id="model" type="com.learning.learning.entity.AnsRecord">
+		<result property="ansId" column="ansId" />
+		<result property="queId" column="queId" />
+		<result property="userId" column="userId" />
+		<result property="ans" column="ans" />
+		<result property="isCorrect" column="isCorrect" />
+		<result property="time" column="time" />
+	</resultMap>
+	
+	<!-- 公共查询sql片段 -->
+	<sql id="select_sql">
+		select concat('a', `ansId`) `ansId`, concat('q', `queId`) `queId`, `userId`, `ans`, `isCorrect`, `time`
+		from `ansRecord` 
+	</sql>
+	
+	<!-- 查 - 根据id -->
+	<select id="getById" resultMap="model">
+		<include refid="select_sql"></include>
+		where `ansId` = right(#{ansId}, length(#{ansId}) - 1)
+	</select>
+	
+	<!-- 查集合 - 根据条件（参数为空时代表忽略指定条件） [G] -->
+	<select id="getList" resultMap="model">
+		<include refid="select_sql"></include>
+		<where>
+			<if test=' this.has("ansId") '> and `ansId` = right(#{ansId}, length(#{ansId}) - 1) </if>
+			<if test=' this.has("queId") '> and `queId` = right(#{queId}, length(#{queId}) - 1) </if>
+			<if test=' this.has("userId") '> and `userId` = #{userId} </if>
+			<if test=' this.has("ans") '> and `ans` = #{ans} </if>
+			<if test=' this.has("isCorrect") '> and `isCorrect` = #{isCorrect} </if>
+			<if test=' this.has("time") '> and `time` = #{time} </if>
+		</where>
+		order by
+		<choose>
+			<when test='sortType == 1'> `ansId` desc </when>
+			<when test='sortType == 2'> `queId` desc </when>
+			<when test='sortType == 3'> `userId` desc </when>
+			<when test='sortType == 4'> `ans` desc </when>
+			<when test='sortType == 5'> `isCorrect` desc </when>
+			<when test='sortType == 6'> `ansId` desc </when>
+			<otherwise> `time` desc </otherwise>
+		</choose>
+	</select>
+	
+	<!-- 查 - 根据queId -->
+	<select id="getByQueId" resultMap="model">
+		<include refid="select_sql"></include>
+		where `queId` = right(#{queId}, length(#{queId}) - 1)
+	</select>
+</mapper>

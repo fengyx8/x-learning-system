@@ -18,10 +18,12 @@ public interface CommentMapper {
 
 	/**
 	 * 增  
-	 * @param comment 实体对象
-	 * @return 受影响行数 
+	 * @param content 评论内容
+	 * @param userId 用户ID
+	 * @param noteId 心得ID
+	 * @return 受影响行数
 	 */
-	int add(Comment comment);
+	int add(String content, String userId, String noteId);
 
 	/**
 	 * 删  

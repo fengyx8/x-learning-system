@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.learning.learning.mapper.QuestionMapper">
+
+	<!-- 增 [G] -->
+	<insert id="add">
+		insert into 
+		`question` (`queId`, `problem`, `stdAns`, `analysis`, `points`, `answererNumber`, `correctAnsNumber`) 
+		values (right(#{queId}, length(#{queId}) - 1), #{problem}, #{stdAns}, #{analysis}, #{points}, #{answererNumber}, #{correctAnsNumber})
+	</insert>
+
+	<!-- 删 -->
+	<delete id="delete">
+		delete from `question` 
+		where `queId` = right(#{queId}, length(#{queId}) - 1)
+	</delete>
+
+	<!-- 改 [G] -->
+	<update id="update">
+		update `question` set
+		`queId` = right(#{queId}, length(#{queId}) - 1),
+		`problem` = #{problem}, 
+		`stdAns` = #{stdAns}, 
+		`analysis` = #{analysis}, 
+		`points` = #{points}, 
+		`answererNumber` = #{answererNumber}, 
+		`correctAnsNumber` = #{correctAnsNumber}
+		where `queId` = right(#{queId}, length(#{queId}) - 1)
+	</update>
+
+
+	<!-- ================================== 查询相关 ================================== -->
+
+	
+	<!-- 通用映射：手动模式 -->
+	<resultMap id="model" type="com.learning.learning.entity.Question">
+		<result property="queId" column="queId" />
+		<result property="problem" column="problem" />
+		<result property="stdAns" column="stdAns" />
+		<result property="analysis" column="analysis" />
+		<result property="points" column="points" />
+		<result property="answererNumber" column="answererNumber" />
+		<result property="correctAnsNumber" column="correctAnsNumber" />
+	</resultMap>
+	
+	<!-- 公共查询sql片段 -->
+	<sql id="select_sql">
+		select concat('q', `queId`) `queId`, `problem`, `stdAns`, `analysis`, `points`, `answererNumber`, `correctAnsNumber`
+		from `question` 
+	</sql>
+	
+	<!-- 查 - 根据id -->
+	<select id="getById" resultMap="model">
+		<include refid="select_sql"></include>
+		where `queId` = right(#{queId}, length(#{queId}) - 1)
+	</select>
+	
+	<!-- 查集合 - 根据条件（参数为空时代表忽略指定条件） [G] -->
+	<select id="getList" resultMap="model">
+		<include refid="select_sql"></include>
+		<where>
+			<if test=' this.has("queId") '> and `queId` = right(#{queId}, length(#{queId}) - 1) </if>
+			<if test=' this.has("problem") '> and `problem` = #{problem} </if>
+			<if test=' this.has("stdAns") '> and `stdAns` = #{stdAns} </if>
+			<if test=' this.has("analysis") '> and `analysis` = #{analysis} </if>
+			<if test=' this.has("points") '> and `points` = #{points} </if>
+			<if test=' this.has("answererNumber") '> and `answererNumber` = #{answererNumber} </if>
+			<if test=' this.has("correctAnsNumber") '> and `correctAnsNumber` = #{correctAnsNumber} </if>
+		</where>
+		order by
+		<choose>
+			<when test='sortType == 1'> `queId` desc </when>
+			<when test='sortType == 2'> `problem` desc </when>
+			<when test='sortType == 3'> `stdAns` desc </when>
+			<when test='sortType == 4'> `analysis` desc </when>
+			<when test='sortType == 5'> `points` desc </when>
+			<when test='sortType == 6'> `answererNumber` desc </when>
+			<when test='sortType == 7'> `correctAnsNumber` desc </when>
+			<otherwise> `queId` desc </otherwise>
+		</choose>
+	</select>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+</mapper>

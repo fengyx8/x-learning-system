@@ -2,59 +2,55 @@ package com.learning.learning.mapper;
 
 import java.util.List;
 
-import com.learning.learning.entity.User;
+import com.learning.learning.entity.Question;
 import com.learning.learning.util.so.SoMap;
 import org.apache.ibatis.annotations.Mapper;
 
 import org.springframework.stereotype.Repository;
 
 /**
- * Mapper: user -- 一般用户表，用户从登录表中激活后方可加入此表
- * @author jbk-xiao
+ * Mapper: question -- 题目表
+ * @author jbk-xiao 
  */
 
 @Mapper
 @Repository
-public interface UserMapper {
+public interface QuestionMapper {
 
 	/**
 	 * 增  
-	 * @param user 实体对象
+	 * @param question 实体对象
 	 * @return 受影响行数 
 	 */
-	int add(User user);
+	int add(Question question);
 
 	/**
 	 * 删  
-	 * @param userId 要删除的数据id
+	 * @param queId 要删除的数据id
 	 * @return 受影响行数 
 	 */
-	int delete(String userId);	 
+	int delete(String queId);
 
 	/** 
 	 * 改  
-	 * @param user 实体对象
+	 * @param question 实体对象
 	 * @return 受影响行数 
 	 */
-	int update(User user);
+	int update(Question question);
 
 	/** 
 	 * 查 - 根据id  
-	 * @param userId 要查询的数据id
+	 * @param queId 要查询的数据id
 	 * @return 实体对象 
 	 */
-	User getUserInfoById(String userId);
+	Question getById(String queId);
 
 	/**
 	 * 查集合 - 根据条件（参数为空时代表忽略指定条件）
 	 * @param so 参数集合 
 	 * @return 数据列表 
 	 */
-	List<User> getList(SoMap so);
+	List<Question> getList(SoMap so);
 
-	/**
-	 * 查集合 - 查询全员积分排行
-	 * @return 数据列表
-	 */
-	List<User> getScoreBoard();
+
 }

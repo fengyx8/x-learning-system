@@ -1,0 +1,23 @@
+syntax = "proto3";
+option java_multiple_files = true;
+package com.learning.learning.grpc;
+
+message UserOperationRequest {
+  string userId = 1;
+  string content = 2;
+  string noteId = 3;
+  string commentId = 4;
+  string ans = 5;
+  string queId = 6;
+  string contentId = 7;
+}
+
+message UserOperationResponse {
+  bool isUploaded = 1;
+}
+service UserOperationService {
+  rpc postNote(UserOperationRequest) returns (UserOperationResponse);
+  rpc postComment(UserOperationRequest) returns (UserOperationResponse);
+  rpc postLike(UserOperationRequest) returns (UserOperationResponse);
+  rpc postAnswer(UserOperationRequest) returns (UserOperationResponse);
+}

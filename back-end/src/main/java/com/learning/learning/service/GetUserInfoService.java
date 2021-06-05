@@ -14,13 +14,14 @@ import org.springframework.stereotype.Service;
  * @version 2021-05-17-20:59
  */
 @Service
-public class CommunityLoggedUserInfo {
-    private Gson gson = new GsonBuilder().disableHtmlEscaping().create();
+public class GetUserInfoService {
+    private final Gson gson = new GsonBuilder().create();
     private final UserMapper userMapper;
     private final NoteMapper noteMapper;
     private final CommentMapper commentMapper;
+
     @Autowired
-    public CommunityLoggedUserInfo(UserMapper userMapper, NoteMapper noteMapper, CommentMapper commentMapper) {
+    public GetUserInfoService(UserMapper userMapper, NoteMapper noteMapper, CommentMapper commentMapper) {
         this.userMapper = userMapper;
         this.noteMapper = noteMapper;
         this.commentMapper = commentMapper;
@@ -32,4 +33,5 @@ public class CommunityLoggedUserInfo {
         userInfo.setComments(commentMapper.getCommentListByUserId(userId));
         return gson.toJson(userInfo);
     }
+
 }

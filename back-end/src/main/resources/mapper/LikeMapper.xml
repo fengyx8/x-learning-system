@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.learning.learning.mapper.LikeMapper">
+
+	<!-- 增 [G] -->
+	<insert id="add">
+		insert into 
+		`like` (`userId`, `contentId`)
+		values (#{userId}, #{contentId})
+	</insert>
+
+	<!-- 删 -->
+	<delete id="delete">
+		delete from `like`
+		where `userId` = #{userId}
+		and `contentId` = #{contentId}
+	</delete>
+
+	<!-- 查 - 根据contentId -->
+	<select id="getByContentId" resultType="java.lang.String">
+		select `userId` from `like`
+		where `contentId` = #{contentId}
+	</select>
+</mapper>

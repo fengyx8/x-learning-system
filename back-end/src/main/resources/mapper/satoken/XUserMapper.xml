@@ -13,7 +13,7 @@
 
 	<!-- 删 -->
 	<delete id="delete">
-		delete from x_user where `id` = #{id}
+		delete from `x_user` where `id` = #{id}
 	</delete>
 
 

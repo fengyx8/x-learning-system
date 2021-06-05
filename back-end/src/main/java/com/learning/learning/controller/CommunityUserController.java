@@ -3,8 +3,11 @@ package com.learning.learning.controller;
 import cn.dev33.satoken.exception.NotLoginException;
 import cn.dev33.satoken.stp.StpUtil;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 import com.learning.learning.config.satoken.AuthConst;
-import com.learning.learning.grpc.CommunityLoggedServiceGrpc;
+import com.learning.learning.entity.AnsRecord;
+import com.learning.learning.grpc.CommunityUserServiceGrpc;
 import com.learning.learning.grpc.UserInfoRequest;
 import com.learning.learning.grpc.UserInfoResponse;
 import com.learning.learning.pojo.UserInfo;
@@ -22,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  * @author jbk-xiao
@@ -29,15 +33,15 @@ import javax.servlet.http.HttpServletResponse;
  */
 @Slf4j
 @CrossOrigin("*")
-@RequestMapping("/community/")
+@RequestMapping("/communityUser/")
 @RestController
-@Api(tags = "社群功能api")
-public class CommunityLoggedController {
-    private final CommunityLoggedServiceGrpc.CommunityLoggedServiceBlockingStub communityLoggedServiceBlockingStub;
+@Api(tags = "社群功单用户部分api")
+public class CommunityUserController {
+    private final Gson gson = new GsonBuilder().disableHtmlEscaping().create();
+    private final CommunityUserServiceGrpc.CommunityUserServiceBlockingStub communityUserServiceBlockingStub;
 
-    @Autowired
-    public CommunityLoggedController(CommunityLoggedServiceGrpc.CommunityLoggedServiceBlockingStub communityLoggedServiceBlockingStub) {
-        this.communityLoggedServiceBlockingStub = communityLoggedServiceBlockingStub;
+    public CommunityUserController(CommunityUserServiceGrpc.CommunityUserServiceBlockingStub communityUserServiceBlockingStub) {
+        this.communityUserServiceBlockingStub = communityUserServiceBlockingStub;
     }
 
     @ApiOperation(value = "接收传入的用户id，并与已登录用户的token对比，匹配则返回用户主页所有信息。")
@@ -52,7 +56,7 @@ public class CommunityLoggedController {
         try {
             loginId = StpUtil.getLoginIdAsString();
         } catch (NotLoginException e) {
-            log.info("{} not login.", userId);
+            log.info("Not login...");
             response.setStatus(AjaxJson.CODE_NOT_LOGIN);
             return AjaxJson.getNotLogin();
         }
@@ -68,10 +72,33 @@ public class CommunityLoggedController {
         if (StpUtil.hasRole(AuthConst.R2)) {
             roleId = 1;
         }
-        UserInfoResponse userInfoResponse = this.communityLoggedServiceBlockingStub
+        UserInfoResponse userInfoResponse = this.communityUserServiceBlockingStub
                 .getUserInfo(UserInfoRequest.newBuilder()
                         .setUserId(userId).setRoleId(roleId).build());
         String userInfo = userInfoResponse.getUserInfo();
         log.info("Response: {}, taking {}", userInfo, System.currentTimeMillis() - start);
-        return AjaxJson.getSuccessData(new Gson().fromJson(userInfo, UserInfo.class));    }
+        return AjaxJson.getSuccessData(gson.fromJson(userInfo, UserInfo.class));
+    }
+
+    @ApiOperation(value = "依据token中用户id返回用户所有作答记录。",
+            notes = "其中，为提高效率，question仅返回queId，需要前端依据queId再次发送请求访问题目信息")
+    @GetMapping("/ansRecords")
+    public AjaxJson getAnsRecords(HttpServletResponse response) {
+        long start = System.currentTimeMillis();
+        String loginId;
+        try {
+            loginId = StpUtil.getLoginIdAsString();
+        } catch (NotLoginException e) {
+            log.info("Not login...");
+            response.setStatus(AjaxJson.CODE_NOT_LOGIN);
+            return AjaxJson.getNotLogin();
+        }
+        log.info("Get loginId: {}", loginId);
+        UserInfoResponse userInfoResponse = this.communityUserServiceBlockingStub
+                .getAnsRecords(UserInfoRequest.newBuilder()
+                        .setUserId(loginId).build());
+        String ansRecords = userInfoResponse.getUserInfo();
+        log.info("Response: {}, taking {}", ansRecords, System.currentTimeMillis() - start);
+        return AjaxJson.getSuccessData(gson.fromJson(ansRecords, new TypeToken<List<AnsRecord>>() {}.getType()));
+    }
 }

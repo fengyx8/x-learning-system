@@ -12,8 +12,7 @@ import java.util.List;
  */
 @Mapper
 public interface XUserMapper {
-
-
+	
 	/**
 	 * 增 #{name}, #{password}, #{roleId} 
 	 * @param obj
@@ -62,7 +61,4 @@ public interface XUserMapper {
 	 * @return
 	 */
 	XUser getByMail(String mail);
-
-
-
 }

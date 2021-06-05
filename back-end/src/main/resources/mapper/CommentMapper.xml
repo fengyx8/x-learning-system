@@ -5,10 +5,15 @@
 	<!-- 增 [G] -->
 	<insert id="add">
 		insert into 
-		`comment` (`commentId`, `content`, `time`, `userId`, `noteId`, `status`) 
-		values (right(#{commentId}, length(#{commentId}) - 1), #{content}, #{time}, #{userId},
-		        right(#{noteId}, length(#{noteId}) - 1), #{status})
+		`comment` (`content`, `userId`, `noteId`)
+		values (#{content}, #{userId}, right(#{noteId}, length(#{noteId}) - 1))
 	</insert>
+<!--	<insert id="add">-->
+<!--		insert into-->
+<!--		`comment` (`commentId`, `content`, `time`, `userId`, `noteId`, `status`)-->
+<!--		values (right(#{commentId}, length(#{commentId}) - 1), #{content}, #{time}, #{userId},-->
+<!--		        right(#{noteId}, length(#{noteId}) - 1), #{status})-->
+<!--	</insert>-->
 
 	<!-- 删 -->
 	<delete id="delete">

@@ -3,6 +3,7 @@ package com.learning.learning.mapper;
 import java.util.List;
 
 import com.learning.learning.entity.Note;
+import com.learning.learning.util.so.SoMap;
 import org.apache.ibatis.annotations.Mapper;
 
 import org.springframework.stereotype.Repository;
@@ -18,10 +19,11 @@ public interface NoteMapper {
 
 	/**
 	 * 增  
-	 * @param note 实体对象
+	 * @param content 心得内容
+	 * @param userId 用户ID
 	 * @return 受影响行数 
 	 */
-	int add(Note note);
+	int add(String content, String userId);
 
 	/**
 	 * 删  
@@ -50,6 +52,12 @@ public interface NoteMapper {
 //	 * @return Note列表
 //	 */
 //	List<Note> getList(SoMap so);
+
+	/**
+	 * 查集合 - 查询所有Note
+	 * @return Note列表
+	 */
+	List<Note> getAllList();
 
 	/**
 	 * 查用户 - 根据用户ID查询某用户发布过的所有心得的列表

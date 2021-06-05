@@ -1,0 +1,17 @@
+syntax = "proto3";
+option java_multiple_files = true;
+package com.learning.learning.grpc;
+
+message UserInfoRequest {
+  string userId = 1;
+  int32 roleId = 2;
+}
+
+message UserInfoResponse {
+  string userInfo = 1;
+}
+
+service CommunityUserService {
+  rpc getUserInfo(UserInfoRequest) returns (UserInfoResponse);
+  rpc getAnsRecords(UserInfoRequest) returns (UserInfoResponse);
+}
