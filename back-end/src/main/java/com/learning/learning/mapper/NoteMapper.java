@@ -66,4 +66,5 @@ public interface NoteMapper {
 	 */
 	List<Note> getNoteListByUserId(String userId);
 
+	int updateStatus(String noteId, int status);
 }

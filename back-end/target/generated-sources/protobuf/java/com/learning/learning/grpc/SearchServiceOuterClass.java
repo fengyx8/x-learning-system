@@ -64,26 +64,25 @@ public final class SearchServiceOuterClass {
   static {
     java.lang.String[] descriptorData = {
       "\n\023SearchService.proto\022\032com.learning.lear" +
-      "ning.grpc\"W\n\013NewsRequest\022\r\n\005title\030\001 \001(\t\022" +
-      "\017\n\007content\030\002 \001(\t\022\014\n\004type\030\003 \001(\t\022\014\n\004year\030\004" +
-      " \001(\t\022\014\n\004page\030\005 \001(\t\"\016\n\014GraphRequest\"\022\n\020Wo" +
-      "rdCloudRequest\"\037\n\017CalenderRequest\022\014\n\004dat" +
-      "e\030\001 \001(\t\" \n\014NewsResponse\022\020\n\010response\030\001 \001(" +
-      "\t\"!\n\rGraphResponse\022\020\n\010response\030\001 \001(\t\"%\n\021" +
-      "WordCloudResponse\022\020\n\010response\030\001 \001(\t\"$\n\020C" +
-      "alenderResponse\022\020\n\010response\030\001 \001(\t2\261\003\n\rSe" +
-      "archService\022_\n\nsearchNews\022\'.com.learning" +
-      ".learning.grpc.NewsRequest\032(.com.learnin" +
-      "g.learning.grpc.NewsResponse\022b\n\013searchGr" +
-      "aph\022(.com.learning.learning.grpc.GraphRe" +
-      "quest\032).com.learning.learning.grpc.Graph" +
-      "Response\022n\n\017searchWordCloud\022,.com.learni" +
-      "ng.learning.grpc.WordCloudRequest\032-.com." +
-      "learning.learning.grpc.WordCloudResponse" +
-      "\022k\n\016searchCalender\022+.com.learning.learni" +
-      "ng.grpc.CalenderRequest\032,.com.learning.l" +
-      "earning.grpc.CalenderResponseB\002P\001b\006proto" +
-      "3"
+      "ning.grpc\"H\n\013NewsRequest\022\017\n\007keyword\030\001 \001(" +
+      "\t\022\014\n\004type\030\002 \001(\t\022\014\n\004year\030\003 \001(\t\022\014\n\004page\030\004 " +
+      "\001(\t\"\016\n\014GraphRequest\"\022\n\020WordCloudRequest\"" +
+      "\037\n\017CalenderRequest\022\014\n\004date\030\001 \001(\t\" \n\014News" +
+      "Response\022\020\n\010response\030\001 \001(\t\"!\n\rGraphRespo" +
+      "nse\022\020\n\010response\030\001 \001(\t\"%\n\021WordCloudRespon" +
+      "se\022\020\n\010response\030\001 \001(\t\"$\n\020CalenderResponse" +
+      "\022\020\n\010response\030\001 \001(\t2\261\003\n\rSearchService\022_\n\n" +
+      "searchNews\022\'.com.learning.learning.grpc." +
+      "NewsRequest\032(.com.learning.learning.grpc" +
+      ".NewsResponse\022b\n\013searchGraph\022(.com.learn" +
+      "ing.learning.grpc.GraphRequest\032).com.lea" +
+      "rning.learning.grpc.GraphResponse\022n\n\017sea" +
+      "rchWordCloud\022,.com.learning.learning.grp" +
+      "c.WordCloudRequest\032-.com.learning.learni" +
+      "ng.grpc.WordCloudResponse\022k\n\016searchCalen" +
+      "der\022+.com.learning.learning.grpc.Calende" +
+      "rRequest\032,.com.learning.learning.grpc.Ca" +
+      "lenderResponseB\002P\001b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -94,7 +93,7 @@ public final class SearchServiceOuterClass {
     internal_static_com_learning_learning_grpc_NewsRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_com_learning_learning_grpc_NewsRequest_descriptor,
-        new java.lang.String[] { "Title", "Content", "Type", "Year", "Page", });
+        new java.lang.String[] { "Keyword", "Type", "Year", "Page", });
     internal_static_com_learning_learning_grpc_GraphRequest_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_com_learning_learning_grpc_GraphRequest_fieldAccessorTable = new

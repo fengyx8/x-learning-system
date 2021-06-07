@@ -20,8 +20,7 @@ private static final long serialVersionUID = 0L;
     super(builder);
   }
   private NewsRequest() {
-    title_ = "";
-    content_ = "";
+    keyword_ = "";
     type_ = "";
     year_ = "";
     page_ = "";
@@ -60,28 +59,22 @@ private static final long serialVersionUID = 0L;
           case 10: {
             java.lang.String s = input.readStringRequireUtf8();
 
-            title_ = s;
+            keyword_ = s;
             break;
           }
           case 18: {
             java.lang.String s = input.readStringRequireUtf8();
 
-            content_ = s;
+            type_ = s;
             break;
           }
           case 26: {
             java.lang.String s = input.readStringRequireUtf8();
 
-            type_ = s;
-            break;
-          }
-          case 34: {
-            java.lang.String s = input.readStringRequireUtf8();
-
             year_ = s;
             break;
           }
-          case 42: {
+          case 34: {
             java.lang.String s = input.readStringRequireUtf8();
 
             page_ = s;
@@ -119,24 +112,24 @@ private static final long serialVersionUID = 0L;
             com.learning.learning.grpc.NewsRequest.class, com.learning.learning.grpc.NewsRequest.Builder.class);
   }
 
-  public static final int TITLE_FIELD_NUMBER = 1;
-  private volatile java.lang.Object title_;
+  public static final int KEYWORD_FIELD_NUMBER = 1;
+  private volatile java.lang.Object keyword_;
   /**
    * <pre>
    *按标题查询
    * </pre>
    *
-   * <code>string title = 1;</code>
+   * <code>string keyword = 1;</code>
    */
-  public java.lang.String getTitle() {
-    java.lang.Object ref = title_;
+  public java.lang.String getKeyword() {
+    java.lang.Object ref = keyword_;
     if (ref instanceof java.lang.String) {
       return (java.lang.String) ref;
     } else {
       com.google.protobuf.ByteString bs = 
           (com.google.protobuf.ByteString) ref;
       java.lang.String s = bs.toStringUtf8();
-      title_ = s;
+      keyword_ = s;
       return s;
     }
   }
@@ -145,72 +138,30 @@ private static final long serialVersionUID = 0L;
    *按标题查询
    * </pre>
    *
-   * <code>string title = 1;</code>
+   * <code>string keyword = 1;</code>
    */
   public com.google.protobuf.ByteString
-      getTitleBytes() {
-    java.lang.Object ref = title_;
+      getKeywordBytes() {
+    java.lang.Object ref = keyword_;
     if (ref instanceof java.lang.String) {
       com.google.protobuf.ByteString b = 
           com.google.protobuf.ByteString.copyFromUtf8(
               (java.lang.String) ref);
-      title_ = b;
+      keyword_ = b;
       return b;
     } else {
       return (com.google.protobuf.ByteString) ref;
     }
   }
 
-  public static final int CONTENT_FIELD_NUMBER = 2;
-  private volatile java.lang.Object content_;
-  /**
-   * <pre>
-   *按内容查询
-   * </pre>
-   *
-   * <code>string content = 2;</code>
-   */
-  public java.lang.String getContent() {
-    java.lang.Object ref = content_;
-    if (ref instanceof java.lang.String) {
-      return (java.lang.String) ref;
-    } else {
-      com.google.protobuf.ByteString bs = 
-          (com.google.protobuf.ByteString) ref;
-      java.lang.String s = bs.toStringUtf8();
-      content_ = s;
-      return s;
-    }
-  }
-  /**
-   * <pre>
-   *按内容查询
-   * </pre>
-   *
-   * <code>string content = 2;</code>
-   */
-  public com.google.protobuf.ByteString
-      getContentBytes() {
-    java.lang.Object ref = content_;
-    if (ref instanceof java.lang.String) {
-      com.google.protobuf.ByteString b = 
-          com.google.protobuf.ByteString.copyFromUtf8(
-              (java.lang.String) ref);
-      content_ = b;
-      return b;
-    } else {
-      return (com.google.protobuf.ByteString) ref;
-    }
-  }
-
-  public static final int TYPE_FIELD_NUMBER = 3;
+  public static final int TYPE_FIELD_NUMBER = 2;
   private volatile java.lang.Object type_;
   /**
    * <pre>
    *类型
    * </pre>
    *
-   * <code>string type = 3;</code>
+   * <code>string type = 2;</code>
    */
   public java.lang.String getType() {
     java.lang.Object ref = type_;
@@ -229,7 +180,7 @@ private static final long serialVersionUID = 0L;
    *类型
    * </pre>
    *
-   * <code>string type = 3;</code>
+   * <code>string type = 2;</code>
    */
   public com.google.protobuf.ByteString
       getTypeBytes() {
@@ -245,14 +196,14 @@ private static final long serialVersionUID = 0L;
     }
   }
 
-  public static final int YEAR_FIELD_NUMBER = 4;
+  public static final int YEAR_FIELD_NUMBER = 3;
   private volatile java.lang.Object year_;
   /**
    * <pre>
    *年份
    * </pre>
    *
-   * <code>string year = 4;</code>
+   * <code>string year = 3;</code>
    */
   public java.lang.String getYear() {
     java.lang.Object ref = year_;
@@ -271,7 +222,7 @@ private static final long serialVersionUID = 0L;
    *年份
    * </pre>
    *
-   * <code>string year = 4;</code>
+   * <code>string year = 3;</code>
    */
   public com.google.protobuf.ByteString
       getYearBytes() {
@@ -287,14 +238,14 @@ private static final long serialVersionUID = 0L;
     }
   }
 
-  public static final int PAGE_FIELD_NUMBER = 5;
+  public static final int PAGE_FIELD_NUMBER = 4;
   private volatile java.lang.Object page_;
   /**
    * <pre>
    *分页的页数
    * </pre>
    *
-   * <code>string page = 5;</code>
+   * <code>string page = 4;</code>
    */
   public java.lang.String getPage() {
     java.lang.Object ref = page_;
@@ -313,7 +264,7 @@ private static final long serialVersionUID = 0L;
    *分页的页数
    * </pre>
    *
-   * <code>string page = 5;</code>
+   * <code>string page = 4;</code>
    */
   public com.google.protobuf.ByteString
       getPageBytes() {
@@ -343,20 +294,17 @@ private static final long serialVersionUID = 0L;
   @java.lang.Override
   public void writeTo(com.google.protobuf.CodedOutputStream output)
                       throws java.io.IOException {
-    if (!getTitleBytes().isEmpty()) {
-      com.google.protobuf.GeneratedMessageV3.writeString(output, 1, title_);
-    }
-    if (!getContentBytes().isEmpty()) {
-      com.google.protobuf.GeneratedMessageV3.writeString(output, 2, content_);
+    if (!getKeywordBytes().isEmpty()) {
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 1, keyword_);
     }
     if (!getTypeBytes().isEmpty()) {
-      com.google.protobuf.GeneratedMessageV3.writeString(output, 3, type_);
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 2, type_);
     }
     if (!getYearBytes().isEmpty()) {
-      com.google.protobuf.GeneratedMessageV3.writeString(output, 4, year_);
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 3, year_);
     }
     if (!getPageBytes().isEmpty()) {
-      com.google.protobuf.GeneratedMessageV3.writeString(output, 5, page_);
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 4, page_);
     }
     unknownFields.writeTo(output);
   }
@@ -367,20 +315,17 @@ private static final long serialVersionUID = 0L;
     if (size != -1) return size;
 
     size = 0;
-    if (!getTitleBytes().isEmpty()) {
-      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, title_);
-    }
-    if (!getContentBytes().isEmpty()) {
-      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, content_);
+    if (!getKeywordBytes().isEmpty()) {
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, keyword_);
     }
     if (!getTypeBytes().isEmpty()) {
-      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, type_);
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, type_);
     }
     if (!getYearBytes().isEmpty()) {
-      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, year_);
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, year_);
     }
     if (!getPageBytes().isEmpty()) {
-      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(5, page_);
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, page_);
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -397,10 +342,8 @@ private static final long serialVersionUID = 0L;
     }
     com.learning.learning.grpc.NewsRequest other = (com.learning.learning.grpc.NewsRequest) obj;
 
-    if (!getTitle()
-        .equals(other.getTitle())) return false;
-    if (!getContent()
-        .equals(other.getContent())) return false;
+    if (!getKeyword()
+        .equals(other.getKeyword())) return false;
     if (!getType()
         .equals(other.getType())) return false;
     if (!getYear()
@@ -418,10 +361,8 @@ private static final long serialVersionUID = 0L;
     }
     int hash = 41;
     hash = (19 * hash) + getDescriptor().hashCode();
-    hash = (37 * hash) + TITLE_FIELD_NUMBER;
-    hash = (53 * hash) + getTitle().hashCode();
-    hash = (37 * hash) + CONTENT_FIELD_NUMBER;
-    hash = (53 * hash) + getContent().hashCode();
+    hash = (37 * hash) + KEYWORD_FIELD_NUMBER;
+    hash = (53 * hash) + getKeyword().hashCode();
     hash = (37 * hash) + TYPE_FIELD_NUMBER;
     hash = (53 * hash) + getType().hashCode();
     hash = (37 * hash) + YEAR_FIELD_NUMBER;
@@ -565,9 +506,7 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public Builder clear() {
       super.clear();
-      title_ = "";
-
-      content_ = "";
+      keyword_ = "";
 
       type_ = "";
 
@@ -601,8 +540,7 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public com.learning.learning.grpc.NewsRequest buildPartial() {
       com.learning.learning.grpc.NewsRequest result = new com.learning.learning.grpc.NewsRequest(this);
-      result.title_ = title_;
-      result.content_ = content_;
+      result.keyword_ = keyword_;
       result.type_ = type_;
       result.year_ = year_;
       result.page_ = page_;
@@ -654,12 +592,8 @@ private static final long serialVersionUID = 0L;
 
     public Builder mergeFrom(com.learning.learning.grpc.NewsRequest other) {
       if (other == com.learning.learning.grpc.NewsRequest.getDefaultInstance()) return this;
-      if (!other.getTitle().isEmpty()) {
-        title_ = other.title_;
-        onChanged();
-      }
-      if (!other.getContent().isEmpty()) {
-        content_ = other.content_;
+      if (!other.getKeyword().isEmpty()) {
+        keyword_ = other.keyword_;
         onChanged();
       }
       if (!other.getType().isEmpty()) {
@@ -703,21 +637,21 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private java.lang.Object title_ = "";
+    private java.lang.Object keyword_ = "";
     /**
      * <pre>
      *按标题查询
      * </pre>
      *
-     * <code>string title = 1;</code>
+     * <code>string keyword = 1;</code>
      */
-    public java.lang.String getTitle() {
-      java.lang.Object ref = title_;
+    public java.lang.String getKeyword() {
+      java.lang.Object ref = keyword_;
       if (!(ref instanceof java.lang.String)) {
         com.google.protobuf.ByteString bs =
             (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
-        title_ = s;
+        keyword_ = s;
         return s;
       } else {
         return (java.lang.String) ref;
@@ -728,16 +662,16 @@ private static final long serialVersionUID = 0L;
      *按标题查询
      * </pre>
      *
-     * <code>string title = 1;</code>
+     * <code>string keyword = 1;</code>
      */
     public com.google.protobuf.ByteString
-        getTitleBytes() {
-      java.lang.Object ref = title_;
+        getKeywordBytes() {
+      java.lang.Object ref = keyword_;
       if (ref instanceof String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
                 (java.lang.String) ref);
-        title_ = b;
+        keyword_ = b;
         return b;
       } else {
         return (com.google.protobuf.ByteString) ref;
@@ -748,15 +682,15 @@ private static final long serialVersionUID = 0L;
      *按标题查询
      * </pre>
      *
-     * <code>string title = 1;</code>
+     * <code>string keyword = 1;</code>
      */
-    public Builder setTitle(
+    public Builder setKeyword(
         java.lang.String value) {
       if (value == null) {
     throw new NullPointerException();
   }
   
-      title_ = value;
+      keyword_ = value;
       onChanged();
       return this;
     }
@@ -765,11 +699,11 @@ private static final long serialVersionUID = 0L;
      *按标题查询
      * </pre>
      *
-     * <code>string title = 1;</code>
+     * <code>string keyword = 1;</code>
      */
-    public Builder clearTitle() {
+    public Builder clearKeyword() {
       
-      title_ = getDefaultInstance().getTitle();
+      keyword_ = getDefaultInstance().getKeyword();
       onChanged();
       return this;
     }
@@ -778,105 +712,16 @@ private static final long serialVersionUID = 0L;
      *按标题查询
      * </pre>
      *
-     * <code>string title = 1;</code>
+     * <code>string keyword = 1;</code>
      */
-    public Builder setTitleBytes(
+    public Builder setKeywordBytes(
         com.google.protobuf.ByteString value) {
       if (value == null) {
     throw new NullPointerException();
   }
   checkByteStringIsUtf8(value);
       
-      title_ = value;
-      onChanged();
-      return this;
-    }
-
-    private java.lang.Object content_ = "";
-    /**
-     * <pre>
-     *按内容查询
-     * </pre>
-     *
-     * <code>string content = 2;</code>
-     */
-    public java.lang.String getContent() {
-      java.lang.Object ref = content_;
-      if (!(ref instanceof java.lang.String)) {
-        com.google.protobuf.ByteString bs =
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        content_ = s;
-        return s;
-      } else {
-        return (java.lang.String) ref;
-      }
-    }
-    /**
-     * <pre>
-     *按内容查询
-     * </pre>
-     *
-     * <code>string content = 2;</code>
-     */
-    public com.google.protobuf.ByteString
-        getContentBytes() {
-      java.lang.Object ref = content_;
-      if (ref instanceof String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        content_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-    /**
-     * <pre>
-     *按内容查询
-     * </pre>
-     *
-     * <code>string content = 2;</code>
-     */
-    public Builder setContent(
-        java.lang.String value) {
-      if (value == null) {
-    throw new NullPointerException();
-  }
-  
-      content_ = value;
-      onChanged();
-      return this;
-    }
-    /**
-     * <pre>
-     *按内容查询
-     * </pre>
-     *
-     * <code>string content = 2;</code>
-     */
-    public Builder clearContent() {
-      
-      content_ = getDefaultInstance().getContent();
-      onChanged();
-      return this;
-    }
-    /**
-     * <pre>
-     *按内容查询
-     * </pre>
-     *
-     * <code>string content = 2;</code>
-     */
-    public Builder setContentBytes(
-        com.google.protobuf.ByteString value) {
-      if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-      
-      content_ = value;
+      keyword_ = value;
       onChanged();
       return this;
     }
@@ -887,7 +732,7 @@ private static final long serialVersionUID = 0L;
      *类型
      * </pre>
      *
-     * <code>string type = 3;</code>
+     * <code>string type = 2;</code>
      */
     public java.lang.String getType() {
       java.lang.Object ref = type_;
@@ -906,7 +751,7 @@ private static final long serialVersionUID = 0L;
      *类型
      * </pre>
      *
-     * <code>string type = 3;</code>
+     * <code>string type = 2;</code>
      */
     public com.google.protobuf.ByteString
         getTypeBytes() {
@@ -926,7 +771,7 @@ private static final long serialVersionUID = 0L;
      *类型
      * </pre>
      *
-     * <code>string type = 3;</code>
+     * <code>string type = 2;</code>
      */
     public Builder setType(
         java.lang.String value) {
@@ -943,7 +788,7 @@ private static final long serialVersionUID = 0L;
      *类型
      * </pre>
      *
-     * <code>string type = 3;</code>
+     * <code>string type = 2;</code>
      */
     public Builder clearType() {
       
@@ -956,7 +801,7 @@ private static final long serialVersionUID = 0L;
      *类型
      * </pre>
      *
-     * <code>string type = 3;</code>
+     * <code>string type = 2;</code>
      */
     public Builder setTypeBytes(
         com.google.protobuf.ByteString value) {
@@ -976,7 +821,7 @@ private static final long serialVersionUID = 0L;
      *年份
      * </pre>
      *
-     * <code>string year = 4;</code>
+     * <code>string year = 3;</code>
      */
     public java.lang.String getYear() {
       java.lang.Object ref = year_;
@@ -995,7 +840,7 @@ private static final long serialVersionUID = 0L;
      *年份
      * </pre>
      *
-     * <code>string year = 4;</code>
+     * <code>string year = 3;</code>
      */
     public com.google.protobuf.ByteString
         getYearBytes() {
@@ -1015,7 +860,7 @@ private static final long serialVersionUID = 0L;
      *年份
      * </pre>
      *
-     * <code>string year = 4;</code>
+     * <code>string year = 3;</code>
      */
     public Builder setYear(
         java.lang.String value) {
@@ -1032,7 +877,7 @@ private static final long serialVersionUID = 0L;
      *年份
      * </pre>
      *
-     * <code>string year = 4;</code>
+     * <code>string year = 3;</code>
      */
     public Builder clearYear() {
       
@@ -1045,7 +890,7 @@ private static final long serialVersionUID = 0L;
      *年份
      * </pre>
      *
-     * <code>string year = 4;</code>
+     * <code>string year = 3;</code>
      */
     public Builder setYearBytes(
         com.google.protobuf.ByteString value) {
@@ -1065,7 +910,7 @@ private static final long serialVersionUID = 0L;
      *分页的页数
      * </pre>
      *
-     * <code>string page = 5;</code>
+     * <code>string page = 4;</code>
      */
     public java.lang.String getPage() {
       java.lang.Object ref = page_;
@@ -1084,7 +929,7 @@ private static final long serialVersionUID = 0L;
      *分页的页数
      * </pre>
      *
-     * <code>string page = 5;</code>
+     * <code>string page = 4;</code>
      */
     public com.google.protobuf.ByteString
         getPageBytes() {
@@ -1104,7 +949,7 @@ private static final long serialVersionUID = 0L;
      *分页的页数
      * </pre>
      *
-     * <code>string page = 5;</code>
+     * <code>string page = 4;</code>
      */
     public Builder setPage(
         java.lang.String value) {
@@ -1121,7 +966,7 @@ private static final long serialVersionUID = 0L;
      *分页的页数
      * </pre>
      *
-     * <code>string page = 5;</code>
+     * <code>string page = 4;</code>
      */
     public Builder clearPage() {
       
@@ -1134,7 +979,7 @@ private static final long serialVersionUID = 0L;
      *分页的页数
      * </pre>
      *
-     * <code>string page = 5;</code>
+     * <code>string page = 4;</code>
      */
     public Builder setPageBytes(
         com.google.protobuf.ByteString value) {

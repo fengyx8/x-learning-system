@@ -46,8 +46,10 @@ public class XAccUserController {
      */
     @ApiOperation(value = "实现用户登录功能")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "key", value = "用户ID或用户邮箱", required = true, paramType = "query"),
-            @ApiImplicitParam(name = "password", value = "用户密码", required = true, paramType = "query")
+            @ApiImplicitParam(name = "key", value = "用户ID或用户邮箱", required = true, paramType = "query",
+                    defaultValue = "18372052"),
+            @ApiImplicitParam(name = "password", value = "用户密码", required = true, paramType = "query",
+                    format = "password", defaultValue = "123456")
     })
     @PostMapping("doLogin")
     AjaxJson doLogin(@RequestParam(value = "key") String key, @RequestParam(value = "password") String password) {

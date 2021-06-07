@@ -2,6 +2,7 @@ package com.learning.learning.config;
 
 import com.learning.learning.grpc.CommunityUserServiceGrpc;
 import com.learning.learning.grpc.CommunityWholeServiceGrpc;
+import com.learning.learning.grpc.ManagerOperationServiceGrpc;
 import com.learning.learning.grpc.SearchServiceGrpc;
 import com.learning.learning.grpc.UserOperationServiceGrpc;
 import io.grpc.ManagedChannel;
@@ -10,13 +11,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-/**
- * @author Zenglr
- * @program: trace
- * @packagename: com.trace.trace.config
- * @Description 配置连接server的ip和port
- * @create 2021-01-25-11:15 上午
- */
 @Configuration
 public class GrpcConfig {
     /**
@@ -49,5 +43,9 @@ public class GrpcConfig {
     @Bean
     UserOperationServiceGrpc.UserOperationServiceBlockingStub userOperationServiceBlockingStub(ManagedChannel channel) {
         return UserOperationServiceGrpc.newBlockingStub(channel);
+    }
+    @Bean
+    ManagerOperationServiceGrpc.ManagerOperationServiceBlockingStub managerOperationServiceBlockingStub(ManagedChannel channel) {
+        return ManagerOperationServiceGrpc.newBlockingStub(channel);
     }
 }

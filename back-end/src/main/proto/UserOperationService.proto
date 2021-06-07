@@ -14,6 +14,8 @@ message UserOperationRequest {
 
 message UserOperationResponse {
   bool isUploaded = 1;
+  bool isCorrect = 2;
+  string analysis = 3;
 }
 service UserOperationService {
   rpc postNote(UserOperationRequest) returns (UserOperationResponse);

@@ -85,4 +85,9 @@
 		from `user`
 		order by `score`
 	</select>
+	<update id="updateScore">
+		update `user`
+		set `score` = `score` + #{deltaScore}
+		where `userId` = #{userId}
+	</update>
 </mapper>

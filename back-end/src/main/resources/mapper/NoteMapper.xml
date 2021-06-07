@@ -77,19 +77,24 @@
 <!--		</choose>-->
 <!--	</select>-->
 		<!--  查集合 - 查询所有Note  -->
-		<select id="getAllList" resultMap="model">
-			<include refid="select_sql"></include>
-			<where>
-				`status` = 1
-			</where>
-			order by `time` desc
-		</select>
-	    <!--  查用户 - 根据用户ID查询某用户发布过的所有心得的列表  -->
-		<select id="getNoteListByUserId" resultMap="model">
-			<include refid="select_sql"></include>
-			<where>
-				`userId` = #{userId}
-			</where>
-			order by `time` desc
-		</select>
+	<select id="getAllList" resultMap="model">
+		<include refid="select_sql"></include>
+		<where>
+			`status` = 1
+		</where>
+		order by `time` desc
+	</select>
+	<!--  查用户 - 根据用户ID查询某用户发布过的所有心得的列表  -->
+	<select id="getNoteListByUserId" resultMap="model">
+		<include refid="select_sql"></include>
+		<where>
+			`userId` = #{userId}
+		</where>
+		order by `time` desc
+	</select>
+	<update id="updateStatus">
+		update `note` set
+		`status` = #{status}
+		where `noteId` = right(#{noteId}, length(#{noteId}) - 1)
+	</update>
 </mapper>

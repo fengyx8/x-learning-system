@@ -5,9 +5,8 @@
 	<!-- 增 [G] -->
 	<insert id="add">
 		insert into 
-		`ansRecord` (`ansId`, `queId`, `userId`, `ans`, `isCorrect`, `time`) 
-		values (right(#{ansId}, length(#{ansId}) - 1), right(#{queId}, length(#{queId}) - 1),
-		        #{userId}, #{ans}, #{isCorrect}, #{time})
+		`ansRecord` (`queId`, `userId`, `ans`, `isCorrect`)
+		values (right(#{queId}, length(#{queId}) - 1), #{userId}, #{ans}, #{isCorrect})
 	</insert>
 
 	<!-- 删 -->

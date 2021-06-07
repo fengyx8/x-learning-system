@@ -20,4 +20,10 @@ public class AnsRecord {
     private String ans;
     private Boolean isCorrect;
     private Timestamp time;
+    public AnsRecord(String queId, String userId, String ans, Boolean isCorrect) {
+        this.queId = queId;
+        this.userId = userId;
+        this.ans = ans;
+        this.isCorrect = isCorrect;
+    }
 }

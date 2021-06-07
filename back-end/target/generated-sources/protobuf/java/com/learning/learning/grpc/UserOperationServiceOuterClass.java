@@ -37,21 +37,22 @@ public final class UserOperationServiceOuterClass {
       "ng.learning.grpc\"\211\001\n\024UserOperationReques" +
       "t\022\016\n\006userId\030\001 \001(\t\022\017\n\007content\030\002 \001(\t\022\016\n\006no" +
       "teId\030\003 \001(\t\022\021\n\tcommentId\030\004 \001(\t\022\013\n\003ans\030\005 \001" +
-      "(\t\022\r\n\005queId\030\006 \001(\t\022\021\n\tcontentId\030\007 \001(\t\"+\n\025" +
+      "(\t\022\r\n\005queId\030\006 \001(\t\022\021\n\tcontentId\030\007 \001(\t\"P\n\025" +
       "UserOperationResponse\022\022\n\nisUploaded\030\001 \001(" +
-      "\0102\337\003\n\024UserOperationService\022o\n\010postNote\0220" +
-      ".com.learning.learning.grpc.UserOperatio" +
-      "nRequest\0321.com.learning.learning.grpc.Us" +
-      "erOperationResponse\022r\n\013postComment\0220.com" +
-      ".learning.learning.grpc.UserOperationReq" +
-      "uest\0321.com.learning.learning.grpc.UserOp" +
-      "erationResponse\022o\n\010postLike\0220.com.learni" +
-      "ng.learning.grpc.UserOperationRequest\0321." +
-      "com.learning.learning.grpc.UserOperation" +
-      "Response\022q\n\npostAnswer\0220.com.learning.le" +
-      "arning.grpc.UserOperationRequest\0321.com.l" +
-      "earning.learning.grpc.UserOperationRespo" +
-      "nseB\002P\001b\006proto3"
+      "\010\022\021\n\tisCorrect\030\002 \001(\010\022\020\n\010analysis\030\003 \001(\t2\337" +
+      "\003\n\024UserOperationService\022o\n\010postNote\0220.co" +
+      "m.learning.learning.grpc.UserOperationRe" +
+      "quest\0321.com.learning.learning.grpc.UserO" +
+      "perationResponse\022r\n\013postComment\0220.com.le" +
+      "arning.learning.grpc.UserOperationReques" +
+      "t\0321.com.learning.learning.grpc.UserOpera" +
+      "tionResponse\022o\n\010postLike\0220.com.learning." +
+      "learning.grpc.UserOperationRequest\0321.com" +
+      ".learning.learning.grpc.UserOperationRes" +
+      "ponse\022q\n\npostAnswer\0220.com.learning.learn" +
+      "ing.grpc.UserOperationRequest\0321.com.lear" +
+      "ning.learning.grpc.UserOperationResponse" +
+      "B\002P\001b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -68,7 +69,7 @@ public final class UserOperationServiceOuterClass {
     internal_static_com_learning_learning_grpc_UserOperationResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_com_learning_learning_grpc_UserOperationResponse_descriptor,
-        new java.lang.String[] { "IsUploaded", });
+        new java.lang.String[] { "IsUploaded", "IsCorrect", "Analysis", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

@@ -11,4 +11,19 @@ public interface UserOperationResponseOrBuilder extends
    * <code>bool isUploaded = 1;</code>
    */
   boolean getIsUploaded();
+
+  /**
+   * <code>bool isCorrect = 2;</code>
+   */
+  boolean getIsCorrect();
+
+  /**
+   * <code>string analysis = 3;</code>
+   */
+  java.lang.String getAnalysis();
+  /**
+   * <code>string analysis = 3;</code>
+   */
+  com.google.protobuf.ByteString
+      getAnalysisBytes();
 }

@@ -90,5 +90,9 @@
 			order by `time` desc
 		</where>
 	</select>
-
+	<update id="updateStatus">
+		update `note` set
+			`status` = #{status}
+		where `noteId` = right(#{noteId}, length(#{noteId}) - 1)
+	</update>
 </mapper>

@@ -140,10 +140,47 @@ public class UserOperationController {
     }
 
     @ApiOperation(value = "一般用户进行答题")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "queId", value = "问题ID", required = true),
+            @ApiImplicitParam(name = "ans", value = "回答", required = true)
+    })
     @PostMapping("/answer")
-    public AjaxJson postAnswer() {
-        //TODO 完成用户答题逻辑
-        return AjaxJson.getSuccess();
+    public AjaxJson postAnswer(@RequestParam("queId") String queId, @RequestParam("ans") String ans,
+                               HttpServletResponse httpServletResponse) {
+        long start = System.currentTimeMillis();
+        String loginId;
+        try {
+            loginId = StpUtil.getLoginIdAsString();
+        } catch (NotLoginException e) {
+            log.info("Not login...");
+            httpServletResponse.setStatus(AjaxJson.CODE_NOT_LOGIN);
+            return AjaxJson.getNotLogin();
+        }
+        log.info("Get loginId: {}.", loginId);
+        log.info("Get queId: {}.", queId);
+        log.info("Get ans: \"{}\"", ans);
+        UserOperationResponse userOperationResponse = this.userOperationServiceBlockingStub.postAnswer(
+                UserOperationRequest.newBuilder()
+                        .setUserId(loginId).setQueId(queId).setAns(ans).build());
+        boolean isUploaded = userOperationResponse.getIsUploaded();
+        boolean isCorrect = userOperationResponse.getIsCorrect();
+        String analysis = userOperationResponse.getAnalysis();
+        log.info("Response: state:{}, correct:{}, analysis:{}, taking {} ms.", isUploaded, isCorrect, analysis, System.currentTimeMillis() - start);
+        if (isUploaded) {
+            class AnsResult{
+                public AnsResult(boolean success, boolean correct, String analyse) {
+                    this.analyse = analyse;
+                    this.correct = correct;
+                    this.success = success;
+                }
+                final boolean success;
+                final boolean correct;
+                final String analyse;
+            }
+            return AjaxJson.getSuccessData(gson.fromJson(String.valueOf(new AnsResult(isUploaded, isCorrect, analysis)), AnsResult.class));
+        } else {
+            httpServletResponse.setStatus(AjaxJson.CODE_ERROR);
+            return AjaxJson.getError("UFO绑架了您的答题记录");
+        }
     }
-    // 积分增加（考虑在service甚至util里边加方法，每次调用）
 }

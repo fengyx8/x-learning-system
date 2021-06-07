@@ -37,24 +37,22 @@ public class SearchServiceImpl extends SearchServiceGrpc.SearchServiceImplBase {
      */
     @Override
     public void searchNews(NewsRequest request, StreamObserver<NewsResponse> responseObserver) {
-        //获取请求标题
-        String title = request.getTitle();
-        //获取请求内容
-        String content = request.getContent();
+        //获取请求关键词
+        String keyword = request.getKeyword();
         //获取请求类型
         String type = request.getType();
         //获取请求年份
         String year = request.getYear();
         //获取请求页码
         String page = request.getPage();
-        log.info("Receive request: title= " + title + "content= "+content+"type= "+type+"year= "+year+" page= " + page);
+        log.info("Receive request: keyword= " + keyword +"type= "+type+"year= "+year+" page= " + page);
         //返回结果初始化
         String jsonInfo = "";
 
         //分页检索，每次返回二十条记录
         log.info("SearchServiceImpl start searching!");
         try {
-            jsonInfo = searchNews.searchNews(title, content, type, year, page);
+            jsonInfo = searchNews.searchNews(keyword, type, year, page);
         } catch (Exception e) {
             e.printStackTrace();
         }

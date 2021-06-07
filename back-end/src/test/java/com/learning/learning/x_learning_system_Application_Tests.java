@@ -30,7 +30,7 @@ public class x_learning_system_Application_Tests {
     void contextLoads() {
         System.out.println(searchGraph.searchGraph());
         System.out.println(searchWordCloud.searchWordCloud());
-        System.out.println(searchNews.searchNews("十九大", "北京", "政治", "2021", "1"));
+        System.out.println(searchNews.searchNews("十九大", "政治", "2021", "1"));
         System.out.println(searchCalender.searchCalender("2021-1"));
     }
 }

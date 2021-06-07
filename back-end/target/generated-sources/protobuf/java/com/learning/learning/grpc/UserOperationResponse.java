@@ -16,6 +16,7 @@ private static final long serialVersionUID = 0L;
     super(builder);
   }
   private UserOperationResponse() {
+    analysis_ = "";
   }
 
   @java.lang.Override
@@ -51,6 +52,17 @@ private static final long serialVersionUID = 0L;
           case 8: {
 
             isUploaded_ = input.readBool();
+            break;
+          }
+          case 16: {
+
+            isCorrect_ = input.readBool();
+            break;
+          }
+          case 26: {
+            java.lang.String s = input.readStringRequireUtf8();
+
+            analysis_ = s;
             break;
           }
           default: {
@@ -94,6 +106,49 @@ private static final long serialVersionUID = 0L;
     return isUploaded_;
   }
 
+  public static final int ISCORRECT_FIELD_NUMBER = 2;
+  private boolean isCorrect_;
+  /**
+   * <code>bool isCorrect = 2;</code>
+   */
+  public boolean getIsCorrect() {
+    return isCorrect_;
+  }
+
+  public static final int ANALYSIS_FIELD_NUMBER = 3;
+  private volatile java.lang.Object analysis_;
+  /**
+   * <code>string analysis = 3;</code>
+   */
+  public java.lang.String getAnalysis() {
+    java.lang.Object ref = analysis_;
+    if (ref instanceof java.lang.String) {
+      return (java.lang.String) ref;
+    } else {
+      com.google.protobuf.ByteString bs = 
+          (com.google.protobuf.ByteString) ref;
+      java.lang.String s = bs.toStringUtf8();
+      analysis_ = s;
+      return s;
+    }
+  }
+  /**
+   * <code>string analysis = 3;</code>
+   */
+  public com.google.protobuf.ByteString
+      getAnalysisBytes() {
+    java.lang.Object ref = analysis_;
+    if (ref instanceof java.lang.String) {
+      com.google.protobuf.ByteString b = 
+          com.google.protobuf.ByteString.copyFromUtf8(
+              (java.lang.String) ref);
+      analysis_ = b;
+      return b;
+    } else {
+      return (com.google.protobuf.ByteString) ref;
+    }
+  }
+
   private byte memoizedIsInitialized = -1;
   @java.lang.Override
   public final boolean isInitialized() {
@@ -111,6 +166,12 @@ private static final long serialVersionUID = 0L;
     if (isUploaded_ != false) {
       output.writeBool(1, isUploaded_);
     }
+    if (isCorrect_ != false) {
+      output.writeBool(2, isCorrect_);
+    }
+    if (!getAnalysisBytes().isEmpty()) {
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 3, analysis_);
+    }
     unknownFields.writeTo(output);
   }
 
@@ -123,6 +184,13 @@ private static final long serialVersionUID = 0L;
     if (isUploaded_ != false) {
       size += com.google.protobuf.CodedOutputStream
         .computeBoolSize(1, isUploaded_);
+    }
+    if (isCorrect_ != false) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeBoolSize(2, isCorrect_);
+    }
+    if (!getAnalysisBytes().isEmpty()) {
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, analysis_);
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -141,6 +209,10 @@ private static final long serialVersionUID = 0L;
 
     if (getIsUploaded()
         != other.getIsUploaded()) return false;
+    if (getIsCorrect()
+        != other.getIsCorrect()) return false;
+    if (!getAnalysis()
+        .equals(other.getAnalysis())) return false;
     if (!unknownFields.equals(other.unknownFields)) return false;
     return true;
   }
@@ -155,6 +227,11 @@ private static final long serialVersionUID = 0L;
     hash = (37 * hash) + ISUPLOADED_FIELD_NUMBER;
     hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
         getIsUploaded());
+    hash = (37 * hash) + ISCORRECT_FIELD_NUMBER;
+    hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+        getIsCorrect());
+    hash = (37 * hash) + ANALYSIS_FIELD_NUMBER;
+    hash = (53 * hash) + getAnalysis().hashCode();
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -290,6 +367,10 @@ private static final long serialVersionUID = 0L;
       super.clear();
       isUploaded_ = false;
 
+      isCorrect_ = false;
+
+      analysis_ = "";
+
       return this;
     }
 
@@ -317,6 +398,8 @@ private static final long serialVersionUID = 0L;
     public com.learning.learning.grpc.UserOperationResponse buildPartial() {
       com.learning.learning.grpc.UserOperationResponse result = new com.learning.learning.grpc.UserOperationResponse(this);
       result.isUploaded_ = isUploaded_;
+      result.isCorrect_ = isCorrect_;
+      result.analysis_ = analysis_;
       onBuilt();
       return result;
     }
@@ -367,6 +450,13 @@ private static final long serialVersionUID = 0L;
       if (other == com.learning.learning.grpc.UserOperationResponse.getDefaultInstance()) return this;
       if (other.getIsUploaded() != false) {
         setIsUploaded(other.getIsUploaded());
+      }
+      if (other.getIsCorrect() != false) {
+        setIsCorrect(other.getIsCorrect());
+      }
+      if (!other.getAnalysis().isEmpty()) {
+        analysis_ = other.analysis_;
+        onChanged();
       }
       this.mergeUnknownFields(other.unknownFields);
       onChanged();
@@ -419,6 +509,101 @@ private static final long serialVersionUID = 0L;
     public Builder clearIsUploaded() {
       
       isUploaded_ = false;
+      onChanged();
+      return this;
+    }
+
+    private boolean isCorrect_ ;
+    /**
+     * <code>bool isCorrect = 2;</code>
+     */
+    public boolean getIsCorrect() {
+      return isCorrect_;
+    }
+    /**
+     * <code>bool isCorrect = 2;</code>
+     */
+    public Builder setIsCorrect(boolean value) {
+      
+      isCorrect_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>bool isCorrect = 2;</code>
+     */
+    public Builder clearIsCorrect() {
+      
+      isCorrect_ = false;
+      onChanged();
+      return this;
+    }
+
+    private java.lang.Object analysis_ = "";
+    /**
+     * <code>string analysis = 3;</code>
+     */
+    public java.lang.String getAnalysis() {
+      java.lang.Object ref = analysis_;
+      if (!(ref instanceof java.lang.String)) {
+        com.google.protobuf.ByteString bs =
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        analysis_ = s;
+        return s;
+      } else {
+        return (java.lang.String) ref;
+      }
+    }
+    /**
+     * <code>string analysis = 3;</code>
+     */
+    public com.google.protobuf.ByteString
+        getAnalysisBytes() {
+      java.lang.Object ref = analysis_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        analysis_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    /**
+     * <code>string analysis = 3;</code>
+     */
+    public Builder setAnalysis(
+        java.lang.String value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  
+      analysis_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>string analysis = 3;</code>
+     */
+    public Builder clearAnalysis() {
+      
+      analysis_ = getDefaultInstance().getAnalysis();
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>string analysis = 3;</code>
+     */
+    public Builder setAnalysisBytes(
+        com.google.protobuf.ByteString value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+      
+      analysis_ = value;
       onChanged();
       return this;
     }

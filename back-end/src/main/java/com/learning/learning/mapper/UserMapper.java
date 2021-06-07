@@ -57,4 +57,6 @@ public interface UserMapper {
 	 * @return 数据列表
 	 */
 	List<User> getScoreBoard();
+
+    int updateScore(double deltaScore, String userId);
 }

@@ -12,43 +12,25 @@ public interface NewsRequestOrBuilder extends
    *按标题查询
    * </pre>
    *
-   * <code>string title = 1;</code>
+   * <code>string keyword = 1;</code>
    */
-  java.lang.String getTitle();
+  java.lang.String getKeyword();
   /**
    * <pre>
    *按标题查询
    * </pre>
    *
-   * <code>string title = 1;</code>
+   * <code>string keyword = 1;</code>
    */
   com.google.protobuf.ByteString
-      getTitleBytes();
-
-  /**
-   * <pre>
-   *按内容查询
-   * </pre>
-   *
-   * <code>string content = 2;</code>
-   */
-  java.lang.String getContent();
-  /**
-   * <pre>
-   *按内容查询
-   * </pre>
-   *
-   * <code>string content = 2;</code>
-   */
-  com.google.protobuf.ByteString
-      getContentBytes();
+      getKeywordBytes();
 
   /**
    * <pre>
    *类型
    * </pre>
    *
-   * <code>string type = 3;</code>
+   * <code>string type = 2;</code>
    */
   java.lang.String getType();
   /**
@@ -56,7 +38,7 @@ public interface NewsRequestOrBuilder extends
    *类型
    * </pre>
    *
-   * <code>string type = 3;</code>
+   * <code>string type = 2;</code>
    */
   com.google.protobuf.ByteString
       getTypeBytes();
@@ -66,7 +48,7 @@ public interface NewsRequestOrBuilder extends
    *年份
    * </pre>
    *
-   * <code>string year = 4;</code>
+   * <code>string year = 3;</code>
    */
   java.lang.String getYear();
   /**
@@ -74,7 +56,7 @@ public interface NewsRequestOrBuilder extends
    *年份
    * </pre>
    *
-   * <code>string year = 4;</code>
+   * <code>string year = 3;</code>
    */
   com.google.protobuf.ByteString
       getYearBytes();
@@ -84,7 +66,7 @@ public interface NewsRequestOrBuilder extends
    *分页的页数
    * </pre>
    *
-   * <code>string page = 5;</code>
+   * <code>string page = 4;</code>
    */
   java.lang.String getPage();
   /**
@@ -92,7 +74,7 @@ public interface NewsRequestOrBuilder extends
    *分页的页数
    * </pre>
    *
-   * <code>string page = 5;</code>
+   * <code>string page = 4;</code>
    */
   com.google.protobuf.ByteString
       getPageBytes();

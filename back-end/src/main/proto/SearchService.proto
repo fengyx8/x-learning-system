@@ -5,15 +5,13 @@ package com.learning.learning.grpc;
 //请求
 message NewsRequest {
     //按标题查询
-    string title = 1;
-    //按内容查询
-    string content = 2;
+    string keyword = 1;
     //类型
-    string type = 3;
+    string type = 2;
     //年份
-    string year = 4;
+    string year = 3;
     //分页的页数
-    string page = 5;
+    string page = 4;
 }
 
 message GraphRequest {

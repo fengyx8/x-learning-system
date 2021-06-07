@@ -30,18 +30,25 @@ public class SearchNews {
 
     private final CreateJson json = new CreateJson();
 
-    public String searchNews(String title, String content, String type, String year, String page) {
+    public String searchNews(String keyword, String type, String year, String page) {
         //分页检索，每次返回二十条新闻
         log.info("Start searching news");
         //redis方法，传入一个(title,page)，返回list
-        ListAndPage lp = redisDao.getIDListOnPage(title, content, type, year, Integer.parseInt(page));
+        ListAndPage lp = redisDao.getIDListOnPage(keyword, type, year, Integer.parseInt(page));
         log.info("searchNewsByTitle result:" + lp.getList().toString());
         //mysql方法
         String jsonInfo = "";
         try {
             jsonInfo += "{\"totalRecords\":"+lp.getPageNum()+",";
             jsonInfo += "\"lists\":";
-            jsonInfo += json.toJson(newsMapper.selectNewsByNewsIds(lp.getList()));
+            if (lp.getList().size() == 0) {
+                return "";
+            }
+            List<News> list = newsMapper.selectNewsByNewsIds(lp.getList());
+            if (list.size() == 0){
+                return "";
+            }
+            jsonInfo += json.toJson(list);
             jsonInfo += "}";
         } catch (Exception e) {
             e.printStackTrace();
