@@ -36,4 +36,43 @@ public interface ManagerOperationRequestOrBuilder extends
    */
   com.google.protobuf.ByteString
       getUserIdBytes();
+
+  /**
+   * <code>.com.learning.learning.grpc.ManagerOperationRequest.Operations operation = 5;</code>
+   */
+  int getOperationValue();
+  /**
+   * <code>.com.learning.learning.grpc.ManagerOperationRequest.Operations operation = 5;</code>
+   */
+  com.learning.learning.grpc.ManagerOperationRequest.Operations getOperation();
+
+  /**
+   * <code>string name = 6;</code>
+   */
+  java.lang.String getName();
+  /**
+   * <code>string name = 6;</code>
+   */
+  com.google.protobuf.ByteString
+      getNameBytes();
+
+  /**
+   * <code>string password = 7;</code>
+   */
+  java.lang.String getPassword();
+  /**
+   * <code>string password = 7;</code>
+   */
+  com.google.protobuf.ByteString
+      getPasswordBytes();
+
+  /**
+   * <code>string loginId = 8;</code>
+   */
+  java.lang.String getLoginId();
+  /**
+   * <code>string loginId = 8;</code>
+   */
+  com.google.protobuf.ByteString
+      getLoginIdBytes();
 }

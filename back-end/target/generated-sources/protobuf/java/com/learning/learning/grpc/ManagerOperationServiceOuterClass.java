@@ -34,18 +34,29 @@ public final class ManagerOperationServiceOuterClass {
   static {
     java.lang.String[] descriptorData = {
       "\n\035ManagerOperationService.proto\022\032com.lea" +
-      "rning.learning.grpc\"c\n\027ManagerOperationR" +
-      "equest\022\021\n\tcontentId\030\001 \001(\t\022\021\n\tisChecked\030\002" +
-      " \001(\010\022\022\n\ndeltaScore\030\003 \001(\001\022\016\n\006userId\030\004 \001(\t" +
-      "\"/\n\030ManagerOperationResponse\022\023\n\013isComple" +
-      "ted\030\001 \001(\0102\212\002\n\027ManagerOperationService\022x\n" +
-      "\013putNCStatus\0223.com.learning.learning.grp" +
-      "c.ManagerOperationRequest\0324.com.learning" +
-      ".learning.grpc.ManagerOperationResponse\022" +
-      "u\n\010putScore\0223.com.learning.learning.grpc" +
-      ".ManagerOperationRequest\0324.com.learning." +
-      "learning.grpc.ManagerOperationResponseB\002" +
-      "P\001b\006proto3"
+      "rning.learning.grpc\"\245\002\n\027ManagerOperation" +
+      "Request\022\021\n\tcontentId\030\001 \001(\t\022\021\n\tisChecked\030" +
+      "\002 \001(\010\022\022\n\ndeltaScore\030\003 \001(\001\022\016\n\006userId\030\004 \001(" +
+      "\t\022Q\n\toperation\030\005 \001(\0162>.com.learning.lear" +
+      "ning.grpc.ManagerOperationRequest.Operat" +
+      "ions\022\014\n\004name\030\006 \001(\t\022\020\n\010password\030\007 \001(\t\022\017\n\007" +
+      "loginId\030\010 \001(\t\"<\n\nOperations\022\n\n\006INSERT\020\000\022" +
+      "\n\n\006DELETE\020\001\022\n\n\006UPDATE\020\002\022\n\n\006SELECT\020\003\"B\n\030M" +
+      "anagerOperationResponse\022\023\n\013isCompleted\030\001" +
+      " \001(\010\022\021\n\txUserInfo\030\002 \001(\t2\201\004\n\027ManagerOpera" +
+      "tionService\022x\n\013putNCStatus\0223.com.learnin" +
+      "g.learning.grpc.ManagerOperationRequest\032" +
+      "4.com.learning.learning.grpc.ManagerOper" +
+      "ationResponse\022u\n\010putScore\0223.com.learning" +
+      ".learning.grpc.ManagerOperationRequest\0324" +
+      ".com.learning.learning.grpc.ManagerOpera" +
+      "tionResponse\022y\n\014operateXUser\0223.com.learn" +
+      "ing.learning.grpc.ManagerOperationReques" +
+      "t\0324.com.learning.learning.grpc.ManagerOp" +
+      "erationResponse\022z\n\roperateXUsers\0223.com.l" +
+      "earning.learning.grpc.ManagerOperationRe" +
+      "quest\0324.com.learning.learning.grpc.Manag" +
+      "erOperationResponseB\002P\001b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -56,13 +67,13 @@ public final class ManagerOperationServiceOuterClass {
     internal_static_com_learning_learning_grpc_ManagerOperationRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_com_learning_learning_grpc_ManagerOperationRequest_descriptor,
-        new java.lang.String[] { "ContentId", "IsChecked", "DeltaScore", "UserId", });
+        new java.lang.String[] { "ContentId", "IsChecked", "DeltaScore", "UserId", "Operation", "Name", "Password", "LoginId", });
     internal_static_com_learning_learning_grpc_ManagerOperationResponse_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_com_learning_learning_grpc_ManagerOperationResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_com_learning_learning_grpc_ManagerOperationResponse_descriptor,
-        new java.lang.String[] { "IsCompleted", });
+        new java.lang.String[] { "IsCompleted", "XUserInfo", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

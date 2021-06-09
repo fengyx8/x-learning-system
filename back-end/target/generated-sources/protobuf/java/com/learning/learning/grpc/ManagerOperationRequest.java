@@ -18,6 +18,10 @@ private static final long serialVersionUID = 0L;
   private ManagerOperationRequest() {
     contentId_ = "";
     userId_ = "";
+    operation_ = 0;
+    name_ = "";
+    password_ = "";
+    loginId_ = "";
   }
 
   @java.lang.Override
@@ -72,6 +76,30 @@ private static final long serialVersionUID = 0L;
             userId_ = s;
             break;
           }
+          case 40: {
+            int rawValue = input.readEnum();
+
+            operation_ = rawValue;
+            break;
+          }
+          case 50: {
+            java.lang.String s = input.readStringRequireUtf8();
+
+            name_ = s;
+            break;
+          }
+          case 58: {
+            java.lang.String s = input.readStringRequireUtf8();
+
+            password_ = s;
+            break;
+          }
+          case 66: {
+            java.lang.String s = input.readStringRequireUtf8();
+
+            loginId_ = s;
+            break;
+          }
           default: {
             if (!parseUnknownField(
                 input, unknownFields, extensionRegistry, tag)) {
@@ -102,6 +130,122 @@ private static final long serialVersionUID = 0L;
     return com.learning.learning.grpc.ManagerOperationServiceOuterClass.internal_static_com_learning_learning_grpc_ManagerOperationRequest_fieldAccessorTable
         .ensureFieldAccessorsInitialized(
             com.learning.learning.grpc.ManagerOperationRequest.class, com.learning.learning.grpc.ManagerOperationRequest.Builder.class);
+  }
+
+  /**
+   * Protobuf enum {@code com.learning.learning.grpc.ManagerOperationRequest.Operations}
+   */
+  public enum Operations
+      implements com.google.protobuf.ProtocolMessageEnum {
+    /**
+     * <code>INSERT = 0;</code>
+     */
+    INSERT(0),
+    /**
+     * <code>DELETE = 1;</code>
+     */
+    DELETE(1),
+    /**
+     * <code>UPDATE = 2;</code>
+     */
+    UPDATE(2),
+    /**
+     * <code>SELECT = 3;</code>
+     */
+    SELECT(3),
+    UNRECOGNIZED(-1),
+    ;
+
+    /**
+     * <code>INSERT = 0;</code>
+     */
+    public static final int INSERT_VALUE = 0;
+    /**
+     * <code>DELETE = 1;</code>
+     */
+    public static final int DELETE_VALUE = 1;
+    /**
+     * <code>UPDATE = 2;</code>
+     */
+    public static final int UPDATE_VALUE = 2;
+    /**
+     * <code>SELECT = 3;</code>
+     */
+    public static final int SELECT_VALUE = 3;
+
+
+    public final int getNumber() {
+      if (this == UNRECOGNIZED) {
+        throw new java.lang.IllegalArgumentException(
+            "Can't get the number of an unknown enum value.");
+      }
+      return value;
+    }
+
+    /**
+     * @deprecated Use {@link #forNumber(int)} instead.
+     */
+    @java.lang.Deprecated
+    public static Operations valueOf(int value) {
+      return forNumber(value);
+    }
+
+    public static Operations forNumber(int value) {
+      switch (value) {
+        case 0: return INSERT;
+        case 1: return DELETE;
+        case 2: return UPDATE;
+        case 3: return SELECT;
+        default: return null;
+      }
+    }
+
+    public static com.google.protobuf.Internal.EnumLiteMap<Operations>
+        internalGetValueMap() {
+      return internalValueMap;
+    }
+    private static final com.google.protobuf.Internal.EnumLiteMap<
+        Operations> internalValueMap =
+          new com.google.protobuf.Internal.EnumLiteMap<Operations>() {
+            public Operations findValueByNumber(int number) {
+              return Operations.forNumber(number);
+            }
+          };
+
+    public final com.google.protobuf.Descriptors.EnumValueDescriptor
+        getValueDescriptor() {
+      return getDescriptor().getValues().get(ordinal());
+    }
+    public final com.google.protobuf.Descriptors.EnumDescriptor
+        getDescriptorForType() {
+      return getDescriptor();
+    }
+    public static final com.google.protobuf.Descriptors.EnumDescriptor
+        getDescriptor() {
+      return com.learning.learning.grpc.ManagerOperationRequest.getDescriptor().getEnumTypes().get(0);
+    }
+
+    private static final Operations[] VALUES = values();
+
+    public static Operations valueOf(
+        com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+      if (desc.getType() != getDescriptor()) {
+        throw new java.lang.IllegalArgumentException(
+          "EnumValueDescriptor is not for this type.");
+      }
+      if (desc.getIndex() == -1) {
+        return UNRECOGNIZED;
+      }
+      return VALUES[desc.getIndex()];
+    }
+
+    private final int value;
+
+    private Operations(int value) {
+      this.value = value;
+    }
+
+    // @@protoc_insertion_point(enum_scope:com.learning.learning.grpc.ManagerOperationRequest.Operations)
   }
 
   public static final int CONTENTID_FIELD_NUMBER = 1;
@@ -190,6 +334,125 @@ private static final long serialVersionUID = 0L;
     }
   }
 
+  public static final int OPERATION_FIELD_NUMBER = 5;
+  private int operation_;
+  /**
+   * <code>.com.learning.learning.grpc.ManagerOperationRequest.Operations operation = 5;</code>
+   */
+  public int getOperationValue() {
+    return operation_;
+  }
+  /**
+   * <code>.com.learning.learning.grpc.ManagerOperationRequest.Operations operation = 5;</code>
+   */
+  public com.learning.learning.grpc.ManagerOperationRequest.Operations getOperation() {
+    @SuppressWarnings("deprecation")
+    com.learning.learning.grpc.ManagerOperationRequest.Operations result = com.learning.learning.grpc.ManagerOperationRequest.Operations.valueOf(operation_);
+    return result == null ? com.learning.learning.grpc.ManagerOperationRequest.Operations.UNRECOGNIZED : result;
+  }
+
+  public static final int NAME_FIELD_NUMBER = 6;
+  private volatile java.lang.Object name_;
+  /**
+   * <code>string name = 6;</code>
+   */
+  public java.lang.String getName() {
+    java.lang.Object ref = name_;
+    if (ref instanceof java.lang.String) {
+      return (java.lang.String) ref;
+    } else {
+      com.google.protobuf.ByteString bs = 
+          (com.google.protobuf.ByteString) ref;
+      java.lang.String s = bs.toStringUtf8();
+      name_ = s;
+      return s;
+    }
+  }
+  /**
+   * <code>string name = 6;</code>
+   */
+  public com.google.protobuf.ByteString
+      getNameBytes() {
+    java.lang.Object ref = name_;
+    if (ref instanceof java.lang.String) {
+      com.google.protobuf.ByteString b = 
+          com.google.protobuf.ByteString.copyFromUtf8(
+              (java.lang.String) ref);
+      name_ = b;
+      return b;
+    } else {
+      return (com.google.protobuf.ByteString) ref;
+    }
+  }
+
+  public static final int PASSWORD_FIELD_NUMBER = 7;
+  private volatile java.lang.Object password_;
+  /**
+   * <code>string password = 7;</code>
+   */
+  public java.lang.String getPassword() {
+    java.lang.Object ref = password_;
+    if (ref instanceof java.lang.String) {
+      return (java.lang.String) ref;
+    } else {
+      com.google.protobuf.ByteString bs = 
+          (com.google.protobuf.ByteString) ref;
+      java.lang.String s = bs.toStringUtf8();
+      password_ = s;
+      return s;
+    }
+  }
+  /**
+   * <code>string password = 7;</code>
+   */
+  public com.google.protobuf.ByteString
+      getPasswordBytes() {
+    java.lang.Object ref = password_;
+    if (ref instanceof java.lang.String) {
+      com.google.protobuf.ByteString b = 
+          com.google.protobuf.ByteString.copyFromUtf8(
+              (java.lang.String) ref);
+      password_ = b;
+      return b;
+    } else {
+      return (com.google.protobuf.ByteString) ref;
+    }
+  }
+
+  public static final int LOGINID_FIELD_NUMBER = 8;
+  private volatile java.lang.Object loginId_;
+  /**
+   * <code>string loginId = 8;</code>
+   */
+  public java.lang.String getLoginId() {
+    java.lang.Object ref = loginId_;
+    if (ref instanceof java.lang.String) {
+      return (java.lang.String) ref;
+    } else {
+      com.google.protobuf.ByteString bs = 
+          (com.google.protobuf.ByteString) ref;
+      java.lang.String s = bs.toStringUtf8();
+      loginId_ = s;
+      return s;
+    }
+  }
+  /**
+   * <code>string loginId = 8;</code>
+   */
+  public com.google.protobuf.ByteString
+      getLoginIdBytes() {
+    java.lang.Object ref = loginId_;
+    if (ref instanceof java.lang.String) {
+      com.google.protobuf.ByteString b = 
+          com.google.protobuf.ByteString.copyFromUtf8(
+              (java.lang.String) ref);
+      loginId_ = b;
+      return b;
+    } else {
+      return (com.google.protobuf.ByteString) ref;
+    }
+  }
+
   private byte memoizedIsInitialized = -1;
   @java.lang.Override
   public final boolean isInitialized() {
@@ -216,6 +479,18 @@ private static final long serialVersionUID = 0L;
     if (!getUserIdBytes().isEmpty()) {
       com.google.protobuf.GeneratedMessageV3.writeString(output, 4, userId_);
     }
+    if (operation_ != com.learning.learning.grpc.ManagerOperationRequest.Operations.INSERT.getNumber()) {
+      output.writeEnum(5, operation_);
+    }
+    if (!getNameBytes().isEmpty()) {
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 6, name_);
+    }
+    if (!getPasswordBytes().isEmpty()) {
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 7, password_);
+    }
+    if (!getLoginIdBytes().isEmpty()) {
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 8, loginId_);
+    }
     unknownFields.writeTo(output);
   }
 
@@ -238,6 +513,19 @@ private static final long serialVersionUID = 0L;
     }
     if (!getUserIdBytes().isEmpty()) {
       size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, userId_);
+    }
+    if (operation_ != com.learning.learning.grpc.ManagerOperationRequest.Operations.INSERT.getNumber()) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeEnumSize(5, operation_);
+    }
+    if (!getNameBytes().isEmpty()) {
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(6, name_);
+    }
+    if (!getPasswordBytes().isEmpty()) {
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(7, password_);
+    }
+    if (!getLoginIdBytes().isEmpty()) {
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(8, loginId_);
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -263,6 +551,13 @@ private static final long serialVersionUID = 0L;
             other.getDeltaScore())) return false;
     if (!getUserId()
         .equals(other.getUserId())) return false;
+    if (operation_ != other.operation_) return false;
+    if (!getName()
+        .equals(other.getName())) return false;
+    if (!getPassword()
+        .equals(other.getPassword())) return false;
+    if (!getLoginId()
+        .equals(other.getLoginId())) return false;
     if (!unknownFields.equals(other.unknownFields)) return false;
     return true;
   }
@@ -284,6 +579,14 @@ private static final long serialVersionUID = 0L;
         java.lang.Double.doubleToLongBits(getDeltaScore()));
     hash = (37 * hash) + USERID_FIELD_NUMBER;
     hash = (53 * hash) + getUserId().hashCode();
+    hash = (37 * hash) + OPERATION_FIELD_NUMBER;
+    hash = (53 * hash) + operation_;
+    hash = (37 * hash) + NAME_FIELD_NUMBER;
+    hash = (53 * hash) + getName().hashCode();
+    hash = (37 * hash) + PASSWORD_FIELD_NUMBER;
+    hash = (53 * hash) + getPassword().hashCode();
+    hash = (37 * hash) + LOGINID_FIELD_NUMBER;
+    hash = (53 * hash) + getLoginId().hashCode();
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -425,6 +728,14 @@ private static final long serialVersionUID = 0L;
 
       userId_ = "";
 
+      operation_ = 0;
+
+      name_ = "";
+
+      password_ = "";
+
+      loginId_ = "";
+
       return this;
     }
 
@@ -455,6 +766,10 @@ private static final long serialVersionUID = 0L;
       result.isChecked_ = isChecked_;
       result.deltaScore_ = deltaScore_;
       result.userId_ = userId_;
+      result.operation_ = operation_;
+      result.name_ = name_;
+      result.password_ = password_;
+      result.loginId_ = loginId_;
       onBuilt();
       return result;
     }
@@ -515,6 +830,21 @@ private static final long serialVersionUID = 0L;
       }
       if (!other.getUserId().isEmpty()) {
         userId_ = other.userId_;
+        onChanged();
+      }
+      if (other.operation_ != 0) {
+        setOperationValue(other.getOperationValue());
+      }
+      if (!other.getName().isEmpty()) {
+        name_ = other.name_;
+        onChanged();
+      }
+      if (!other.getPassword().isEmpty()) {
+        password_ = other.password_;
+        onChanged();
+      }
+      if (!other.getLoginId().isEmpty()) {
+        loginId_ = other.loginId_;
         onChanged();
       }
       this.mergeUnknownFields(other.unknownFields);
@@ -732,6 +1062,258 @@ private static final long serialVersionUID = 0L;
   checkByteStringIsUtf8(value);
       
       userId_ = value;
+      onChanged();
+      return this;
+    }
+
+    private int operation_ = 0;
+    /**
+     * <code>.com.learning.learning.grpc.ManagerOperationRequest.Operations operation = 5;</code>
+     */
+    public int getOperationValue() {
+      return operation_;
+    }
+    /**
+     * <code>.com.learning.learning.grpc.ManagerOperationRequest.Operations operation = 5;</code>
+     */
+    public Builder setOperationValue(int value) {
+      operation_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>.com.learning.learning.grpc.ManagerOperationRequest.Operations operation = 5;</code>
+     */
+    public com.learning.learning.grpc.ManagerOperationRequest.Operations getOperation() {
+      @SuppressWarnings("deprecation")
+      com.learning.learning.grpc.ManagerOperationRequest.Operations result = com.learning.learning.grpc.ManagerOperationRequest.Operations.valueOf(operation_);
+      return result == null ? com.learning.learning.grpc.ManagerOperationRequest.Operations.UNRECOGNIZED : result;
+    }
+    /**
+     * <code>.com.learning.learning.grpc.ManagerOperationRequest.Operations operation = 5;</code>
+     */
+    public Builder setOperation(com.learning.learning.grpc.ManagerOperationRequest.Operations value) {
+      if (value == null) {
+        throw new NullPointerException();
+      }
+      
+      operation_ = value.getNumber();
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>.com.learning.learning.grpc.ManagerOperationRequest.Operations operation = 5;</code>
+     */
+    public Builder clearOperation() {
+      
+      operation_ = 0;
+      onChanged();
+      return this;
+    }
+
+    private java.lang.Object name_ = "";
+    /**
+     * <code>string name = 6;</code>
+     */
+    public java.lang.String getName() {
+      java.lang.Object ref = name_;
+      if (!(ref instanceof java.lang.String)) {
+        com.google.protobuf.ByteString bs =
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        name_ = s;
+        return s;
+      } else {
+        return (java.lang.String) ref;
+      }
+    }
+    /**
+     * <code>string name = 6;</code>
+     */
+    public com.google.protobuf.ByteString
+        getNameBytes() {
+      java.lang.Object ref = name_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        name_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    /**
+     * <code>string name = 6;</code>
+     */
+    public Builder setName(
+        java.lang.String value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  
+      name_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>string name = 6;</code>
+     */
+    public Builder clearName() {
+      
+      name_ = getDefaultInstance().getName();
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>string name = 6;</code>
+     */
+    public Builder setNameBytes(
+        com.google.protobuf.ByteString value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+      
+      name_ = value;
+      onChanged();
+      return this;
+    }
+
+    private java.lang.Object password_ = "";
+    /**
+     * <code>string password = 7;</code>
+     */
+    public java.lang.String getPassword() {
+      java.lang.Object ref = password_;
+      if (!(ref instanceof java.lang.String)) {
+        com.google.protobuf.ByteString bs =
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        password_ = s;
+        return s;
+      } else {
+        return (java.lang.String) ref;
+      }
+    }
+    /**
+     * <code>string password = 7;</code>
+     */
+    public com.google.protobuf.ByteString
+        getPasswordBytes() {
+      java.lang.Object ref = password_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        password_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    /**
+     * <code>string password = 7;</code>
+     */
+    public Builder setPassword(
+        java.lang.String value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  
+      password_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>string password = 7;</code>
+     */
+    public Builder clearPassword() {
+      
+      password_ = getDefaultInstance().getPassword();
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>string password = 7;</code>
+     */
+    public Builder setPasswordBytes(
+        com.google.protobuf.ByteString value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+      
+      password_ = value;
+      onChanged();
+      return this;
+    }
+
+    private java.lang.Object loginId_ = "";
+    /**
+     * <code>string loginId = 8;</code>
+     */
+    public java.lang.String getLoginId() {
+      java.lang.Object ref = loginId_;
+      if (!(ref instanceof java.lang.String)) {
+        com.google.protobuf.ByteString bs =
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        loginId_ = s;
+        return s;
+      } else {
+        return (java.lang.String) ref;
+      }
+    }
+    /**
+     * <code>string loginId = 8;</code>
+     */
+    public com.google.protobuf.ByteString
+        getLoginIdBytes() {
+      java.lang.Object ref = loginId_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        loginId_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    /**
+     * <code>string loginId = 8;</code>
+     */
+    public Builder setLoginId(
+        java.lang.String value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  
+      loginId_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>string loginId = 8;</code>
+     */
+    public Builder clearLoginId() {
+      
+      loginId_ = getDefaultInstance().getLoginId();
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>string loginId = 8;</code>
+     */
+    public Builder setLoginIdBytes(
+        com.google.protobuf.ByteString value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+      
+      loginId_ = value;
       onChanged();
       return this;
     }

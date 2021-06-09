@@ -7,12 +7,25 @@ message ManagerOperationRequest {
   bool isChecked = 2;
   double deltaScore = 3;
   string userId = 4;
+  Operations operation = 5;
+  enum Operations {
+    INSERT = 0;
+    DELETE = 1;
+    UPDATE = 2;
+    SELECT = 3;
+  };
+  string name = 6;
+  string password = 7;
+  string loginId = 8;
 }
 
 message ManagerOperationResponse {
   bool isCompleted = 1;
+  string xUserInfo = 2;
 }
 service ManagerOperationService {
   rpc putNCStatus(ManagerOperationRequest) returns (ManagerOperationResponse);
   rpc putScore(ManagerOperationRequest) returns (ManagerOperationResponse);
+  rpc operateXUser(ManagerOperationRequest) returns (ManagerOperationResponse);
+  rpc operateXUsers(ManagerOperationRequest) returns (ManagerOperationResponse);
 }

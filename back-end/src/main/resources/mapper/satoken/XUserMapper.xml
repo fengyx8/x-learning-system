@@ -6,8 +6,8 @@
 	<!-- 增 -->
 	<insert id="add">
 		insert into
-		`x_user`(`name`, `avatar`, `mail`, `role_id`, `create_by_aid`, `create_time`)
-		values (#{name}, #{avatar}, #{mail}, #{roleId}, #{createByAid}, now())
+		`x_user`(`id`, `name`, `role_id`, `password`, `pw`, `create_by_aid`, `create_time`)
+		values (#{userId}, #{name}, 2, #{password}, #{pw}, #{createByAid}, now())
 	</insert>
 
 

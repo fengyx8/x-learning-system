@@ -1,8 +1,12 @@
 package com.learning.learning.controller;
 
+import cn.dev33.satoken.exception.NotLoginException;
 import cn.dev33.satoken.exception.NotRoleException;
 import cn.dev33.satoken.stp.StpUtil;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.learning.learning.config.satoken.AuthConst;
+import com.learning.learning.entity.satoken.XUser;
 import com.learning.learning.grpc.ManagerOperationRequest;
 import com.learning.learning.grpc.ManagerOperationResponse;
 import com.learning.learning.grpc.ManagerOperationServiceGrpc;
@@ -15,6 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,6 +38,7 @@ import javax.servlet.http.HttpServletResponse;
 @RestController
 @Api(tags = "负责管理员用户的社群内活动api")
 public class ManagerOperationController {
+    private final Gson gson = new GsonBuilder().disableHtmlEscaping().create();
     private final ManagerOperationServiceGrpc.ManagerOperationServiceBlockingStub managerOperationServiceBlockingStub;
 
     public ManagerOperationController(ManagerOperationServiceGrpc.ManagerOperationServiceBlockingStub managerOperationServiceBlockingStub) {
@@ -42,7 +48,7 @@ public class ManagerOperationController {
     @ApiOperation(value = "管理员进行评论、心得的审核")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "contentId", value = "心得/评论ID"),
-            @ApiImplicitParam(name = "isChecked", value = "是否审核通过", dataType = "boolean")
+            @ApiImplicitParam(name = "isChecked", value = "是否审核通过", dataType = "boolean", defaultValue = "true")
     })
     @PutMapping("/ncStatus")
     public AjaxJson putNCStatus(@RequestParam("contentId") String contentId, @RequestParam("isChecked") boolean isChecked,
@@ -69,7 +75,8 @@ public class ManagerOperationController {
 
     @ApiOperation(value = "用户积分“强制管理”")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "deltaScore", value = "积分变化量，正或负", dataType = "double"),
+            @ApiImplicitParam(name = "deltaScore", value = "积分变化量，正或负", dataType = "double", defaultValue = "0",
+                    example = "0"),
             @ApiImplicitParam(name = "userId", value = "要修改积分的用户的ID")
     })
     @PutMapping("/score")
@@ -95,57 +102,132 @@ public class ManagerOperationController {
      */
 
     @ApiOperation(value = "管理员添加单个一般用户")
-    @PostMapping("/user")
-    public AjaxJson postUser() {
-        //TODO 完成管理员添加单个用户逻辑
-        return AjaxJson.getSuccess();
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "userId", value = "用户学号", required = true),
+            @ApiImplicitParam(name = "name", value = "用户姓名", required = true),
+            @ApiImplicitParam(name = "password", value = "用户初始密码", required = true)
+    })
+    @PostMapping("/xUser")
+    public AjaxJson postXUser(@RequestParam("userId") String id, @RequestParam("name") String name,
+                              @RequestParam("password") String pw, HttpServletResponse httpServletResponse) {
+        String loginId;
+        try {
+            loginId = StpUtil.getLoginIdAsString();
+        } catch (NotLoginException nle) {
+            log.warn(nle.toString());
+            httpServletResponse.setStatus(AjaxJson.CODE_NOT_LOGIN);
+            return AjaxJson.getNotLogin();
+        }
+        if (!StpUtil.hasRole(AuthConst.R1)) {
+            httpServletResponse.setStatus(AjaxJson.CODE_NOT_JUR);
+            return AjaxJson.getNotJur("不是管理员！");
+        }
+
+        ManagerOperationResponse managerOperationResponse = this.managerOperationServiceBlockingStub.operateXUser(
+                ManagerOperationRequest.newBuilder()
+                        .setOperation(ManagerOperationRequest.Operations.INSERT)
+                        .setUserId(id)
+                        .setName(name)
+                        .setPassword(pw)
+                        .setLoginId(loginId)
+                        .build()
+        );
+        boolean isCompleted = managerOperationResponse.getIsCompleted();
+        if (isCompleted) {
+            return AjaxJson.getSuccess();
+        } else {
+            return AjaxJson.getError();
+        }
     }
 
     @ApiOperation(value = "管理员批量添加一般用户")
-    @PostMapping("/users")
-    public AjaxJson postUsers() {
+    @PostMapping("/xUsers")
+    public AjaxJson postXUsers(HttpServletResponse httpServletResponse) {
+        ManagerOperationResponse managerOperationResponse = this.managerOperationServiceBlockingStub.operateXUsers(
+                ManagerOperationRequest.newBuilder()
+                        .setOperation(ManagerOperationRequest.Operations.INSERT).build()
+        );
         //TODO 完成管理员批量添加用户逻辑
         return AjaxJson.getSuccess();
     }
 
     @ApiOperation(value = "管理员删除单个用户")
-    @DeleteMapping("/user")
-    public AjaxJson deleteUser() {
-        //TODO 完成管理员删除单个用户逻辑
-        return AjaxJson.getSuccess();
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "userId", value = "要删除用户的用户ID", required = true, paramType = "path")
+    })
+    @DeleteMapping("/xUser/{userId}")
+    public AjaxJson deleteXUser(@PathVariable("userId") String userId, HttpServletResponse httpServletResponse) {
+        try {
+            StpUtil.hasRole(AuthConst.R1);
+        } catch (NotRoleException notRoleException) {
+            httpServletResponse.setStatus(AjaxJson.CODE_NOT_JUR);
+            return AjaxJson.getNotJur("不是管理员。");
+        }
+        ManagerOperationResponse managerOperationResponse = this.managerOperationServiceBlockingStub.operateXUser(
+                ManagerOperationRequest.newBuilder()
+                        .setOperation(ManagerOperationRequest.Operations.DELETE)
+                        .setUserId(userId)
+                        .build()
+        );
+        boolean isCompleted = managerOperationResponse.getIsCompleted();
+        if (isCompleted) {
+            return AjaxJson.getSuccess();
+        } else {
+            return AjaxJson.getError();
+        }
     }
 
     @ApiOperation(value = "管理员批量删除用户")
-    @DeleteMapping("/users")
-    public AjaxJson deleteUsers() {
+    @DeleteMapping("/xUsers")
+    public AjaxJson deleteXUsers() {
         //TODO 完成管理员批量删除用户逻辑
         return AjaxJson.getSuccess();
     }
 
     @ApiOperation(value = "管理员更新单个用户信息")
-    @PutMapping("/user")
-    public AjaxJson putUser() {
+    @PutMapping("/xUser")
+    public AjaxJson putXUser(HttpServletResponse httpServletResponse) {
+        try {
+            StpUtil.hasRole(AuthConst.R1);
+        } catch (NotRoleException notRoleException) {
+            httpServletResponse.setStatus(AjaxJson.CODE_NOT_JUR);
+            return AjaxJson.getNotJur("不是管理员。");
+        }
         //TODO 完成管理员更新单个用户信息逻辑
         return AjaxJson.getSuccess();
     }
 
     @ApiOperation(value = "管理员批量更新用户信息")
-    @PutMapping("/users")
-    public AjaxJson putUsers() {
+    @PutMapping("/xUsers")
+    public AjaxJson putXUsers() {
         //TODO 完成管理员批量更新用户信息逻辑
         return AjaxJson.getSuccess();
     }
 
     @ApiOperation(value = "管理员查询单个用户信息")
-    @GetMapping("/user")
-    public AjaxJson getUser() {
-        //TODO 完成管理员查询单个用户信息接口
-        return AjaxJson.getSuccess();
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "userId", value = "要查找用户的用户ID", required = true, paramType = "path")
+    })
+    @GetMapping("/xUser/{userId}")
+    public AjaxJson getXUser(@PathVariable("userId") String userId, HttpServletResponse httpServletResponse) {
+        try {
+            StpUtil.hasRole(AuthConst.R1);
+        } catch (NotRoleException notRoleException) {
+            httpServletResponse.setStatus(AjaxJson.CODE_NOT_JUR);
+            return AjaxJson.getNotJur("不是管理员。");
+        }
+        ManagerOperationResponse managerOperationResponse = this.managerOperationServiceBlockingStub.operateXUser(
+                ManagerOperationRequest.newBuilder()
+                        .setOperation(ManagerOperationRequest.Operations.SELECT)
+                        .setUserId(userId).build()
+        );
+        String xUserInfo = managerOperationResponse.getXUserInfo();
+        return AjaxJson.getSuccessData(gson.fromJson(xUserInfo, XUser.class));
     }
 
     @ApiOperation(value = "管理员批量查询用户信息")
-    @GetMapping("/users")
-    public AjaxJson getUsers() {
+    @GetMapping("/xUsers")
+    public AjaxJson getXUsers() {
         //TODO 完成管理员批量查询用户信息接口
         return AjaxJson.getSuccess();
     }

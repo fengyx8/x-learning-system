@@ -11,4 +11,14 @@ public interface ManagerOperationResponseOrBuilder extends
    * <code>bool isCompleted = 1;</code>
    */
   boolean getIsCompleted();
+
+  /**
+   * <code>string xUserInfo = 2;</code>
+   */
+  java.lang.String getXUserInfo();
+  /**
+   * <code>string xUserInfo = 2;</code>
+   */
+  com.google.protobuf.ByteString
+      getXUserInfoBytes();
 }

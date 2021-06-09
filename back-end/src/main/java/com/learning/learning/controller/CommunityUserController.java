@@ -72,6 +72,7 @@ public class CommunityUserController {
         if (StpUtil.hasRole(AuthConst.R2)) {
             roleId = 1;
         }
+        //TODO 添加是否已激活的判断
         UserInfoResponse userInfoResponse = this.communityUserServiceBlockingStub
                 .getUserInfo(UserInfoRequest.newBuilder()
                         .setUserId(userId).setRoleId(roleId).build());

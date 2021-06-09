@@ -89,6 +89,68 @@ public final class ManagerOperationServiceGrpc {
     return getPutScoreMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<com.learning.learning.grpc.ManagerOperationRequest,
+      com.learning.learning.grpc.ManagerOperationResponse> getOperateXUserMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "operateXUser",
+      requestType = com.learning.learning.grpc.ManagerOperationRequest.class,
+      responseType = com.learning.learning.grpc.ManagerOperationResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<com.learning.learning.grpc.ManagerOperationRequest,
+      com.learning.learning.grpc.ManagerOperationResponse> getOperateXUserMethod() {
+    io.grpc.MethodDescriptor<com.learning.learning.grpc.ManagerOperationRequest, com.learning.learning.grpc.ManagerOperationResponse> getOperateXUserMethod;
+    if ((getOperateXUserMethod = ManagerOperationServiceGrpc.getOperateXUserMethod) == null) {
+      synchronized (ManagerOperationServiceGrpc.class) {
+        if ((getOperateXUserMethod = ManagerOperationServiceGrpc.getOperateXUserMethod) == null) {
+          ManagerOperationServiceGrpc.getOperateXUserMethod = getOperateXUserMethod =
+              io.grpc.MethodDescriptor.<com.learning.learning.grpc.ManagerOperationRequest, com.learning.learning.grpc.ManagerOperationResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "operateXUser"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.learning.learning.grpc.ManagerOperationRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.learning.learning.grpc.ManagerOperationResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new ManagerOperationServiceMethodDescriptorSupplier("operateXUser"))
+              .build();
+        }
+      }
+    }
+    return getOperateXUserMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<com.learning.learning.grpc.ManagerOperationRequest,
+      com.learning.learning.grpc.ManagerOperationResponse> getOperateXUsersMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "operateXUsers",
+      requestType = com.learning.learning.grpc.ManagerOperationRequest.class,
+      responseType = com.learning.learning.grpc.ManagerOperationResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<com.learning.learning.grpc.ManagerOperationRequest,
+      com.learning.learning.grpc.ManagerOperationResponse> getOperateXUsersMethod() {
+    io.grpc.MethodDescriptor<com.learning.learning.grpc.ManagerOperationRequest, com.learning.learning.grpc.ManagerOperationResponse> getOperateXUsersMethod;
+    if ((getOperateXUsersMethod = ManagerOperationServiceGrpc.getOperateXUsersMethod) == null) {
+      synchronized (ManagerOperationServiceGrpc.class) {
+        if ((getOperateXUsersMethod = ManagerOperationServiceGrpc.getOperateXUsersMethod) == null) {
+          ManagerOperationServiceGrpc.getOperateXUsersMethod = getOperateXUsersMethod =
+              io.grpc.MethodDescriptor.<com.learning.learning.grpc.ManagerOperationRequest, com.learning.learning.grpc.ManagerOperationResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "operateXUsers"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.learning.learning.grpc.ManagerOperationRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.learning.learning.grpc.ManagerOperationResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new ManagerOperationServiceMethodDescriptorSupplier("operateXUsers"))
+              .build();
+        }
+      }
+    }
+    return getOperateXUsersMethod;
+  }
+
   /**
    * Creates a new async stub that supports all call types for the service
    */
@@ -130,6 +192,20 @@ public final class ManagerOperationServiceGrpc {
       asyncUnimplementedUnaryCall(getPutScoreMethod(), responseObserver);
     }
 
+    /**
+     */
+    public void operateXUser(com.learning.learning.grpc.ManagerOperationRequest request,
+        io.grpc.stub.StreamObserver<com.learning.learning.grpc.ManagerOperationResponse> responseObserver) {
+      asyncUnimplementedUnaryCall(getOperateXUserMethod(), responseObserver);
+    }
+
+    /**
+     */
+    public void operateXUsers(com.learning.learning.grpc.ManagerOperationRequest request,
+        io.grpc.stub.StreamObserver<com.learning.learning.grpc.ManagerOperationResponse> responseObserver) {
+      asyncUnimplementedUnaryCall(getOperateXUsersMethod(), responseObserver);
+    }
+
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
           .addMethod(
@@ -146,6 +222,20 @@ public final class ManagerOperationServiceGrpc {
                 com.learning.learning.grpc.ManagerOperationRequest,
                 com.learning.learning.grpc.ManagerOperationResponse>(
                   this, METHODID_PUT_SCORE)))
+          .addMethod(
+            getOperateXUserMethod(),
+            asyncUnaryCall(
+              new MethodHandlers<
+                com.learning.learning.grpc.ManagerOperationRequest,
+                com.learning.learning.grpc.ManagerOperationResponse>(
+                  this, METHODID_OPERATE_XUSER)))
+          .addMethod(
+            getOperateXUsersMethod(),
+            asyncUnaryCall(
+              new MethodHandlers<
+                com.learning.learning.grpc.ManagerOperationRequest,
+                com.learning.learning.grpc.ManagerOperationResponse>(
+                  this, METHODID_OPERATE_XUSERS)))
           .build();
     }
   }
@@ -183,6 +273,22 @@ public final class ManagerOperationServiceGrpc {
       asyncUnaryCall(
           getChannel().newCall(getPutScoreMethod(), getCallOptions()), request, responseObserver);
     }
+
+    /**
+     */
+    public void operateXUser(com.learning.learning.grpc.ManagerOperationRequest request,
+        io.grpc.stub.StreamObserver<com.learning.learning.grpc.ManagerOperationResponse> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(getOperateXUserMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     */
+    public void operateXUsers(com.learning.learning.grpc.ManagerOperationRequest request,
+        io.grpc.stub.StreamObserver<com.learning.learning.grpc.ManagerOperationResponse> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(getOperateXUsersMethod(), getCallOptions()), request, responseObserver);
+    }
   }
 
   /**
@@ -215,6 +321,20 @@ public final class ManagerOperationServiceGrpc {
     public com.learning.learning.grpc.ManagerOperationResponse putScore(com.learning.learning.grpc.ManagerOperationRequest request) {
       return blockingUnaryCall(
           getChannel(), getPutScoreMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public com.learning.learning.grpc.ManagerOperationResponse operateXUser(com.learning.learning.grpc.ManagerOperationRequest request) {
+      return blockingUnaryCall(
+          getChannel(), getOperateXUserMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public com.learning.learning.grpc.ManagerOperationResponse operateXUsers(com.learning.learning.grpc.ManagerOperationRequest request) {
+      return blockingUnaryCall(
+          getChannel(), getOperateXUsersMethod(), getCallOptions(), request);
     }
   }
 
@@ -251,10 +371,28 @@ public final class ManagerOperationServiceGrpc {
       return futureUnaryCall(
           getChannel().newCall(getPutScoreMethod(), getCallOptions()), request);
     }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<com.learning.learning.grpc.ManagerOperationResponse> operateXUser(
+        com.learning.learning.grpc.ManagerOperationRequest request) {
+      return futureUnaryCall(
+          getChannel().newCall(getOperateXUserMethod(), getCallOptions()), request);
+    }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<com.learning.learning.grpc.ManagerOperationResponse> operateXUsers(
+        com.learning.learning.grpc.ManagerOperationRequest request) {
+      return futureUnaryCall(
+          getChannel().newCall(getOperateXUsersMethod(), getCallOptions()), request);
+    }
   }
 
   private static final int METHODID_PUT_NCSTATUS = 0;
   private static final int METHODID_PUT_SCORE = 1;
+  private static final int METHODID_OPERATE_XUSER = 2;
+  private static final int METHODID_OPERATE_XUSERS = 3;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -279,6 +417,14 @@ public final class ManagerOperationServiceGrpc {
           break;
         case METHODID_PUT_SCORE:
           serviceImpl.putScore((com.learning.learning.grpc.ManagerOperationRequest) request,
+              (io.grpc.stub.StreamObserver<com.learning.learning.grpc.ManagerOperationResponse>) responseObserver);
+          break;
+        case METHODID_OPERATE_XUSER:
+          serviceImpl.operateXUser((com.learning.learning.grpc.ManagerOperationRequest) request,
+              (io.grpc.stub.StreamObserver<com.learning.learning.grpc.ManagerOperationResponse>) responseObserver);
+          break;
+        case METHODID_OPERATE_XUSERS:
+          serviceImpl.operateXUsers((com.learning.learning.grpc.ManagerOperationRequest) request,
               (io.grpc.stub.StreamObserver<com.learning.learning.grpc.ManagerOperationResponse>) responseObserver);
           break;
         default:
@@ -344,6 +490,8 @@ public final class ManagerOperationServiceGrpc {
               .setSchemaDescriptor(new ManagerOperationServiceFileDescriptorSupplier())
               .addMethod(getPutNCStatusMethod())
               .addMethod(getPutScoreMethod())
+              .addMethod(getOperateXUserMethod())
+              .addMethod(getOperateXUsersMethod())
               .build();
         }
       }

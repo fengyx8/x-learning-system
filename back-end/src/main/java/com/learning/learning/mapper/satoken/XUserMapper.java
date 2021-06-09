@@ -15,10 +15,10 @@ public interface XUserMapper {
 	
 	/**
 	 * 增 #{name}, #{password}, #{roleId} 
-	 * @param obj
+	 *
 	 * @return
 	 */
-	int add(XUser obj);
+	int add(String userId, String name, String password, String pw, String createByAid);
 
 	/**
 	 * 删 
