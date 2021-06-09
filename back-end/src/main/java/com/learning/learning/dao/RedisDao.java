@@ -10,7 +10,12 @@ import redis.clients.jedis.Jedis;
 import redis.clients.jedis.ScanParams;
 import redis.clients.jedis.ScanResult;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Set;
+
 
 /**
  * @author: Clivia-Han
@@ -44,7 +49,7 @@ public class RedisDao {
 //            list.add(query.substring(i,i+1));
 //        }
         log.info("list:"+list.toString());
-        ArrayList<String> res = new ArrayList<String>();
+        ArrayList<String> res = new ArrayList<>();
         try {
             res.addAll(fuzzySearchList(query, 0));
 //            for(String key:list){
@@ -67,7 +72,7 @@ public class RedisDao {
 //            list.add(query.substring(i,i+1));
 //        }
         log.info("list:"+list.toString());
-        ArrayList<String> res = new ArrayList<String>();
+        ArrayList<String> res = new ArrayList<>();
         try {
             res.addAll(fuzzySearchList(query,1));
 //            for(String key:list){
@@ -85,7 +90,7 @@ public class RedisDao {
      * @return
      */
     public ArrayList<String> getIDListByYear(String query) {
-        ArrayList<String> res = new ArrayList<String>();
+        ArrayList<String> res = new ArrayList<>();
         ArrayList<String> keys = new ArrayList<>();
         try {
             keys.addAll(fuzzySearchQueryByKeys(query, 3));
@@ -112,7 +117,7 @@ public class RedisDao {
      * @return
      */
     public ArrayList<String> getIDListByType(String query) {
-        ArrayList<String> res = new ArrayList<String>();
+        ArrayList<String> res = new ArrayList<>();
         jedis.select(2);
         try {
             res.addAll(jedis.smembers(query));
@@ -211,57 +216,47 @@ public class RedisDao {
      */
     public ListAndPage getIDListOnPage(String keyword, String type, String year, int page){
         jedis = jedisUtil.getClient();
-        Boolean first = true;
-        ArrayList<String> list = new ArrayList<String>();
-        ArrayList<String> list1 = new ArrayList<String>();
-        ArrayList<String> list2 = new ArrayList<String>();
-        ArrayList<String> list3 = new ArrayList<String>();
-        if (keyword != null){
+        boolean first = true;
+        ArrayList<String> list = new ArrayList<>();
+        ArrayList<String> list1;
+        ArrayList<String> list2;
+        ArrayList<String> list3;
+        if (keyword != null && !keyword.isEmpty()){
             list1 = getIDListByKeyword(keyword);
-//            log.info("list1: "+list1.size());
             if (first){
                 list.addAll(list1);
                 first = false;
             }
-//            log.info("1.list: "+list.size());
         }
-        if (type != null) {
+        if (type != null && !type.isEmpty()) {
             list2 = getIDListByType(type);
-//            log.info("list2: "+list2.size());
             if (first){
                 list.addAll(list2);
                 first = false;
             } else {
                 list.retainAll(list2);
             }
-//            log.info("2.list: "+list.size());
         }
-        if (year != null) {
+        if (year != null && !year.isEmpty()) {
             list3 = getIDListByYear(year);
-//            log.info("list3: "+list3.size()+list3.toString());
             if (first){
                 list.addAll(list3);
                 first = false;
             } else {
                 list.retainAll(list3);
             }
-//            log.info("3.list: "+list.size());
         }
         jedis.close();
         long num = list.size();
-        log.info("list: "+ num + " "+ list.toString());
         int start = (page - 1) * pageRecord;
         int end = start + pageRecord - 1;
-        List<String> res = new ArrayList<>();
+        List<String> res;
         if(list.size() >= end) {
             res = list.subList(start, end);
         }
         else{
-//            log.info("start: "+start);
-//            log.info("list.size() - 1: "+(list.size()));
             res = list.subList(start - 1, list.size());
         }
-//        log.info("res: " + res.toString());
         ListAndPage lp = new ListAndPage();
         lp.setList(res);
         lp.setPageNum((int) (num / pageRecord + 1));

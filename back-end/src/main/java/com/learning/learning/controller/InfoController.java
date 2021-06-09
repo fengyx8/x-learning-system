@@ -1,6 +1,9 @@
 package com.learning.learning.controller;
 
 import com.learning.learning.grpc.*;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -26,10 +29,16 @@ public class InfoController {
         this.searchServiceBlockingStub = searchServiceBlockingStub;
     }
 
-
-    @RequestMapping("/getNews/{keyword}/{type}/{year}/{page}")
-    public String news(@PathVariable("keyword") String keyword, @PathVariable("type") String type,
-                       @PathVariable("year") String year, @PathVariable("page") String page) {
+    @ApiOperation(value = "搜索新闻")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "keyword", required = false),
+            @ApiImplicitParam(name = "type", required = false),
+            @ApiImplicitParam(name = "year", required = false),
+            @ApiImplicitParam(name = "page", required = false)
+    })
+    @PostMapping("/getNews")
+    public String news(@RequestParam("keyword") String keyword, @RequestParam("type") String type,
+                       @RequestParam("year") String year, @RequestParam("page") String page) {
         log.info("Receive news request: keyword= " + keyword +"type= "+type+"year= "+year+" page= " + page);
         long start = System.currentTimeMillis();
         NewsResponse response = this.searchServiceBlockingStub
@@ -41,7 +50,7 @@ public class InfoController {
         return response.getResponse();
     }
 
-    @RequestMapping("/getGraph")
+    @GetMapping("/getGraph")
     public String graph(){
         log.info("Receive graph request");
         long start = System.currentTimeMillis();
@@ -53,7 +62,7 @@ public class InfoController {
         return response.getResponse();
     }
 
-    @RequestMapping("/getWordCloud")
+    @GetMapping("/getWordCloud")
     public String wordCloud(){
         log.info("Receive wordCloud request");
         long start = System.currentTimeMillis();
@@ -65,7 +74,7 @@ public class InfoController {
         return response.getResponse();
     }
 
-    @RequestMapping("/getCalender/{date}")
+    @GetMapping("/getCalender/{date}")
     public String news(@PathVariable("date") String date) {
         log.info("Receive news request: date= " + date);
         long start = System.currentTimeMillis();
