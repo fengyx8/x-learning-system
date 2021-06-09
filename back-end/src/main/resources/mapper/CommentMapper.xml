@@ -95,4 +95,10 @@
 			`status` = #{status}
 		where `noteId` = right(#{noteId}, length(#{noteId}) - 1)
 	</update>
+	<select id="getAllList" resultMap="model">
+		<include refid="select_sql"></include>
+		<where>
+			order by `status` asc
+		</where>
+	</select>
 </mapper>

@@ -36,6 +36,7 @@ public class UserInfo {
     @Expose
     @SerializedName("notes")
     private List<Note> notes;
+    public UserInfo() {}
     public UserInfo(User user) {
         this.userId = user.getUserId();
         this.name = user.getName();

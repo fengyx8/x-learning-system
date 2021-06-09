@@ -61,4 +61,6 @@ public interface CommentMapper {
 	List<Comment> getCommentListByUserId(String userId);
 
     int updateStatus(String commentId, int status);
+
+    List<Comment> getAllList();
 }

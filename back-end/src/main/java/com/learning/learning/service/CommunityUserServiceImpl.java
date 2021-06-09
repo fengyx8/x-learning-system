@@ -36,9 +36,14 @@ public class CommunityUserServiceImpl extends CommunityUserServiceGrpc.Community
     @Override
     public void getUserInfo(UserInfoRequest request, StreamObserver<UserInfoResponse> responseObserver) {
         String userId = request.getUserId();
+        String userInfo;
         int roleId = request.getRoleId();
         //TODO 处理当用户是管理员时的信息返回逻辑
-        String userInfo = getUserInfoService.getUserInfo(userId);
+        if (roleId == 1) {
+            userInfo = getUserInfoService.getManagerInfo(userId);
+        } else {
+            userInfo = getUserInfoService.getUserInfo(userId);
+        }
         log.info("Service gotten userInfo: {}", userInfo);
         UserInfoResponse response = UserInfoResponse.newBuilder()
                 .setUserInfo(userInfo).build();
