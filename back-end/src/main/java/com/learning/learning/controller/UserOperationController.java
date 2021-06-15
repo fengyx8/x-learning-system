@@ -48,7 +48,7 @@ public class UserOperationController {
         return AjaxJson.getSuccess();
     }
 
-    @ApiOperation(value = "一般用户发布心得")
+    @ApiOperation(value = "一般用户发布心得，待管理员审核通过后加2分。")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "content", value = "心得内容", required = true)
     })
@@ -78,7 +78,7 @@ public class UserOperationController {
         }
     }
 
-    @ApiOperation(value = "一般用户对心得发布评论")
+    @ApiOperation(value = "一般用户对心得发布评论，待管理员审核通过后加1分。")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "noteId", value = "评论对应的心得ID", required = true),
             @ApiImplicitParam(name = "content", value = "对心得评论的内容", required = true)

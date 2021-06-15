@@ -101,4 +101,10 @@
 		`status` = #{status}
 		where `noteId` = right(#{noteId}, length(#{noteId}) - 1)
 	</update>
+	<select id="getUserId" resultType="String">
+		select `userId` from `note`
+		<where>
+			`noteId` = right(#{noteId}, length(#{noteId}) - 1)
+		</where>
+	</select>
 </mapper>

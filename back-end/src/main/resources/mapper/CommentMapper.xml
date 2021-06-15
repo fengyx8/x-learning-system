@@ -101,4 +101,10 @@
 			order by `status` asc
 
 	</select>
+	<select id="getUserId" resultType="String">
+		select `userId` from `comment`
+		<where>
+			`commentId` = right(#{commentId}, length(#{commentId}) - 1)
+		</where>
+	</select>
 </mapper>

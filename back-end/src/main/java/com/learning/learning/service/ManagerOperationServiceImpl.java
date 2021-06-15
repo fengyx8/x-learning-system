@@ -49,8 +49,16 @@ public class ManagerOperationServiceImpl extends ManagerOperationServiceGrpc.Man
         try {
             if (contentId.charAt(0) == 'n') {
                 this.noteMapper.updateStatus(contentId, status);
+                if (isChecked) {
+                    String userId = this.noteMapper.getUserId(contentId);
+                    this.userMapper.updateScore(2, userId);
+                }
             } else {
                 this.commentMapper.updateStatus(contentId, status);
+                if (isChecked) {
+                    String userId = this.commentMapper.getUserId(contentId);
+                    this.userMapper.updateScore(1, userId);
+                }
             }
         } catch (Exception e) {
             isCompleted = false;
