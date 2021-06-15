@@ -54,7 +54,7 @@ public class ManagerOperationController {
     public AjaxJson putNCStatus(@RequestParam("contentId") String contentId, @RequestParam("isChecked") boolean isChecked,
                                 HttpServletResponse httpServletResponse) {
         try {
-            StpUtil.hasRole(AuthConst.R1);
+            StpUtil.hasPermission(AuthConst.R1);
         } catch (NotRoleException notRoleException) {
             httpServletResponse.setStatus(AjaxJson.CODE_NOT_JUR);
             return AjaxJson.getNotJur("不是管理员。");
@@ -69,6 +69,7 @@ public class ManagerOperationController {
         if (isCompleted) {
             return AjaxJson.getSuccess();
         } else {
+            httpServletResponse.setStatus(AjaxJson.CODE_ERROR);
             return AjaxJson.getError();
         }
     }
@@ -83,7 +84,7 @@ public class ManagerOperationController {
     public AjaxJson putScore(@RequestParam("deltaScore") double deltaScore, @RequestParam("userId") String userId,
                              HttpServletResponse httpServletResponse) {
         try {
-            StpUtil.hasRole(AuthConst.R1);
+            StpUtil.hasPermission(AuthConst.R1);
         } catch (NotRoleException notRoleException) {
             httpServletResponse.setStatus(AjaxJson.CODE_NOT_JUR);
             return AjaxJson.getNotJur("不是管理员。");
@@ -118,7 +119,7 @@ public class ManagerOperationController {
             httpServletResponse.setStatus(AjaxJson.CODE_NOT_LOGIN);
             return AjaxJson.getNotLogin();
         }
-        if (!StpUtil.hasRole(AuthConst.R1)) {
+        if (!StpUtil.hasPermission(AuthConst.R1)) {
             httpServletResponse.setStatus(AjaxJson.CODE_NOT_JUR);
             return AjaxJson.getNotJur("不是管理员！");
         }
@@ -158,7 +159,7 @@ public class ManagerOperationController {
     @DeleteMapping("/xUser/{userId}")
     public AjaxJson deleteXUser(@PathVariable("userId") String userId, HttpServletResponse httpServletResponse) {
         try {
-            StpUtil.hasRole(AuthConst.R1);
+            StpUtil.hasPermission(AuthConst.R1);
         } catch (NotRoleException notRoleException) {
             httpServletResponse.setStatus(AjaxJson.CODE_NOT_JUR);
             return AjaxJson.getNotJur("不是管理员。");
@@ -188,7 +189,7 @@ public class ManagerOperationController {
     @PutMapping("/xUser")
     public AjaxJson putXUser(HttpServletResponse httpServletResponse) {
         try {
-            StpUtil.hasRole(AuthConst.R1);
+            StpUtil.hasPermission(AuthConst.R1);
         } catch (NotRoleException notRoleException) {
             httpServletResponse.setStatus(AjaxJson.CODE_NOT_JUR);
             return AjaxJson.getNotJur("不是管理员。");
@@ -211,7 +212,7 @@ public class ManagerOperationController {
     @GetMapping("/xUser/{userId}")
     public AjaxJson getXUser(@PathVariable("userId") String userId, HttpServletResponse httpServletResponse) {
         try {
-            StpUtil.hasRole(AuthConst.R1);
+            StpUtil.hasPermission(AuthConst.R1);
         } catch (NotRoleException notRoleException) {
             httpServletResponse.setStatus(AjaxJson.CODE_NOT_JUR);
             return AjaxJson.getNotJur("不是管理员。");

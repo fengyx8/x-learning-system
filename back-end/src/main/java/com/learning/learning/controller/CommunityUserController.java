@@ -65,12 +65,12 @@ public class CommunityUserController {
             response.setStatus(AjaxJson.CODE_NOT_JUR);
             return AjaxJson.getNotJur("用户信息不一致！");
         }
-        int roleId = 2;
-        if (StpUtil.hasRole(AuthConst.R1)) {
-            roleId = 0;
-        }
-        if (StpUtil.hasRole(AuthConst.R2)) {
+        int roleId = 0;
+        if (StpUtil.hasPermission(AuthConst.R1)) {
             roleId = 1;
+        }
+        if (StpUtil.hasPermission(AuthConst.R2)) {
+            roleId = 2;
         }
         //TODO 添加是否已激活的判断
         UserInfoResponse userInfoResponse = this.communityUserServiceBlockingStub

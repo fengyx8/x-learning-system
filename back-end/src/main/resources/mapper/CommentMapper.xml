@@ -86,19 +86,19 @@
 	<select id="getCommentListByUserId" resultMap="model">
 		<include refid="select_sql"></include>
 		<where>
-			`userId` = #{userId} and `status` = 1
+			`userId` = #{userId}
 			order by `time` desc
 		</where>
 	</select>
 	<update id="updateStatus">
-		update `note` set
+		update `comment` set
 			`status` = #{status}
-		where `noteId` = right(#{noteId}, length(#{noteId}) - 1)
+		where `commentId` = right(#{commentId}, length(#{commentId}) - 1)
 	</update>
 	<select id="getAllList" resultMap="model">
 		<include refid="select_sql"></include>
-		<where>
+
 			order by `status` asc
-		</where>
+
 	</select>
 </mapper>

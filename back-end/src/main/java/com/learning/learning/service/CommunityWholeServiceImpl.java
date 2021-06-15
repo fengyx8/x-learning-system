@@ -42,7 +42,7 @@ public class CommunityWholeServiceImpl extends CommunityWholeServiceGrpc.Communi
 
     @Override
     public void getNoteList(CommunityWholeRequest request, StreamObserver<CommunityWholeResponse> responseObserver) {
-        List<Note> noteList = noteMapper.getAllList();
+        List<Note> noteList = noteMapper.getPassedList();
         String noteListStr = gson.toJson(noteList);
         log.info("Get noteList: {}." + noteListStr);
         responseObserver.onNext(CommunityWholeResponse.newBuilder().setNoteList(noteListStr).build());

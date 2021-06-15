@@ -57,6 +57,7 @@ public interface NoteMapper {
 	 * 查集合 - 查询所有Note
 	 * @return Note列表
 	 */
+	List<Note> getPassedList();
 	List<Note> getAllList();
 
 	/**
@@ -67,4 +68,5 @@ public interface NoteMapper {
 	List<Note> getNoteListByUserId(String userId);
 
 	int updateStatus(String noteId, int status);
+
 }

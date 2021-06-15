@@ -77,11 +77,15 @@
 <!--		</choose>-->
 <!--	</select>-->
 		<!--  查集合 - 查询所有Note  -->
-	<select id="getAllList" resultMap="model">
+	<select id="getPassedList" resultMap="model">
 		<include refid="select_sql"></include>
 		<where>
 			`status` = 1
 		</where>
+		order by `time` desc
+	</select>
+	<select id="getAllList" resultMap="model">
+		<include refid="select_sql"></include>
 		order by `time` desc
 	</select>
 	<!--  查用户 - 根据用户ID查询某用户发布过的所有心得的列表  -->

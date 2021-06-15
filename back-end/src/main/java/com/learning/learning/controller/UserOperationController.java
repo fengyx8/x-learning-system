@@ -13,6 +13,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -167,6 +168,7 @@ public class UserOperationController {
         String analysis = userOperationResponse.getAnalysis();
         log.info("Response: state:{}, correct:{}, analysis:{}, taking {} ms.", isUploaded, isCorrect, analysis, System.currentTimeMillis() - start);
         if (isUploaded) {
+            @Data
             class AnsResult{
                 public AnsResult(boolean success, boolean correct, String analyse) {
                     this.analyse = analyse;
@@ -177,7 +179,7 @@ public class UserOperationController {
                 final boolean correct;
                 final String analyse;
             }
-            return AjaxJson.getSuccessData(gson.fromJson(String.valueOf(new AnsResult(isUploaded, isCorrect, analysis)), AnsResult.class));
+            return AjaxJson.getSuccessData(new AnsResult(isUploaded, isCorrect, analysis));
         } else {
             httpServletResponse.setStatus(AjaxJson.CODE_ERROR);
             return AjaxJson.getError("UFO绑架了您的答题记录");
