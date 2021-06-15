@@ -22,6 +22,7 @@ private static final long serialVersionUID = 0L;
     name_ = "";
     password_ = "";
     loginId_ = "";
+    xUsersInfo_ = "";
   }
 
   @java.lang.Override
@@ -98,6 +99,12 @@ private static final long serialVersionUID = 0L;
             java.lang.String s = input.readStringRequireUtf8();
 
             loginId_ = s;
+            break;
+          }
+          case 74: {
+            java.lang.String s = input.readStringRequireUtf8();
+
+            xUsersInfo_ = s;
             break;
           }
           default: {
@@ -453,6 +460,40 @@ private static final long serialVersionUID = 0L;
     }
   }
 
+  public static final int XUSERSINFO_FIELD_NUMBER = 9;
+  private volatile java.lang.Object xUsersInfo_;
+  /**
+   * <code>string xUsersInfo = 9;</code>
+   */
+  public java.lang.String getXUsersInfo() {
+    java.lang.Object ref = xUsersInfo_;
+    if (ref instanceof java.lang.String) {
+      return (java.lang.String) ref;
+    } else {
+      com.google.protobuf.ByteString bs = 
+          (com.google.protobuf.ByteString) ref;
+      java.lang.String s = bs.toStringUtf8();
+      xUsersInfo_ = s;
+      return s;
+    }
+  }
+  /**
+   * <code>string xUsersInfo = 9;</code>
+   */
+  public com.google.protobuf.ByteString
+      getXUsersInfoBytes() {
+    java.lang.Object ref = xUsersInfo_;
+    if (ref instanceof java.lang.String) {
+      com.google.protobuf.ByteString b = 
+          com.google.protobuf.ByteString.copyFromUtf8(
+              (java.lang.String) ref);
+      xUsersInfo_ = b;
+      return b;
+    } else {
+      return (com.google.protobuf.ByteString) ref;
+    }
+  }
+
   private byte memoizedIsInitialized = -1;
   @java.lang.Override
   public final boolean isInitialized() {
@@ -491,6 +532,9 @@ private static final long serialVersionUID = 0L;
     if (!getLoginIdBytes().isEmpty()) {
       com.google.protobuf.GeneratedMessageV3.writeString(output, 8, loginId_);
     }
+    if (!getXUsersInfoBytes().isEmpty()) {
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 9, xUsersInfo_);
+    }
     unknownFields.writeTo(output);
   }
 
@@ -527,6 +571,9 @@ private static final long serialVersionUID = 0L;
     if (!getLoginIdBytes().isEmpty()) {
       size += com.google.protobuf.GeneratedMessageV3.computeStringSize(8, loginId_);
     }
+    if (!getXUsersInfoBytes().isEmpty()) {
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(9, xUsersInfo_);
+    }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
     return size;
@@ -558,6 +605,8 @@ private static final long serialVersionUID = 0L;
         .equals(other.getPassword())) return false;
     if (!getLoginId()
         .equals(other.getLoginId())) return false;
+    if (!getXUsersInfo()
+        .equals(other.getXUsersInfo())) return false;
     if (!unknownFields.equals(other.unknownFields)) return false;
     return true;
   }
@@ -587,6 +636,8 @@ private static final long serialVersionUID = 0L;
     hash = (53 * hash) + getPassword().hashCode();
     hash = (37 * hash) + LOGINID_FIELD_NUMBER;
     hash = (53 * hash) + getLoginId().hashCode();
+    hash = (37 * hash) + XUSERSINFO_FIELD_NUMBER;
+    hash = (53 * hash) + getXUsersInfo().hashCode();
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -736,6 +787,8 @@ private static final long serialVersionUID = 0L;
 
       loginId_ = "";
 
+      xUsersInfo_ = "";
+
       return this;
     }
 
@@ -770,6 +823,7 @@ private static final long serialVersionUID = 0L;
       result.name_ = name_;
       result.password_ = password_;
       result.loginId_ = loginId_;
+      result.xUsersInfo_ = xUsersInfo_;
       onBuilt();
       return result;
     }
@@ -845,6 +899,10 @@ private static final long serialVersionUID = 0L;
       }
       if (!other.getLoginId().isEmpty()) {
         loginId_ = other.loginId_;
+        onChanged();
+      }
+      if (!other.getXUsersInfo().isEmpty()) {
+        xUsersInfo_ = other.xUsersInfo_;
         onChanged();
       }
       this.mergeUnknownFields(other.unknownFields);
@@ -1314,6 +1372,75 @@ private static final long serialVersionUID = 0L;
   checkByteStringIsUtf8(value);
       
       loginId_ = value;
+      onChanged();
+      return this;
+    }
+
+    private java.lang.Object xUsersInfo_ = "";
+    /**
+     * <code>string xUsersInfo = 9;</code>
+     */
+    public java.lang.String getXUsersInfo() {
+      java.lang.Object ref = xUsersInfo_;
+      if (!(ref instanceof java.lang.String)) {
+        com.google.protobuf.ByteString bs =
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        xUsersInfo_ = s;
+        return s;
+      } else {
+        return (java.lang.String) ref;
+      }
+    }
+    /**
+     * <code>string xUsersInfo = 9;</code>
+     */
+    public com.google.protobuf.ByteString
+        getXUsersInfoBytes() {
+      java.lang.Object ref = xUsersInfo_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        xUsersInfo_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    /**
+     * <code>string xUsersInfo = 9;</code>
+     */
+    public Builder setXUsersInfo(
+        java.lang.String value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  
+      xUsersInfo_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>string xUsersInfo = 9;</code>
+     */
+    public Builder clearXUsersInfo() {
+      
+      xUsersInfo_ = getDefaultInstance().getXUsersInfo();
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>string xUsersInfo = 9;</code>
+     */
+    public Builder setXUsersInfoBytes(
+        com.google.protobuf.ByteString value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+      
+      xUsersInfo_ = value;
       onChanged();
       return this;
     }

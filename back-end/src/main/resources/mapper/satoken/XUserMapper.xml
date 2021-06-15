@@ -19,9 +19,11 @@
 
 	<!-- 改 -->
 	<delete id="update">
-		update x_user set
-		`name` = #{name}
-		where `id` = #{id}
+		update `x_user` set
+		`name` = #{name},
+		`password` = #{password},
+		`pw` = #{pw}
+		where `id` = #{userId}
 	</delete>
 	
 	<!-- 自己改自己 -->
@@ -88,11 +90,14 @@
 		<if test=' this.has("roleId")  '>and `role_id` = #{roleId} </if>
 		order by 
 		<choose>
-			<when test='sort_type == 0'>`id` desc</when>
-			<when test='sort_type == 1'>`id` asc</when>
-			<when test='sort_type == 2'>`login_time` desc</when>
-			<when test='sort_type == 3'>`login_count` desc</when>
-		 	<otherwise>`id` desc</otherwise>
+			<when test='sort_type == 0'>`id` desc;</when>
+			<when test='sort_type == 1'>`id` asc;</when>
+			<when test='sort_type == 2'>`login_time` desc;</when>
+			<when test='sort_type == 3'>`login_count` desc;</when>
+		 	<otherwise>`id` desc;</otherwise>
 		 </choose>
+	</select>
+	<select id="getAll" resultMap="model">
+		<include refid="select_sql"></include>
 	</select>
 </mapper>

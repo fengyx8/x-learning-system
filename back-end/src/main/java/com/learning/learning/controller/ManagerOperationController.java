@@ -3,6 +3,9 @@ package com.learning.learning.controller;
 import cn.dev33.satoken.exception.NotLoginException;
 import cn.dev33.satoken.exception.NotRoleException;
 import cn.dev33.satoken.stp.StpUtil;
+import cn.hutool.poi.excel.ExcelReader;
+import cn.hutool.poi.excel.ExcelUtil;
+import com.google.gson.reflect.TypeToken;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.learning.learning.config.satoken.AuthConst;
@@ -25,8 +28,12 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author jbk-xiao
@@ -142,14 +149,63 @@ public class ManagerOperationController {
     }
 
     @ApiOperation(value = "管理员批量添加一般用户")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "xUsersTable", value = "初始化用户excel表，包括userId、name、password三列，"
+                                                            + "确保文件后缀为xls或xlsx",
+            dataType = "__file", paramType = "form")
+    })
     @PostMapping("/xUsers")
-    public AjaxJson postXUsers(HttpServletResponse httpServletResponse) {
+    public AjaxJson postXUsers(@RequestParam("xUsersTable") MultipartFile xUsersTable,
+                               HttpServletResponse httpServletResponse) {
+        String loginId;
+        try {
+            loginId = StpUtil.getLoginIdAsString();
+        } catch (NotLoginException nle) {
+            log.warn(nle.toString());
+            httpServletResponse.setStatus(AjaxJson.CODE_NOT_LOGIN);
+            return AjaxJson.getNotLogin();
+        }
+        if (!StpUtil.hasPermission(AuthConst.R1)) {
+            httpServletResponse.setStatus(AjaxJson.CODE_NOT_JUR);
+            return AjaxJson.getNotJur("不是管理员！");
+        }
+
+        String table = xUsersTable.getOriginalFilename();
+        log.info("Received table: {}" + table);
+        if (table == null || table.isEmpty() || (!table.endsWith("xls") && !table.endsWith("xlsx"))) {
+            httpServletResponse.setStatus(AjaxJson.CODE_INVALID_REQUEST);
+            return AjaxJson.get(AjaxJson.CODE_INVALID_REQUEST, "文件类型错误！");
+        }
+
+        ExcelReader excelReader;
+        try {
+            excelReader = ExcelUtil.getReader(xUsersTable.getInputStream());
+        } catch (IOException e) {
+            httpServletResponse.setStatus(AjaxJson.CODE_INVALID_REQUEST);
+            return AjaxJson.get(AjaxJson.CODE_INVALID_REQUEST, "请检查文件内容是否符合要求！");
+        }
+
+        List<Map<String, Object>> xUsers = excelReader.readAll();
+        if (xUsers.isEmpty() || !xUsers.get(0).containsKey("userId")
+            || !xUsers.get(0).containsKey("password") || !xUsers.get(0).containsKey("name")) {
+            httpServletResponse.setStatus(AjaxJson.CODE_INVALID_REQUEST);
+            return AjaxJson.get(AjaxJson.CODE_INVALID_REQUEST, "请检查文件内容是否符合要求！");
+        }
+
+        String xUsersInfo = gson.toJson(xUsers);
+        log.info("Received: {}", xUsersInfo);
         ManagerOperationResponse managerOperationResponse = this.managerOperationServiceBlockingStub.operateXUsers(
                 ManagerOperationRequest.newBuilder()
+                        .setXUsersInfo(xUsersInfo)
+                        .setLoginId(loginId)
                         .setOperation(ManagerOperationRequest.Operations.INSERT).build()
         );
-        //TODO 完成管理员批量添加用户逻辑
-        return AjaxJson.getSuccess();
+        boolean isCompleted = managerOperationResponse.getIsCompleted();
+        if (isCompleted) {
+            return AjaxJson.getSuccess();
+        } else {
+            return AjaxJson.getError();
+        }
     }
 
     @ApiOperation(value = "管理员删除单个用户")
@@ -178,30 +234,47 @@ public class ManagerOperationController {
         }
     }
 
-    @ApiOperation(value = "管理员批量删除用户")
+    @ApiOperation(value = "（空）管理员批量删除用户")
     @DeleteMapping("/xUsers")
     public AjaxJson deleteXUsers() {
-        //TODO 完成管理员批量删除用户逻辑
+        //TODO （考虑删除）完成管理员批量删除用户逻辑
         return AjaxJson.getSuccess();
     }
 
     @ApiOperation(value = "管理员更新单个用户信息")
-    @PutMapping("/xUser")
-    public AjaxJson putXUser(HttpServletResponse httpServletResponse) {
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "userId", value = "用户学号", required = true),
+            @ApiImplicitParam(name = "name", value = "用户姓名", required = true),
+            @ApiImplicitParam(name = "password", value = "用户初始密码", required = true)
+    })@PutMapping("/xUser")
+    public AjaxJson putXUser(@RequestParam("userId") String id, @RequestParam("name") String name,
+                             @RequestParam("password") String pw, HttpServletResponse httpServletResponse) {
         try {
             StpUtil.hasPermission(AuthConst.R1);
         } catch (NotRoleException notRoleException) {
             httpServletResponse.setStatus(AjaxJson.CODE_NOT_JUR);
             return AjaxJson.getNotJur("不是管理员。");
         }
-        //TODO 完成管理员更新单个用户信息逻辑
-        return AjaxJson.getSuccess();
+        ManagerOperationResponse managerOperationResponse = this.managerOperationServiceBlockingStub.operateXUser(
+                ManagerOperationRequest.newBuilder()
+                        .setOperation(ManagerOperationRequest.Operations.UPDATE)
+                        .setUserId(id)
+                        .setName(name)
+                        .setPassword(pw)
+                        .build()
+        );
+        boolean isCompleted = managerOperationResponse.getIsCompleted();
+        if (isCompleted) {
+            return AjaxJson.getSuccess();
+        } else {
+            return AjaxJson.getError();
+        }
     }
 
-    @ApiOperation(value = "管理员批量更新用户信息")
+    @ApiOperation(value = "（空）管理员批量更新用户信息")
     @PutMapping("/xUsers")
     public AjaxJson putXUsers() {
-        //TODO 完成管理员批量更新用户信息逻辑
+        //TODO （考虑删除）完成管理员批量更新用户信息逻辑
         return AjaxJson.getSuccess();
     }
 
@@ -228,8 +301,19 @@ public class ManagerOperationController {
 
     @ApiOperation(value = "管理员批量查询用户信息")
     @GetMapping("/xUsers")
-    public AjaxJson getXUsers() {
-        //TODO 完成管理员批量查询用户信息接口
-        return AjaxJson.getSuccess();
+    public AjaxJson getXUsers(HttpServletResponse httpServletResponse) {
+        try {
+            StpUtil.hasPermission(AuthConst.R1);
+        } catch (NotRoleException notRoleException) {
+            httpServletResponse.setStatus(AjaxJson.CODE_NOT_JUR);
+            return AjaxJson.getNotJur("不是管理员。");
+        }
+        ManagerOperationResponse managerOperationResponse = this.managerOperationServiceBlockingStub.operateXUsers(
+                ManagerOperationRequest.newBuilder()
+                        .setOperation(ManagerOperationRequest.Operations.SELECT)
+                        .build()
+        );
+        String xUserInfo = managerOperationResponse.getXUserInfo();
+        return AjaxJson.getSuccessData(gson.fromJson(xUserInfo, new TypeToken<List<XUser>>() {}.getType()));
     }
 }

@@ -29,10 +29,9 @@ public interface XUserMapper {
 
 	/**
 	 * 改 
-	 * @param obj
-	 * @return
 	 */
-	int update(XUser obj);
+//	int update(XUser obj);
+	int update(String userId, String name, String password, String pw);
 
 	/**
 	 * 查 
@@ -61,4 +60,10 @@ public interface XUserMapper {
 	 * @return
 	 */
 	XUser getByMail(String mail);
+
+	/**
+	 * 查询所有
+	 */
+	List<XUser> getAll();
+
 }

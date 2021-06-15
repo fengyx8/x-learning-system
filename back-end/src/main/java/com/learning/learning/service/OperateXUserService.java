@@ -49,7 +49,14 @@ public class OperateXUserService {
         return true;
     }
 
-    protected boolean updateXUser(ManagerOperationRequest request) {
+    protected boolean updateXUser(String userId, String name, String password) {
+        try {
+            String sPassword = SecureUtil.md5(config.getMd5Salt() + userId + password).toUpperCase();
+            xUserMapper.update(userId, name, sPassword, password);
+        } catch (Exception e) {
+            log.warn(e.toString());
+            return false;
+        }
         return true;
     }
 

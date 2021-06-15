@@ -17,6 +17,7 @@ message ManagerOperationRequest {
   string name = 6;
   string password = 7;
   string loginId = 8;
+  string xUsersInfo = 9;
 }
 
 message ManagerOperationResponse {

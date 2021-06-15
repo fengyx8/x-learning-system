@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.SQLException;
+import java.util.List;
 
 /**
  * @author jbk-xiao
@@ -30,11 +31,13 @@ public class ManagerOperationServiceImpl extends ManagerOperationServiceGrpc.Man
     private final CommentMapper commentMapper;
     private final UserMapper userMapper;
     private final OperateXUserService operateXUserService;
-    public ManagerOperationServiceImpl(NoteMapper noteMapper, CommentMapper commentMapper, UserMapper userMapper, OperateXUserService operateXUserService) {
+    private final OperateXUsersService operateXUsersService;
+    public ManagerOperationServiceImpl(NoteMapper noteMapper, CommentMapper commentMapper, UserMapper userMapper, OperateXUserService operateXUserService, OperateXUsersService operateXUsersService) {
         this.noteMapper = noteMapper;
         this.commentMapper = commentMapper;
         this.userMapper = userMapper;
         this.operateXUserService = operateXUserService;
+        this.operateXUsersService = operateXUsersService;
     }
 
     @Override
@@ -84,7 +87,8 @@ public class ManagerOperationServiceImpl extends ManagerOperationServiceGrpc.Man
                 isComplete = this.operateXUserService.deleteXUser(request.getUserId());
                 break;
             case UPDATE:
-                isComplete = this.operateXUserService.updateXUser(request);
+                isComplete = this.operateXUserService.updateXUser(request.getUserId(), request.getName(),
+                        request.getPassword());
                 break;
             case SELECT:
                 try {
@@ -103,6 +107,31 @@ public class ManagerOperationServiceImpl extends ManagerOperationServiceGrpc.Man
 
     @Override
     public void operateXUsers(ManagerOperationRequest request, StreamObserver<ManagerOperationResponse> responseObserver) {
-        super.operateXUsers(request, responseObserver);
+        ManagerOperationRequest.Operations operation = request.getOperation();
+        boolean isComplete = true;
+        List<XUser> xUsers = null;
+        switch (operation) {
+            case INSERT:
+                isComplete = this.operateXUsersService.insertXUsers(request.getXUsersInfo(), request.getLoginId());
+                break;
+            case DELETE:
+                isComplete = this.operateXUsersService.deleteXUsers(request.getUserId());
+                break;
+            case UPDATE:
+                isComplete = this.operateXUsersService.updateXUsers(request);
+                break;
+            case SELECT:
+                try {
+                    xUsers = this.operateXUsersService.selectXUsers();
+                } catch (Exception e) {
+                    isComplete = false;
+                }
+                break;
+            default:
+        }
+        responseObserver.onNext(ManagerOperationResponse.newBuilder()
+                .setIsCompleted(isComplete)
+                .setXUserInfo(gson.toJson(xUsers)).build());
+        responseObserver.onCompleted();
     }
 }

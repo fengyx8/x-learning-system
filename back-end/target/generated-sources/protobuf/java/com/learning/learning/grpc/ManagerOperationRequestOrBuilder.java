@@ -75,4 +75,14 @@ public interface ManagerOperationRequestOrBuilder extends
    */
   com.google.protobuf.ByteString
       getLoginIdBytes();
+
+  /**
+   * <code>string xUsersInfo = 9;</code>
+   */
+  java.lang.String getXUsersInfo();
+  /**
+   * <code>string xUsersInfo = 9;</code>
+   */
+  com.google.protobuf.ByteString
+      getXUsersInfoBytes();
 }
