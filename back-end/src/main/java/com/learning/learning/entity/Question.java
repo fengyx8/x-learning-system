@@ -15,6 +15,10 @@ public class Question {
     private String queId;
     private String problem;
     private String stdAns;
+    private String optionA;
+    private String optionB;
+    private String optionC;
+    private String optionD;
     private String analysis;
     private Double points;
     private Integer answererNumber;

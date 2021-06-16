@@ -35,11 +35,15 @@ public class SearchNews {
         log.info("Start searching news");
         //redis方法，传入一个(title,page)，返回list
         ListAndPage lp = redisDao.getIDListOnPage(keyword, type, year, Integer.parseInt(page));
+        if (lp == null){
+            return null;
+        }
         log.info("searchNewsByTitle result:" + lp.getList().toString());
         //mysql方法
         String jsonInfo = "";
         try {
-            jsonInfo += "{\"totalRecords\":"+lp.getPageNum()+",";
+            jsonInfo += "{\"totalPages\":"+lp.getPageNum()+",";
+            jsonInfo += "\"totalRecords\":"+lp.getTotal()+",";
             jsonInfo += "\"lists\":";
             if (lp.getList().size() == 0) {
                 return "";

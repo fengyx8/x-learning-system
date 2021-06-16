@@ -5,8 +5,8 @@
 	<!-- 增 [G] -->
 	<insert id="add">
 		insert into 
-		`question` (`queId`, `problem`, `stdAns`, `analysis`, `points`, `answererNumber`, `correctAnsNumber`) 
-		values (right(#{queId}, length(#{queId}) - 1), #{problem}, #{stdAns}, #{analysis}, #{points}, #{answererNumber}, #{correctAnsNumber})
+		`question` (`queId`, `problem`, `stdAns`, `optionA`, `optionB`, `optionC`, `optionD`, `analysis`, `points`, `answererNumber`, `correctAnsNumber`)
+		values (right(#{queId}, length(#{queId}) - 1), #{problem}, #{stdAns},  #{optionA},  #{optionB},  #{optionC},  #{optionD}, #{analysis}, #{points}, #{answererNumber}, #{correctAnsNumber})
 	</insert>
 
 	<!-- 删 -->
@@ -20,7 +20,11 @@
 		update `question` set
 		`queId` = right(#{queId}, length(#{queId}) - 1),
 		`problem` = #{problem}, 
-		`stdAns` = #{stdAns}, 
+		`stdAns` = #{stdAns},
+		`optionA` = #{optionA},
+		`optionB` = #{optionB},
+		`optionC` = #{optionC},
+		`optionD` = #{optionD},
 		`analysis` = #{analysis}, 
 		`points` = #{points}, 
 		`answererNumber` = #{answererNumber}, 
@@ -37,6 +41,10 @@
 		<result property="queId" column="queId" />
 		<result property="problem" column="problem" />
 		<result property="stdAns" column="stdAns" />
+		<result property="optionA" column="optionA" />
+		<result property="optionB" column="optionB" />
+		<result property="optionC" column="optionC" />
+		<result property="optionD" column="optionD" />
 		<result property="analysis" column="analysis" />
 		<result property="points" column="points" />
 		<result property="answererNumber" column="answererNumber" />
@@ -45,7 +53,7 @@
 	
 	<!-- 公共查询sql片段 -->
 	<sql id="select_sql">
-		select concat('q', `queId`) `queId`, `problem`, `stdAns`, `analysis`, `points`, `answererNumber`, `correctAnsNumber`
+		select concat('q', `queId`) `queId`, `problem`, `stdAns`, `optionA`, `optionB`, `optionC`, `optionD`, `analysis`, `points`, `answererNumber`, `correctAnsNumber`
 		from `question` 
 	</sql>
 	
@@ -62,6 +70,10 @@
 			<if test=' this.has("queId") '> and `queId` = right(#{queId}, length(#{queId}) - 1) </if>
 			<if test=' this.has("problem") '> and `problem` = #{problem} </if>
 			<if test=' this.has("stdAns") '> and `stdAns` = #{stdAns} </if>
+			<if test=' this.has("optionA") '> and `optionA` = #{optionA} </if>
+			<if test=' this.has("optionB") '> and `optionB` = #{optionB} </if>
+			<if test=' this.has("optionC") '> and `optionC` = #{optionC} </if>
+			<if test=' this.has("optionD") '> and `optionD` = #{optionD} </if>
 			<if test=' this.has("analysis") '> and `analysis` = #{analysis} </if>
 			<if test=' this.has("points") '> and `points` = #{points} </if>
 			<if test=' this.has("answererNumber") '> and `answererNumber` = #{answererNumber} </if>
@@ -72,10 +84,14 @@
 			<when test='sortType == 1'> `queId` desc </when>
 			<when test='sortType == 2'> `problem` desc </when>
 			<when test='sortType == 3'> `stdAns` desc </when>
-			<when test='sortType == 4'> `analysis` desc </when>
-			<when test='sortType == 5'> `points` desc </when>
-			<when test='sortType == 6'> `answererNumber` desc </when>
-			<when test='sortType == 7'> `correctAnsNumber` desc </when>
+			<when test='sortType == 4'> `optionA` desc </when>
+			<when test='sortType == 5'> `optionB` desc </when>
+			<when test='sortType == 6'> `optionC` desc </when>
+			<when test='sortType == 7'> `optionD` desc </when>
+			<when test='sortType == 8'> `analysis` desc </when>
+			<when test='sortType == 9'> `points` desc </when>
+			<when test='sortType == 10'> `answererNumber` desc </when>
+			<when test='sortType == 11'> `correctAnsNumber` desc </when>
 			<otherwise> `queId` desc </otherwise>
 		</choose>
 	</select>

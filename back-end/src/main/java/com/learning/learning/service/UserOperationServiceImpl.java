@@ -97,8 +97,10 @@ public class UserOperationServiceImpl extends UserOperationServiceGrpc.UserOpera
         try {
             question = questionMapper.getById(queId);
             analysis = question.getAnalysis();
+            question.setAnswererNumber(question.getAnswererNumber() + 1);
             if (ans.equals(question.getStdAns())) {
                 isCorrect = true;
+                question.setCorrectAnsNumber(question.getCorrectAnsNumber() + 1);
                 ansRecord = new AnsRecord(queId, userId, ans, true);
                 Double points = question.getPoints();
                 User user = userMapper.getUserInfoById(userId);
@@ -108,6 +110,7 @@ public class UserOperationServiceImpl extends UserOperationServiceGrpc.UserOpera
             else {
                 ansRecord = new AnsRecord(queId, userId, ans, false);
             }
+            questionMapper.update(question);
             ansRecordMapper.add(ansRecord);
         } catch (Exception e) {
             e.printStackTrace();
