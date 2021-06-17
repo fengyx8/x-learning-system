@@ -216,10 +216,10 @@ public class UserOperationController {
             httpServletResponse.setStatus(AjaxJson.CODE_NOT_LOGIN);
             return AjaxJson.getNotLogin();
         }
-        log.info("Get loginId: {}.", loginId);
+        log.info("Get loginId: {}, contentId: {}.", loginId, contentId);
         UserOperationResponse userOperationResponse = this.userOperationServiceBlockingStub.postLike(
                 UserOperationRequest.newBuilder()
-                        .setUserId(loginId).setContent(contentId)
+                        .setUserId(loginId).setContentId(contentId)
                         .build());
         boolean isUploaded = userOperationResponse.getIsUploaded();
         log.info("Response: {}, taking {} ms.", isUploaded, System.currentTimeMillis() - start);

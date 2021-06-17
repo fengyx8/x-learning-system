@@ -147,7 +147,10 @@ public class UserOperationServiceImpl extends UserOperationServiceGrpc.UserOpera
 
     @Override
     public void postLike(UserOperationRequest request, StreamObserver<UserOperationResponse> responseObserver) {
-        Like like = new Like(request.getUserId(), request.getContentId());
+        String userId = request.getUserId();
+        String contentId = request.getContentId();
+        log.info("Get userId: {}, contentId: {}.", userId, contentId);
+        Like like = new Like(userId, contentId);
         boolean status = true;
         try {
             likeMapper.add(like);

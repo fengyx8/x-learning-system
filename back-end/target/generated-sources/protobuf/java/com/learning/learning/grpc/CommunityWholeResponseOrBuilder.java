@@ -46,4 +46,14 @@ public interface CommunityWholeResponseOrBuilder extends
    */
   com.google.protobuf.ByteString
       getLikeListBytes();
+
+  /**
+   * <code>string commentList = 5;</code>
+   */
+  java.lang.String getCommentList();
+  /**
+   * <code>string commentList = 5;</code>
+   */
+  com.google.protobuf.ByteString
+      getCommentListBytes();
 }

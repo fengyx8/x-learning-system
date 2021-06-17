@@ -20,6 +20,7 @@ private static final long serialVersionUID = 0L;
     scoreBoard_ = "";
     question_ = "";
     likeList_ = "";
+    commentList_ = "";
   }
 
   @java.lang.Override
@@ -74,6 +75,12 @@ private static final long serialVersionUID = 0L;
             java.lang.String s = input.readStringRequireUtf8();
 
             likeList_ = s;
+            break;
+          }
+          case 42: {
+            java.lang.String s = input.readStringRequireUtf8();
+
+            commentList_ = s;
             break;
           }
           default: {
@@ -244,6 +251,40 @@ private static final long serialVersionUID = 0L;
     }
   }
 
+  public static final int COMMENTLIST_FIELD_NUMBER = 5;
+  private volatile java.lang.Object commentList_;
+  /**
+   * <code>string commentList = 5;</code>
+   */
+  public java.lang.String getCommentList() {
+    java.lang.Object ref = commentList_;
+    if (ref instanceof java.lang.String) {
+      return (java.lang.String) ref;
+    } else {
+      com.google.protobuf.ByteString bs = 
+          (com.google.protobuf.ByteString) ref;
+      java.lang.String s = bs.toStringUtf8();
+      commentList_ = s;
+      return s;
+    }
+  }
+  /**
+   * <code>string commentList = 5;</code>
+   */
+  public com.google.protobuf.ByteString
+      getCommentListBytes() {
+    java.lang.Object ref = commentList_;
+    if (ref instanceof java.lang.String) {
+      com.google.protobuf.ByteString b = 
+          com.google.protobuf.ByteString.copyFromUtf8(
+              (java.lang.String) ref);
+      commentList_ = b;
+      return b;
+    } else {
+      return (com.google.protobuf.ByteString) ref;
+    }
+  }
+
   private byte memoizedIsInitialized = -1;
   @java.lang.Override
   public final boolean isInitialized() {
@@ -270,6 +311,9 @@ private static final long serialVersionUID = 0L;
     if (!getLikeListBytes().isEmpty()) {
       com.google.protobuf.GeneratedMessageV3.writeString(output, 4, likeList_);
     }
+    if (!getCommentListBytes().isEmpty()) {
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 5, commentList_);
+    }
     unknownFields.writeTo(output);
   }
 
@@ -290,6 +334,9 @@ private static final long serialVersionUID = 0L;
     }
     if (!getLikeListBytes().isEmpty()) {
       size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, likeList_);
+    }
+    if (!getCommentListBytes().isEmpty()) {
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(5, commentList_);
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -314,6 +361,8 @@ private static final long serialVersionUID = 0L;
         .equals(other.getQuestion())) return false;
     if (!getLikeList()
         .equals(other.getLikeList())) return false;
+    if (!getCommentList()
+        .equals(other.getCommentList())) return false;
     if (!unknownFields.equals(other.unknownFields)) return false;
     return true;
   }
@@ -333,6 +382,8 @@ private static final long serialVersionUID = 0L;
     hash = (53 * hash) + getQuestion().hashCode();
     hash = (37 * hash) + LIKELIST_FIELD_NUMBER;
     hash = (53 * hash) + getLikeList().hashCode();
+    hash = (37 * hash) + COMMENTLIST_FIELD_NUMBER;
+    hash = (53 * hash) + getCommentList().hashCode();
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -474,6 +525,8 @@ private static final long serialVersionUID = 0L;
 
       likeList_ = "";
 
+      commentList_ = "";
+
       return this;
     }
 
@@ -504,6 +557,7 @@ private static final long serialVersionUID = 0L;
       result.scoreBoard_ = scoreBoard_;
       result.question_ = question_;
       result.likeList_ = likeList_;
+      result.commentList_ = commentList_;
       onBuilt();
       return result;
     }
@@ -566,6 +620,10 @@ private static final long serialVersionUID = 0L;
       }
       if (!other.getLikeList().isEmpty()) {
         likeList_ = other.likeList_;
+        onChanged();
+      }
+      if (!other.getCommentList().isEmpty()) {
+        commentList_ = other.commentList_;
         onChanged();
       }
       this.mergeUnknownFields(other.unknownFields);
@@ -869,6 +927,75 @@ private static final long serialVersionUID = 0L;
   checkByteStringIsUtf8(value);
       
       likeList_ = value;
+      onChanged();
+      return this;
+    }
+
+    private java.lang.Object commentList_ = "";
+    /**
+     * <code>string commentList = 5;</code>
+     */
+    public java.lang.String getCommentList() {
+      java.lang.Object ref = commentList_;
+      if (!(ref instanceof java.lang.String)) {
+        com.google.protobuf.ByteString bs =
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        commentList_ = s;
+        return s;
+      } else {
+        return (java.lang.String) ref;
+      }
+    }
+    /**
+     * <code>string commentList = 5;</code>
+     */
+    public com.google.protobuf.ByteString
+        getCommentListBytes() {
+      java.lang.Object ref = commentList_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        commentList_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    /**
+     * <code>string commentList = 5;</code>
+     */
+    public Builder setCommentList(
+        java.lang.String value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  
+      commentList_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>string commentList = 5;</code>
+     */
+    public Builder clearCommentList() {
+      
+      commentList_ = getDefaultInstance().getCommentList();
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>string commentList = 5;</code>
+     */
+    public Builder setCommentListBytes(
+        com.google.protobuf.ByteString value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+      
+      commentList_ = value;
       onChanged();
       return this;
     }

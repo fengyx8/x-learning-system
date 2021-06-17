@@ -65,4 +65,6 @@ public interface CommentMapper {
     List<Comment> getAllList();
 
     String getUserId(String commentId);
+
+    List<Comment> getCommentListByNoteId(String noteId);
 }

@@ -107,4 +107,10 @@
 			`commentId` = right(#{commentId}, length(#{commentId}) - 1)
 		</where>
 	</select>
+	<select id="getCommentListByNoteId" resultMap="model">
+		<include refid="select_sql"></include>
+		<where>
+			`noteId` = right(#{noteId}, length(#{noteId}) - 1)
+		</where>
+	</select>
 </mapper>

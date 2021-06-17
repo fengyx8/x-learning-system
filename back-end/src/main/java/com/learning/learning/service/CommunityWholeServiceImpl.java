@@ -2,12 +2,14 @@ package com.learning.learning.service;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.learning.learning.entity.Comment;
 import com.learning.learning.entity.Note;
 import com.learning.learning.entity.Question;
 import com.learning.learning.entity.User;
 import com.learning.learning.grpc.CommunityWholeRequest;
 import com.learning.learning.grpc.CommunityWholeResponse;
 import com.learning.learning.grpc.CommunityWholeServiceGrpc;
+import com.learning.learning.mapper.CommentMapper;
 import com.learning.learning.mapper.LikeMapper;
 import com.learning.learning.mapper.NoteMapper;
 import com.learning.learning.mapper.QuestionMapper;
@@ -33,11 +35,13 @@ public class CommunityWholeServiceImpl extends CommunityWholeServiceGrpc.Communi
     private final UserMapper userMapper;
     private final QuestionMapper questionMapper;
     private final LikeMapper likeMapper;
-    public CommunityWholeServiceImpl(NoteMapper noteMapper, UserMapper userMapper, QuestionMapper questionMapper, LikeMapper likeMapper) {
+    private final CommentMapper commentMapper;
+    public CommunityWholeServiceImpl(NoteMapper noteMapper, UserMapper userMapper, QuestionMapper questionMapper, LikeMapper likeMapper, CommentMapper commentMapper) {
         this.noteMapper = noteMapper;
         this.userMapper = userMapper;
         this.questionMapper = questionMapper;
         this.likeMapper = likeMapper;
+        this.commentMapper = commentMapper;
     }
 
     @Override
@@ -46,6 +50,16 @@ public class CommunityWholeServiceImpl extends CommunityWholeServiceGrpc.Communi
         String noteListStr = gson.toJson(noteList);
         log.info("Get noteList: {}." + noteListStr);
         responseObserver.onNext(CommunityWholeResponse.newBuilder().setNoteList(noteListStr).build());
+        responseObserver.onCompleted();
+    }
+
+    @Override
+    public void getCommentList(CommunityWholeRequest request, StreamObserver<CommunityWholeResponse> responseObserver) {
+        String noteId = request.getContentId();
+        List<Comment> commentList = commentMapper.getCommentListByNoteId(noteId);
+        String commentListStr = gson.toJson(commentList);
+        log.info("Get commentList: {}", commentListStr);
+        responseObserver.onNext(CommunityWholeResponse.newBuilder().setCommentList(commentListStr).build());
         responseObserver.onCompleted();
     }
 

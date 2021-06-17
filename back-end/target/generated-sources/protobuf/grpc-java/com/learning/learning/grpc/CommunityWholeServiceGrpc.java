@@ -59,6 +59,37 @@ public final class CommunityWholeServiceGrpc {
   }
 
   private static volatile io.grpc.MethodDescriptor<com.learning.learning.grpc.CommunityWholeRequest,
+      com.learning.learning.grpc.CommunityWholeResponse> getGetCommentListMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "getCommentList",
+      requestType = com.learning.learning.grpc.CommunityWholeRequest.class,
+      responseType = com.learning.learning.grpc.CommunityWholeResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<com.learning.learning.grpc.CommunityWholeRequest,
+      com.learning.learning.grpc.CommunityWholeResponse> getGetCommentListMethod() {
+    io.grpc.MethodDescriptor<com.learning.learning.grpc.CommunityWholeRequest, com.learning.learning.grpc.CommunityWholeResponse> getGetCommentListMethod;
+    if ((getGetCommentListMethod = CommunityWholeServiceGrpc.getGetCommentListMethod) == null) {
+      synchronized (CommunityWholeServiceGrpc.class) {
+        if ((getGetCommentListMethod = CommunityWholeServiceGrpc.getGetCommentListMethod) == null) {
+          CommunityWholeServiceGrpc.getGetCommentListMethod = getGetCommentListMethod =
+              io.grpc.MethodDescriptor.<com.learning.learning.grpc.CommunityWholeRequest, com.learning.learning.grpc.CommunityWholeResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "getCommentList"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.learning.learning.grpc.CommunityWholeRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.learning.learning.grpc.CommunityWholeResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new CommunityWholeServiceMethodDescriptorSupplier("getCommentList"))
+              .build();
+        }
+      }
+    }
+    return getGetCommentListMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<com.learning.learning.grpc.CommunityWholeRequest,
       com.learning.learning.grpc.CommunityWholeResponse> getGetScoreBoardMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
@@ -187,6 +218,13 @@ public final class CommunityWholeServiceGrpc {
 
     /**
      */
+    public void getCommentList(com.learning.learning.grpc.CommunityWholeRequest request,
+        io.grpc.stub.StreamObserver<com.learning.learning.grpc.CommunityWholeResponse> responseObserver) {
+      asyncUnimplementedUnaryCall(getGetCommentListMethod(), responseObserver);
+    }
+
+    /**
+     */
     public void getScoreBoard(com.learning.learning.grpc.CommunityWholeRequest request,
         io.grpc.stub.StreamObserver<com.learning.learning.grpc.CommunityWholeResponse> responseObserver) {
       asyncUnimplementedUnaryCall(getGetScoreBoardMethod(), responseObserver);
@@ -215,6 +253,13 @@ public final class CommunityWholeServiceGrpc {
                 com.learning.learning.grpc.CommunityWholeRequest,
                 com.learning.learning.grpc.CommunityWholeResponse>(
                   this, METHODID_GET_NOTE_LIST)))
+          .addMethod(
+            getGetCommentListMethod(),
+            asyncUnaryCall(
+              new MethodHandlers<
+                com.learning.learning.grpc.CommunityWholeRequest,
+                com.learning.learning.grpc.CommunityWholeResponse>(
+                  this, METHODID_GET_COMMENT_LIST)))
           .addMethod(
             getGetScoreBoardMethod(),
             asyncUnaryCall(
@@ -264,6 +309,14 @@ public final class CommunityWholeServiceGrpc {
         io.grpc.stub.StreamObserver<com.learning.learning.grpc.CommunityWholeResponse> responseObserver) {
       asyncUnaryCall(
           getChannel().newCall(getGetNoteListMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     */
+    public void getCommentList(com.learning.learning.grpc.CommunityWholeRequest request,
+        io.grpc.stub.StreamObserver<com.learning.learning.grpc.CommunityWholeResponse> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(getGetCommentListMethod(), getCallOptions()), request, responseObserver);
     }
 
     /**
@@ -318,6 +371,13 @@ public final class CommunityWholeServiceGrpc {
 
     /**
      */
+    public com.learning.learning.grpc.CommunityWholeResponse getCommentList(com.learning.learning.grpc.CommunityWholeRequest request) {
+      return blockingUnaryCall(
+          getChannel(), getGetCommentListMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
     public com.learning.learning.grpc.CommunityWholeResponse getScoreBoard(com.learning.learning.grpc.CommunityWholeRequest request) {
       return blockingUnaryCall(
           getChannel(), getGetScoreBoardMethod(), getCallOptions(), request);
@@ -366,6 +426,14 @@ public final class CommunityWholeServiceGrpc {
 
     /**
      */
+    public com.google.common.util.concurrent.ListenableFuture<com.learning.learning.grpc.CommunityWholeResponse> getCommentList(
+        com.learning.learning.grpc.CommunityWholeRequest request) {
+      return futureUnaryCall(
+          getChannel().newCall(getGetCommentListMethod(), getCallOptions()), request);
+    }
+
+    /**
+     */
     public com.google.common.util.concurrent.ListenableFuture<com.learning.learning.grpc.CommunityWholeResponse> getScoreBoard(
         com.learning.learning.grpc.CommunityWholeRequest request) {
       return futureUnaryCall(
@@ -390,9 +458,10 @@ public final class CommunityWholeServiceGrpc {
   }
 
   private static final int METHODID_GET_NOTE_LIST = 0;
-  private static final int METHODID_GET_SCORE_BOARD = 1;
-  private static final int METHODID_GET_QUESTION = 2;
-  private static final int METHODID_GET_LIKE_LIST = 3;
+  private static final int METHODID_GET_COMMENT_LIST = 1;
+  private static final int METHODID_GET_SCORE_BOARD = 2;
+  private static final int METHODID_GET_QUESTION = 3;
+  private static final int METHODID_GET_LIKE_LIST = 4;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -413,6 +482,10 @@ public final class CommunityWholeServiceGrpc {
       switch (methodId) {
         case METHODID_GET_NOTE_LIST:
           serviceImpl.getNoteList((com.learning.learning.grpc.CommunityWholeRequest) request,
+              (io.grpc.stub.StreamObserver<com.learning.learning.grpc.CommunityWholeResponse>) responseObserver);
+          break;
+        case METHODID_GET_COMMENT_LIST:
+          serviceImpl.getCommentList((com.learning.learning.grpc.CommunityWholeRequest) request,
               (io.grpc.stub.StreamObserver<com.learning.learning.grpc.CommunityWholeResponse>) responseObserver);
           break;
         case METHODID_GET_SCORE_BOARD:
@@ -489,6 +562,7 @@ public final class CommunityWholeServiceGrpc {
           serviceDescriptor = result = io.grpc.ServiceDescriptor.newBuilder(SERVICE_NAME)
               .setSchemaDescriptor(new CommunityWholeServiceFileDescriptorSupplier())
               .addMethod(getGetNoteListMethod())
+              .addMethod(getGetCommentListMethod())
               .addMethod(getGetScoreBoardMethod())
               .addMethod(getGetQuestionMethod())
               .addMethod(getGetLikeListMethod())

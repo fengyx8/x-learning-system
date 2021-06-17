@@ -12,10 +12,12 @@ message CommunityWholeResponse {
   string scoreBoard = 2;
   string question = 3;
   string likeList = 4;
+  string commentList = 5;
 }
 
 service CommunityWholeService {
   rpc getNoteList(CommunityWholeRequest) returns (CommunityWholeResponse);
+  rpc getCommentList(CommunityWholeRequest) returns (CommunityWholeResponse);
   rpc getScoreBoard(CommunityWholeRequest) returns (CommunityWholeResponse);
   rpc getQuestion(CommunityWholeRequest) returns (CommunityWholeResponse);
   rpc getLikeList(CommunityWholeRequest) returns (CommunityWholeResponse);

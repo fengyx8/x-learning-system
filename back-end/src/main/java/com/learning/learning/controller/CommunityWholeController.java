@@ -5,6 +5,7 @@ import cn.dev33.satoken.stp.StpUtil;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import com.learning.learning.entity.Comment;
 import com.learning.learning.entity.Note;
 import com.learning.learning.entity.Question;
 import com.learning.learning.entity.User;
@@ -60,7 +61,26 @@ public class CommunityWholeController {
         log.info("Response: {}, taking {}", noteList, System.currentTimeMillis() - start);
         return AjaxJson.getSuccessData(gson.fromJson(noteList, new TypeToken<List<Note>>() {}.getType()));
     }
-
+    @ApiOperation(value = "通过noteId查找心得所对应的评论列表")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "noteId", value = "心得Id", required = true, paramType = "path")
+    })
+    @GetMapping("/commentList/{noteId}")
+    public AjaxJson getCommentList(@PathVariable("noteId") String noteId, HttpServletResponse httpServletResponse) {
+        long start = System.currentTimeMillis();
+        try {
+            StpUtil.checkLogin();
+        } catch (NotLoginException notLoginException) {
+            httpServletResponse.setStatus(AjaxJson.CODE_NOT_LOGIN);
+            return AjaxJson.getNotLogin();
+        }
+        CommunityWholeResponse communityWholeResponse = this.communityWholeServiceBlockingStub.getCommentList(
+                CommunityWholeRequest.newBuilder().setContentId(noteId).build()
+        );
+        String commentList = communityWholeResponse.getCommentList();
+        log.info("Get commentList of {}, return: {}", noteId, commentList);
+        return AjaxJson.getSuccessData(gson.fromJson(commentList, new TypeToken<List<Comment>>() {}.getType()));
+    }
     @ApiOperation(value = "查询社群中所有用户的积分，返回积分列表")
     @GetMapping("/scoreBoard")
     public AjaxJson getScoreBoard(HttpServletResponse httpServletResponse) {

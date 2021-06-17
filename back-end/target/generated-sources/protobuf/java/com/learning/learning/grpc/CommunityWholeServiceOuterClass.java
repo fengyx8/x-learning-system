@@ -35,23 +35,26 @@ public final class CommunityWholeServiceOuterClass {
     java.lang.String[] descriptorData = {
       "\n\033CommunityWholeService.proto\022\032com.learn" +
       "ing.learning.grpc\"9\n\025CommunityWholeReque" +
-      "st\022\r\n\005queId\030\001 \001(\t\022\021\n\tcontentId\030\002 \001(\t\"b\n\026" +
+      "st\022\r\n\005queId\030\001 \001(\t\022\021\n\tcontentId\030\002 \001(\t\"w\n\026" +
       "CommunityWholeResponse\022\020\n\010noteList\030\001 \001(\t" +
       "\022\022\n\nscoreBoard\030\002 \001(\t\022\020\n\010question\030\003 \001(\t\022\020" +
-      "\n\010likeList\030\004 \001(\t2\361\003\n\025CommunityWholeServi" +
-      "ce\022t\n\013getNoteList\0221.com.learning.learnin" +
-      "g.grpc.CommunityWholeRequest\0322.com.learn" +
-      "ing.learning.grpc.CommunityWholeResponse" +
-      "\022v\n\rgetScoreBoard\0221.com.learning.learnin" +
-      "g.grpc.CommunityWholeRequest\0322.com.learn" +
-      "ing.learning.grpc.CommunityWholeResponse" +
-      "\022t\n\013getQuestion\0221.com.learning.learning." +
-      "grpc.CommunityWholeRequest\0322.com.learnin" +
-      "g.learning.grpc.CommunityWholeResponse\022t" +
-      "\n\013getLikeList\0221.com.learning.learning.gr" +
-      "pc.CommunityWholeRequest\0322.com.learning." +
-      "learning.grpc.CommunityWholeResponseB\002P\001" +
-      "b\006proto3"
+      "\n\010likeList\030\004 \001(\t\022\023\n\013commentList\030\005 \001(\t2\352\004" +
+      "\n\025CommunityWholeService\022t\n\013getNoteList\0221" +
+      ".com.learning.learning.grpc.CommunityWho" +
+      "leRequest\0322.com.learning.learning.grpc.C" +
+      "ommunityWholeResponse\022w\n\016getCommentList\022" +
+      "1.com.learning.learning.grpc.CommunityWh" +
+      "oleRequest\0322.com.learning.learning.grpc." +
+      "CommunityWholeResponse\022v\n\rgetScoreBoard\022" +
+      "1.com.learning.learning.grpc.CommunityWh" +
+      "oleRequest\0322.com.learning.learning.grpc." +
+      "CommunityWholeResponse\022t\n\013getQuestion\0221." +
+      "com.learning.learning.grpc.CommunityWhol" +
+      "eRequest\0322.com.learning.learning.grpc.Co" +
+      "mmunityWholeResponse\022t\n\013getLikeList\0221.co" +
+      "m.learning.learning.grpc.CommunityWholeR" +
+      "equest\0322.com.learning.learning.grpc.Comm" +
+      "unityWholeResponseB\002P\001b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -68,7 +71,7 @@ public final class CommunityWholeServiceOuterClass {
     internal_static_com_learning_learning_grpc_CommunityWholeResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_com_learning_learning_grpc_CommunityWholeResponse_descriptor,
-        new java.lang.String[] { "NoteList", "ScoreBoard", "Question", "LikeList", });
+        new java.lang.String[] { "NoteList", "ScoreBoard", "Question", "LikeList", "CommentList", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)
