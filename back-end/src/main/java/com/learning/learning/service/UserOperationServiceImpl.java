@@ -1,9 +1,11 @@
 package com.learning.learning.service;
 
+import com.learning.learning.config.SystemObject;
 import com.learning.learning.entity.AnsRecord;
 import com.learning.learning.entity.Like;
 import com.learning.learning.entity.Question;
 import com.learning.learning.entity.User;
+import com.learning.learning.entity.satoken.XUser;
 import com.learning.learning.grpc.UserOperationRequest;
 import com.learning.learning.grpc.UserOperationResponse;
 import com.learning.learning.grpc.UserOperationServiceGrpc;
@@ -13,6 +15,7 @@ import com.learning.learning.mapper.LikeMapper;
 import com.learning.learning.mapper.NoteMapper;
 import com.learning.learning.mapper.QuestionMapper;
 import com.learning.learning.mapper.UserMapper;
+import com.learning.learning.mapper.satoken.XUserMapper;
 import io.grpc.stub.StreamObserver;
 import lombok.extern.slf4j.Slf4j;
 import org.lognet.springboot.grpc.GRpcService;
@@ -33,13 +36,84 @@ public class UserOperationServiceImpl extends UserOperationServiceGrpc.UserOpera
     private final UserMapper userMapper;
     private final AnsRecordMapper ansRecordMapper;
     private final QuestionMapper questionMapper;
-    public UserOperationServiceImpl(NoteMapper noteMapper, CommentMapper commentMapper, LikeMapper likeMapper, UserMapper userMapper, AnsRecordMapper ansRecordMapper, QuestionMapper questionMapper) {
+    private final XUserMapper xUserMapper;
+    public UserOperationServiceImpl(NoteMapper noteMapper, CommentMapper commentMapper, LikeMapper likeMapper, UserMapper userMapper, AnsRecordMapper ansRecordMapper, QuestionMapper questionMapper, XUserMapper xUserMapper) {
         this.noteMapper = noteMapper;
         this.commentMapper = commentMapper;
         this.likeMapper = likeMapper;
         this.userMapper = userMapper;
         this.ansRecordMapper = ansRecordMapper;
         this.questionMapper = questionMapper;
+        this.xUserMapper = xUserMapper;
+    }
+
+    @Override
+    public void activeAccount(UserOperationRequest request, StreamObserver<UserOperationResponse> responseObserver) {
+        String userId = request.getUserId();
+        String name = request.getName();
+        String secureQue = request.getSecureQue();
+        String secureAns = request.getSecureAns();
+        String password = request.getPassword();
+        String mail = request.getMail();
+        String sPassword = SystemObject.getPasswordMd5(userId, password);
+        boolean isUploaded = true;
+        try {
+            xUserMapper.updatePassword(userId, sPassword, password);
+            User user = new User(userId, name, secureQue, secureAns, mail, "信息管理学院", .0);
+            userMapper.add(user);
+        } catch (Exception e) {
+            log.error(e.toString());
+            isUploaded = false;
+        }
+        responseObserver.onNext(UserOperationResponse.newBuilder().setIsUploaded(isUploaded).build());
+        responseObserver.onCompleted();
+    }
+
+    @Override
+    public void changePassword(UserOperationRequest request, StreamObserver<UserOperationResponse> responseObserver) {
+        String userId = request.getUserId();
+        String password = request.getPassword();
+        String newPassword = request.getNewPassword();
+        boolean isUploaded = true, isCorrect = true;
+        XUser xUser = xUserMapper.getById(userId);
+//        if (newPassword.equals(xUser.getPassword2())) {
+            String sPassword = SystemObject.getPasswordMd5(userId, newPassword);
+            try {
+                xUserMapper.updatePassword(userId, sPassword, newPassword);
+            } catch (Exception e) {
+                isUploaded = false;
+            }
+//        } else {
+//            isCorrect = false;
+//            isUploaded = false;
+//        }
+        log.info("isCorrect? {}, isUploaded? {}.", isCorrect, isUploaded);
+        responseObserver.onNext(UserOperationResponse.newBuilder()
+                .setIsCorrect(isCorrect).setIsUploaded(isUploaded).build());
+        responseObserver.onCompleted();
+    }
+
+    @Override
+    public void forgetPassword(UserOperationRequest request, StreamObserver<UserOperationResponse> responseObserver) {
+        String userId = request.getUserId();
+        String secureQue = request.getSecureQue();
+        String secureAns = request.getSecureAns();
+        String password = request.getPassword();
+        boolean isUploaded = true;
+        try {
+            User user = userMapper.getUserInfoById(userId);
+            if (secureQue.equals(user.getSecureQue()) && secureAns.equals(user.getSecureAns())) {
+                String sPassword = SystemObject.getPasswordMd5(userId, password);
+                xUserMapper.updatePassword(userId, sPassword, password);
+            } else {
+                isUploaded = false;
+            }
+        } catch (Exception e) {
+            isUploaded = false;
+        }
+        log.warn("{} reset password: {}", userId, password);
+        responseObserver.onNext(UserOperationResponse.newBuilder().setIsUploaded(isUploaded).build());
+        responseObserver.onCompleted();
     }
 
     @Override

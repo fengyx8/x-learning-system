@@ -76,4 +76,64 @@ public interface UserOperationRequestOrBuilder extends
    */
   com.google.protobuf.ByteString
       getContentIdBytes();
+
+  /**
+   * <code>string name = 8;</code>
+   */
+  java.lang.String getName();
+  /**
+   * <code>string name = 8;</code>
+   */
+  com.google.protobuf.ByteString
+      getNameBytes();
+
+  /**
+   * <code>string secureQue = 9;</code>
+   */
+  java.lang.String getSecureQue();
+  /**
+   * <code>string secureQue = 9;</code>
+   */
+  com.google.protobuf.ByteString
+      getSecureQueBytes();
+
+  /**
+   * <code>string secureAns = 10;</code>
+   */
+  java.lang.String getSecureAns();
+  /**
+   * <code>string secureAns = 10;</code>
+   */
+  com.google.protobuf.ByteString
+      getSecureAnsBytes();
+
+  /**
+   * <code>string password = 11;</code>
+   */
+  java.lang.String getPassword();
+  /**
+   * <code>string password = 11;</code>
+   */
+  com.google.protobuf.ByteString
+      getPasswordBytes();
+
+  /**
+   * <code>string mail = 12;</code>
+   */
+  java.lang.String getMail();
+  /**
+   * <code>string mail = 12;</code>
+   */
+  com.google.protobuf.ByteString
+      getMailBytes();
+
+  /**
+   * <code>string newPassword = 13;</code>
+   */
+  java.lang.String getNewPassword();
+  /**
+   * <code>string newPassword = 13;</code>
+   */
+  com.google.protobuf.ByteString
+      getNewPasswordBytes();
 }

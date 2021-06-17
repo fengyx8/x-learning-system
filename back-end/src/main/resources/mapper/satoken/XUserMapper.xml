@@ -18,14 +18,19 @@
 
 
 	<!-- 改 -->
-	<delete id="update">
+	<update id="update">
 		update `x_user` set
 		`name` = #{name},
 		`password` = #{password},
 		`pw` = #{pw}
 		where `id` = #{userId}
-	</delete>
-	
+	</update>
+	<update id="updatePassword">
+		update `x_user` set
+		`password` = #{password},
+		`pw` = #{pw}
+		where `id` = #{userId}
+	</update>
 	<!-- 自己改自己 -->
 	<!-- <delete id="updateBy">
 		update `x_user` set

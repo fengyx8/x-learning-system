@@ -32,7 +32,7 @@ public interface XUserMapper {
 	 */
 //	int update(XUser obj);
 	int update(String userId, String name, String password, String pw);
-
+	int updatePassword(String userId, String password, String pw);
 	/**
 	 * 查 
 	 * @param id 用户ID

@@ -10,6 +10,12 @@ message UserOperationRequest {
   string ans = 5;
   string queId = 6;
   string contentId = 7;
+  string name = 8;
+  string secureQue = 9;
+  string secureAns = 10;
+  string password = 11;
+  string mail = 12;
+  string newPassword = 13;
 }
 
 message UserOperationResponse {
@@ -18,6 +24,9 @@ message UserOperationResponse {
   string analysis = 3;
 }
 service UserOperationService {
+  rpc activeAccount(UserOperationRequest) returns (UserOperationResponse);
+  rpc changePassword(UserOperationRequest) returns (UserOperationResponse);
+  rpc forgetPassword(UserOperationRequest) returns (UserOperationResponse);
   rpc postNote(UserOperationRequest) returns (UserOperationResponse);
   rpc postComment(UserOperationRequest) returns (UserOperationResponse);
   rpc postLike(UserOperationRequest) returns (UserOperationResponse);

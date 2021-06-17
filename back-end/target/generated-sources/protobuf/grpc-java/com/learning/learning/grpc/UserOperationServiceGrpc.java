@@ -28,6 +28,99 @@ public final class UserOperationServiceGrpc {
 
   // Static method descriptors that strictly reflect the proto.
   private static volatile io.grpc.MethodDescriptor<com.learning.learning.grpc.UserOperationRequest,
+      com.learning.learning.grpc.UserOperationResponse> getActiveAccountMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "activeAccount",
+      requestType = com.learning.learning.grpc.UserOperationRequest.class,
+      responseType = com.learning.learning.grpc.UserOperationResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<com.learning.learning.grpc.UserOperationRequest,
+      com.learning.learning.grpc.UserOperationResponse> getActiveAccountMethod() {
+    io.grpc.MethodDescriptor<com.learning.learning.grpc.UserOperationRequest, com.learning.learning.grpc.UserOperationResponse> getActiveAccountMethod;
+    if ((getActiveAccountMethod = UserOperationServiceGrpc.getActiveAccountMethod) == null) {
+      synchronized (UserOperationServiceGrpc.class) {
+        if ((getActiveAccountMethod = UserOperationServiceGrpc.getActiveAccountMethod) == null) {
+          UserOperationServiceGrpc.getActiveAccountMethod = getActiveAccountMethod =
+              io.grpc.MethodDescriptor.<com.learning.learning.grpc.UserOperationRequest, com.learning.learning.grpc.UserOperationResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "activeAccount"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.learning.learning.grpc.UserOperationRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.learning.learning.grpc.UserOperationResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new UserOperationServiceMethodDescriptorSupplier("activeAccount"))
+              .build();
+        }
+      }
+    }
+    return getActiveAccountMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<com.learning.learning.grpc.UserOperationRequest,
+      com.learning.learning.grpc.UserOperationResponse> getChangePasswordMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "changePassword",
+      requestType = com.learning.learning.grpc.UserOperationRequest.class,
+      responseType = com.learning.learning.grpc.UserOperationResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<com.learning.learning.grpc.UserOperationRequest,
+      com.learning.learning.grpc.UserOperationResponse> getChangePasswordMethod() {
+    io.grpc.MethodDescriptor<com.learning.learning.grpc.UserOperationRequest, com.learning.learning.grpc.UserOperationResponse> getChangePasswordMethod;
+    if ((getChangePasswordMethod = UserOperationServiceGrpc.getChangePasswordMethod) == null) {
+      synchronized (UserOperationServiceGrpc.class) {
+        if ((getChangePasswordMethod = UserOperationServiceGrpc.getChangePasswordMethod) == null) {
+          UserOperationServiceGrpc.getChangePasswordMethod = getChangePasswordMethod =
+              io.grpc.MethodDescriptor.<com.learning.learning.grpc.UserOperationRequest, com.learning.learning.grpc.UserOperationResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "changePassword"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.learning.learning.grpc.UserOperationRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.learning.learning.grpc.UserOperationResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new UserOperationServiceMethodDescriptorSupplier("changePassword"))
+              .build();
+        }
+      }
+    }
+    return getChangePasswordMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<com.learning.learning.grpc.UserOperationRequest,
+      com.learning.learning.grpc.UserOperationResponse> getForgetPasswordMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "forgetPassword",
+      requestType = com.learning.learning.grpc.UserOperationRequest.class,
+      responseType = com.learning.learning.grpc.UserOperationResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<com.learning.learning.grpc.UserOperationRequest,
+      com.learning.learning.grpc.UserOperationResponse> getForgetPasswordMethod() {
+    io.grpc.MethodDescriptor<com.learning.learning.grpc.UserOperationRequest, com.learning.learning.grpc.UserOperationResponse> getForgetPasswordMethod;
+    if ((getForgetPasswordMethod = UserOperationServiceGrpc.getForgetPasswordMethod) == null) {
+      synchronized (UserOperationServiceGrpc.class) {
+        if ((getForgetPasswordMethod = UserOperationServiceGrpc.getForgetPasswordMethod) == null) {
+          UserOperationServiceGrpc.getForgetPasswordMethod = getForgetPasswordMethod =
+              io.grpc.MethodDescriptor.<com.learning.learning.grpc.UserOperationRequest, com.learning.learning.grpc.UserOperationResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "forgetPassword"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.learning.learning.grpc.UserOperationRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.learning.learning.grpc.UserOperationResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new UserOperationServiceMethodDescriptorSupplier("forgetPassword"))
+              .build();
+        }
+      }
+    }
+    return getForgetPasswordMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<com.learning.learning.grpc.UserOperationRequest,
       com.learning.learning.grpc.UserOperationResponse> getPostNoteMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
@@ -180,6 +273,27 @@ public final class UserOperationServiceGrpc {
 
     /**
      */
+    public void activeAccount(com.learning.learning.grpc.UserOperationRequest request,
+        io.grpc.stub.StreamObserver<com.learning.learning.grpc.UserOperationResponse> responseObserver) {
+      asyncUnimplementedUnaryCall(getActiveAccountMethod(), responseObserver);
+    }
+
+    /**
+     */
+    public void changePassword(com.learning.learning.grpc.UserOperationRequest request,
+        io.grpc.stub.StreamObserver<com.learning.learning.grpc.UserOperationResponse> responseObserver) {
+      asyncUnimplementedUnaryCall(getChangePasswordMethod(), responseObserver);
+    }
+
+    /**
+     */
+    public void forgetPassword(com.learning.learning.grpc.UserOperationRequest request,
+        io.grpc.stub.StreamObserver<com.learning.learning.grpc.UserOperationResponse> responseObserver) {
+      asyncUnimplementedUnaryCall(getForgetPasswordMethod(), responseObserver);
+    }
+
+    /**
+     */
     public void postNote(com.learning.learning.grpc.UserOperationRequest request,
         io.grpc.stub.StreamObserver<com.learning.learning.grpc.UserOperationResponse> responseObserver) {
       asyncUnimplementedUnaryCall(getPostNoteMethod(), responseObserver);
@@ -208,6 +322,27 @@ public final class UserOperationServiceGrpc {
 
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
+          .addMethod(
+            getActiveAccountMethod(),
+            asyncUnaryCall(
+              new MethodHandlers<
+                com.learning.learning.grpc.UserOperationRequest,
+                com.learning.learning.grpc.UserOperationResponse>(
+                  this, METHODID_ACTIVE_ACCOUNT)))
+          .addMethod(
+            getChangePasswordMethod(),
+            asyncUnaryCall(
+              new MethodHandlers<
+                com.learning.learning.grpc.UserOperationRequest,
+                com.learning.learning.grpc.UserOperationResponse>(
+                  this, METHODID_CHANGE_PASSWORD)))
+          .addMethod(
+            getForgetPasswordMethod(),
+            asyncUnaryCall(
+              new MethodHandlers<
+                com.learning.learning.grpc.UserOperationRequest,
+                com.learning.learning.grpc.UserOperationResponse>(
+                  this, METHODID_FORGET_PASSWORD)))
           .addMethod(
             getPostNoteMethod(),
             asyncUnaryCall(
@@ -256,6 +391,30 @@ public final class UserOperationServiceGrpc {
     protected UserOperationServiceStub build(io.grpc.Channel channel,
         io.grpc.CallOptions callOptions) {
       return new UserOperationServiceStub(channel, callOptions);
+    }
+
+    /**
+     */
+    public void activeAccount(com.learning.learning.grpc.UserOperationRequest request,
+        io.grpc.stub.StreamObserver<com.learning.learning.grpc.UserOperationResponse> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(getActiveAccountMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     */
+    public void changePassword(com.learning.learning.grpc.UserOperationRequest request,
+        io.grpc.stub.StreamObserver<com.learning.learning.grpc.UserOperationResponse> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(getChangePasswordMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     */
+    public void forgetPassword(com.learning.learning.grpc.UserOperationRequest request,
+        io.grpc.stub.StreamObserver<com.learning.learning.grpc.UserOperationResponse> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(getForgetPasswordMethod(), getCallOptions()), request, responseObserver);
     }
 
     /**
@@ -311,6 +470,27 @@ public final class UserOperationServiceGrpc {
 
     /**
      */
+    public com.learning.learning.grpc.UserOperationResponse activeAccount(com.learning.learning.grpc.UserOperationRequest request) {
+      return blockingUnaryCall(
+          getChannel(), getActiveAccountMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public com.learning.learning.grpc.UserOperationResponse changePassword(com.learning.learning.grpc.UserOperationRequest request) {
+      return blockingUnaryCall(
+          getChannel(), getChangePasswordMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public com.learning.learning.grpc.UserOperationResponse forgetPassword(com.learning.learning.grpc.UserOperationRequest request) {
+      return blockingUnaryCall(
+          getChannel(), getForgetPasswordMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
     public com.learning.learning.grpc.UserOperationResponse postNote(com.learning.learning.grpc.UserOperationRequest request) {
       return blockingUnaryCall(
           getChannel(), getPostNoteMethod(), getCallOptions(), request);
@@ -358,6 +538,30 @@ public final class UserOperationServiceGrpc {
 
     /**
      */
+    public com.google.common.util.concurrent.ListenableFuture<com.learning.learning.grpc.UserOperationResponse> activeAccount(
+        com.learning.learning.grpc.UserOperationRequest request) {
+      return futureUnaryCall(
+          getChannel().newCall(getActiveAccountMethod(), getCallOptions()), request);
+    }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<com.learning.learning.grpc.UserOperationResponse> changePassword(
+        com.learning.learning.grpc.UserOperationRequest request) {
+      return futureUnaryCall(
+          getChannel().newCall(getChangePasswordMethod(), getCallOptions()), request);
+    }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<com.learning.learning.grpc.UserOperationResponse> forgetPassword(
+        com.learning.learning.grpc.UserOperationRequest request) {
+      return futureUnaryCall(
+          getChannel().newCall(getForgetPasswordMethod(), getCallOptions()), request);
+    }
+
+    /**
+     */
     public com.google.common.util.concurrent.ListenableFuture<com.learning.learning.grpc.UserOperationResponse> postNote(
         com.learning.learning.grpc.UserOperationRequest request) {
       return futureUnaryCall(
@@ -389,10 +593,13 @@ public final class UserOperationServiceGrpc {
     }
   }
 
-  private static final int METHODID_POST_NOTE = 0;
-  private static final int METHODID_POST_COMMENT = 1;
-  private static final int METHODID_POST_LIKE = 2;
-  private static final int METHODID_POST_ANSWER = 3;
+  private static final int METHODID_ACTIVE_ACCOUNT = 0;
+  private static final int METHODID_CHANGE_PASSWORD = 1;
+  private static final int METHODID_FORGET_PASSWORD = 2;
+  private static final int METHODID_POST_NOTE = 3;
+  private static final int METHODID_POST_COMMENT = 4;
+  private static final int METHODID_POST_LIKE = 5;
+  private static final int METHODID_POST_ANSWER = 6;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -411,6 +618,18 @@ public final class UserOperationServiceGrpc {
     @java.lang.SuppressWarnings("unchecked")
     public void invoke(Req request, io.grpc.stub.StreamObserver<Resp> responseObserver) {
       switch (methodId) {
+        case METHODID_ACTIVE_ACCOUNT:
+          serviceImpl.activeAccount((com.learning.learning.grpc.UserOperationRequest) request,
+              (io.grpc.stub.StreamObserver<com.learning.learning.grpc.UserOperationResponse>) responseObserver);
+          break;
+        case METHODID_CHANGE_PASSWORD:
+          serviceImpl.changePassword((com.learning.learning.grpc.UserOperationRequest) request,
+              (io.grpc.stub.StreamObserver<com.learning.learning.grpc.UserOperationResponse>) responseObserver);
+          break;
+        case METHODID_FORGET_PASSWORD:
+          serviceImpl.forgetPassword((com.learning.learning.grpc.UserOperationRequest) request,
+              (io.grpc.stub.StreamObserver<com.learning.learning.grpc.UserOperationResponse>) responseObserver);
+          break;
         case METHODID_POST_NOTE:
           serviceImpl.postNote((com.learning.learning.grpc.UserOperationRequest) request,
               (io.grpc.stub.StreamObserver<com.learning.learning.grpc.UserOperationResponse>) responseObserver);
@@ -488,6 +707,9 @@ public final class UserOperationServiceGrpc {
         if (result == null) {
           serviceDescriptor = result = io.grpc.ServiceDescriptor.newBuilder(SERVICE_NAME)
               .setSchemaDescriptor(new UserOperationServiceFileDescriptorSupplier())
+              .addMethod(getActiveAccountMethod())
+              .addMethod(getChangePasswordMethod())
+              .addMethod(getForgetPasswordMethod())
               .addMethod(getPostNoteMethod())
               .addMethod(getPostCommentMethod())
               .addMethod(getPostLikeMethod())

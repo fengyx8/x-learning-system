@@ -4,7 +4,6 @@ import cn.dev33.satoken.exception.NotLoginException;
 import cn.dev33.satoken.stp.StpUtil;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.learning.learning.entity.Note;
 import com.learning.learning.grpc.UserOperationRequest;
 import com.learning.learning.grpc.UserOperationResponse;
 import com.learning.learning.grpc.UserOperationServiceGrpc;
@@ -18,6 +17,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -41,11 +41,102 @@ public class UserOperationController {
         this.userOperationServiceBlockingStub = userOperationServiceBlockingStub;
     }
 
-    @ApiOperation(value = "一般用户激活账号")
+    @ApiOperation(value = "一般用户激活账号（已登录状态）")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "userId", value = "用户ID", required = true),
+            @ApiImplicitParam(name = "name", value = "用户姓名", required = true),
+            @ApiImplicitParam(name = "secureQue", value = "密保问题", required = true),
+            @ApiImplicitParam(name = "secureAns", value = "密保答案", required = true),
+            @ApiImplicitParam(name = "password", value = "密码（无需原密码）", required = true),
+            @ApiImplicitParam(name = "mail", value = "邮箱", required = true)
+    })
     @PostMapping("/activeAccount")
-    public AjaxJson activeAccount() {
-        //TODO 完成一般用户激活账号逻辑
-        return AjaxJson.getSuccess();
+    public AjaxJson activeAccount(@RequestParam("userId") String userId, @RequestParam("name") String name,
+        @RequestParam("secureQue") String sercureQue, @RequestParam("secureAns") String sercureAns,
+        @RequestParam("password") String password, @RequestParam("mail") String mail,
+                                  HttpServletResponse httpServletResponse) {
+        long start = System.currentTimeMillis();
+        String loginId;
+        try {
+            loginId = StpUtil.getLoginIdAsString();
+        } catch (NotLoginException e) {
+            log.info("Not login...");
+            httpServletResponse.setStatus(AjaxJson.CODE_NOT_LOGIN);
+            return AjaxJson.getNotLogin();
+        }
+        log.info("Get loginId: {}.", loginId);
+        if (!loginId.equals(userId)) {
+            httpServletResponse.setStatus(AjaxJson.CODE_NOT_JUR);
+            return AjaxJson.getNotJur("学号输入有误！");
+        }
+        UserOperationResponse userOperationResponse = this.userOperationServiceBlockingStub.activeAccount(
+                UserOperationRequest.newBuilder()
+                        .setUserId(userId).setName(name)
+                        .setSecureQue(sercureQue).setSecureAns(sercureAns)
+                        .setPassword(password).setMail(mail).build()
+        );
+        boolean isUploaded = userOperationResponse.getIsUploaded();
+        log.info("Response: {}, taking {} ms.", isUploaded, System.currentTimeMillis() - start);
+        if (isUploaded) {
+            return AjaxJson.getSuccess();
+        } else {
+            httpServletResponse.setStatus(AjaxJson.CODE_ERROR);
+            return AjaxJson.getError("激活失败");
+        }
+    }
+
+    @ApiOperation(value = "一般用户或管理员修改密码（已登录状态）")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "oldPw", value = "原来的密码", required = true),
+            @ApiImplicitParam(name = "newPw", value = "新的密码", required = true)
+    })
+    @PutMapping("/password")
+    public AjaxJson changePassword(@RequestParam("oldPw") String oldPw, @RequestParam("newPw") String newPw,
+                                   HttpServletResponse httpServletResponse) {
+        long start = System.currentTimeMillis();
+        String loginId;
+        try {
+            loginId = StpUtil.getLoginIdAsString();
+        } catch (NotLoginException e) {
+            log.info("Not login...");
+            httpServletResponse.setStatus(AjaxJson.CODE_NOT_LOGIN);
+            return AjaxJson.getNotLogin();
+        }
+        log.info("Get loginId: {}.", loginId);
+        UserOperationResponse userOperationResponse = this.userOperationServiceBlockingStub.changePassword(
+                UserOperationRequest.newBuilder()
+                        .setUserId(loginId).setPassword(oldPw).setNewPassword(newPw)
+                        .build()
+        );
+        boolean isUploaded = userOperationResponse.getIsUploaded();
+        log.info("Response: {}, taking {} ms.", isUploaded, System.currentTimeMillis() - start);
+        if (isUploaded) {
+            return AjaxJson.getSuccess();
+        } else {
+            httpServletResponse.setStatus(AjaxJson.CODE_ERROR);
+            return AjaxJson.getError("修改失败");
+        }
+    }
+
+    @ApiOperation(value = "一般用户忘记密码（未登录状态）")
+    @PutMapping("/forgetPassword")
+    public AjaxJson forgetPassword(@RequestParam("userId") String userId, @RequestParam("secureQue") String sercureQue,
+                       @RequestParam("secureAns") String sercureAns, @RequestParam("password") String password,
+                                   HttpServletResponse httpServletResponse) {
+        long start = System.currentTimeMillis();
+        UserOperationResponse userOperationResponse = this.userOperationServiceBlockingStub.forgetPassword(
+                UserOperationRequest.newBuilder()
+                        .setUserId(userId).setSecureQue(sercureQue).setSecureAns(sercureAns)
+                        .setPassword(password).build()
+        );
+        boolean isUploaded = userOperationResponse.getIsUploaded();
+        log.info("Response: {}, taking {} ms.", isUploaded, System.currentTimeMillis() - start);
+        if (isUploaded) {
+            return AjaxJson.getSuccess();
+        } else {
+            httpServletResponse.setStatus(AjaxJson.CODE_ERROR);
+            return AjaxJson.getError("重置失败，请联系管理员。");
+        }
     }
 
     @ApiOperation(value = "一般用户发布心得，待管理员审核通过后加2分。")

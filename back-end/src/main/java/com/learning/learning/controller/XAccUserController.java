@@ -52,7 +52,8 @@ public class XAccUserController {
                     format = "password", defaultValue = "123456")
     })
     @PostMapping("doLogin")
-    AjaxJson doLogin(@RequestParam(value = "key") String key, @RequestParam(value = "password") String password) {
+    AjaxJson doLogin(@RequestParam(value = "key") String key, @RequestParam(value = "password") String password,
+                     HttpServletResponse httpServletResponse) {
 //	AjaxJson doLogin(@RequestBody JsonObject jsonObject) {
 //		String key = jsonObject.get("key").toString();
 //		String password = jsonObject.get("password").toString();
@@ -61,7 +62,7 @@ public class XAccUserController {
         if (NbUtil.isOneNull(key, password)) {
             return AjaxJson.getError("请提供key与password参数");
         }
-        return xAccUserService.doLogin(key, password);
+        return xAccUserService.doLogin(key, password, httpServletResponse);
     }
 
 

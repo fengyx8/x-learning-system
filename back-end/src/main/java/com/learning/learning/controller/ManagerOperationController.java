@@ -234,13 +234,6 @@ public class ManagerOperationController {
         }
     }
 
-    @ApiOperation(value = "（空）管理员批量删除用户")
-    @DeleteMapping("/xUsers")
-    public AjaxJson deleteXUsers() {
-        //TODO （考虑删除）完成管理员批量删除用户逻辑
-        return AjaxJson.getSuccess();
-    }
-
     @ApiOperation(value = "管理员更新单个用户信息")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "userId", value = "用户学号", required = true),
@@ -269,13 +262,6 @@ public class ManagerOperationController {
         } else {
             return AjaxJson.getError();
         }
-    }
-
-    @ApiOperation(value = "（空）管理员批量更新用户信息")
-    @PutMapping("/xUsers")
-    public AjaxJson putXUsers() {
-        //TODO （考虑删除）完成管理员批量更新用户信息逻辑
-        return AjaxJson.getSuccess();
     }
 
     @ApiOperation(value = "管理员查询单个用户信息")

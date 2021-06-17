@@ -34,25 +34,36 @@ public final class UserOperationServiceOuterClass {
   static {
     java.lang.String[] descriptorData = {
       "\n\032UserOperationService.proto\022\032com.learni" +
-      "ng.learning.grpc\"\211\001\n\024UserOperationReques" +
+      "ng.learning.grpc\"\362\001\n\024UserOperationReques" +
       "t\022\016\n\006userId\030\001 \001(\t\022\017\n\007content\030\002 \001(\t\022\016\n\006no" +
       "teId\030\003 \001(\t\022\021\n\tcommentId\030\004 \001(\t\022\013\n\003ans\030\005 \001" +
-      "(\t\022\r\n\005queId\030\006 \001(\t\022\021\n\tcontentId\030\007 \001(\t\"P\n\025" +
-      "UserOperationResponse\022\022\n\nisUploaded\030\001 \001(" +
-      "\010\022\021\n\tisCorrect\030\002 \001(\010\022\020\n\010analysis\030\003 \001(\t2\337" +
-      "\003\n\024UserOperationService\022o\n\010postNote\0220.co" +
+      "(\t\022\r\n\005queId\030\006 \001(\t\022\021\n\tcontentId\030\007 \001(\t\022\014\n\004" +
+      "name\030\010 \001(\t\022\021\n\tsecureQue\030\t \001(\t\022\021\n\tsecureA" +
+      "ns\030\n \001(\t\022\020\n\010password\030\013 \001(\t\022\014\n\004mail\030\014 \001(\t" +
+      "\022\023\n\013newPassword\030\r \001(\t\"P\n\025UserOperationRe" +
+      "sponse\022\022\n\nisUploaded\030\001 \001(\010\022\021\n\tisCorrect\030" +
+      "\002 \001(\010\022\020\n\010analysis\030\003 \001(\t2\303\006\n\024UserOperatio" +
+      "nService\022t\n\ractiveAccount\0220.com.learning" +
+      ".learning.grpc.UserOperationRequest\0321.co" +
       "m.learning.learning.grpc.UserOperationRe" +
-      "quest\0321.com.learning.learning.grpc.UserO" +
-      "perationResponse\022r\n\013postComment\0220.com.le" +
-      "arning.learning.grpc.UserOperationReques" +
-      "t\0321.com.learning.learning.grpc.UserOpera" +
-      "tionResponse\022o\n\010postLike\0220.com.learning." +
+      "sponse\022u\n\016changePassword\0220.com.learning." +
       "learning.grpc.UserOperationRequest\0321.com" +
       ".learning.learning.grpc.UserOperationRes" +
-      "ponse\022q\n\npostAnswer\0220.com.learning.learn" +
-      "ing.grpc.UserOperationRequest\0321.com.lear" +
-      "ning.learning.grpc.UserOperationResponse" +
-      "B\002P\001b\006proto3"
+      "ponse\022u\n\016forgetPassword\0220.com.learning.l" +
+      "earning.grpc.UserOperationRequest\0321.com." +
+      "learning.learning.grpc.UserOperationResp" +
+      "onse\022o\n\010postNote\0220.com.learning.learning" +
+      ".grpc.UserOperationRequest\0321.com.learnin" +
+      "g.learning.grpc.UserOperationResponse\022r\n" +
+      "\013postComment\0220.com.learning.learning.grp" +
+      "c.UserOperationRequest\0321.com.learning.le" +
+      "arning.grpc.UserOperationResponse\022o\n\010pos" +
+      "tLike\0220.com.learning.learning.grpc.UserO" +
+      "perationRequest\0321.com.learning.learning." +
+      "grpc.UserOperationResponse\022q\n\npostAnswer" +
+      "\0220.com.learning.learning.grpc.UserOperat" +
+      "ionRequest\0321.com.learning.learning.grpc." +
+      "UserOperationResponseB\002P\001b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -63,7 +74,7 @@ public final class UserOperationServiceOuterClass {
     internal_static_com_learning_learning_grpc_UserOperationRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_com_learning_learning_grpc_UserOperationRequest_descriptor,
-        new java.lang.String[] { "UserId", "Content", "NoteId", "CommentId", "Ans", "QueId", "ContentId", });
+        new java.lang.String[] { "UserId", "Content", "NoteId", "CommentId", "Ans", "QueId", "ContentId", "Name", "SecureQue", "SecureAns", "Password", "Mail", "NewPassword", });
     internal_static_com_learning_learning_grpc_UserOperationResponse_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_com_learning_learning_grpc_UserOperationResponse_fieldAccessorTable = new

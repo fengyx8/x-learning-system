@@ -13,6 +13,7 @@ import com.learning.learning.util.sg.WebNbUtil;
 import com.learning.learning.util.so.SoMap;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletResponse;
 import java.sql.Timestamp;
 
 /**
@@ -39,9 +40,10 @@ public class XAccUserService {
 	  * 登录 
 	 * @param id 用户ID
 	 * @param password 用户密码
+	 * @param httpServletResponse
 	 * @return
 	 */
-	public AjaxJson doLogin(String id, String password) {
+	public AjaxJson doLogin(String id, String password, HttpServletResponse httpServletResponse) {
 		
 		// 0、判断 way (1=ID, 2=昵称，3=邮箱)
     	int way = 2;	
@@ -67,14 +69,17 @@ public class XAccUserService {
 
         // 3、开始验证
         if(xUser == null){
+        	httpServletResponse.setStatus(AjaxJson.CODE_ERROR);
         	return AjaxJson.getError("无此账号");	
         }
         if(NbUtil.isNull(xUser.getPassword2())) {
+			httpServletResponse.setStatus(AjaxJson.CODE_ERROR);
         	return AjaxJson.getError("此账号尚未设置密码，无法登陆");
         }
         String md5Password = SystemObject.getPasswordMd5(xUser.getId(), password);
         if(!xUser.getPassword2().equals(md5Password)){
-        	return AjaxJson.getError("密码错误");	
+			httpServletResponse.setStatus(AjaxJson.CODE_ERROR);
+        	return AjaxJson.getError("密码错误");
         }
         
         // 4、是否禁用
