@@ -2,6 +2,7 @@ package com.learning.learning.service;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.learning.learning.entity.User;
 import com.learning.learning.entity.satoken.XUser;
 import com.learning.learning.mapper.CommentMapper;
 import com.learning.learning.mapper.NoteMapper;
@@ -32,7 +33,11 @@ public class GetUserInfoService {
     }
 
     public String getUserInfo(String userId) {
-        UserInfo userInfo = new UserInfo(userMapper.getUserInfoById(userId));
+        User user = userMapper.getUserInfoById(userId);
+        if (user == null) {
+            return "";
+        }
+        UserInfo userInfo = new UserInfo(user);
         userInfo.setNotes(noteMapper.getNoteListByUserId(userId));
         userInfo.setComments(commentMapper.getCommentListByUserId(userId));
         return gson.toJson(userInfo);

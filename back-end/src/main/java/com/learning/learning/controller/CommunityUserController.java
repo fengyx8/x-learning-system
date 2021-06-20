@@ -57,12 +57,10 @@ public class CommunityUserController {
             loginId = StpUtil.getLoginIdAsString();
         } catch (NotLoginException e) {
             log.info("Not login...");
-            response.setStatus(AjaxJson.CODE_NOT_LOGIN);
             return AjaxJson.getNotLogin();
         }
         log.info("Get loginId: {}", loginId);
         if (!loginId.equals(userId)) {
-            response.setStatus(AjaxJson.CODE_NOT_JUR);
             return AjaxJson.getNotJur("用户信息不一致！");
         }
         int roleId = 0;
@@ -78,6 +76,7 @@ public class CommunityUserController {
                         .setUserId(userId).setRoleId(roleId).build());
         String userInfo = userInfoResponse.getUserInfo();
         log.info("Response: {}, taking {}", userInfo, System.currentTimeMillis() - start);
+        if (userInfo.isEmpty()) return AjaxJson.getError("账户未激活！");
         return AjaxJson.getSuccessData(gson.fromJson(userInfo, UserInfo.class));
     }
 
