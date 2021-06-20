@@ -90,16 +90,13 @@ public class XAccUserService {
 
         // 3、开始验证
         if(xUser == null){
-        	httpServletResponse.setStatus(AjaxJson.CODE_ERROR);
-        	return AjaxJson.getError("无此账号");	
+        	return AjaxJson.getError("无此账号");
         }
         if(NbUtil.isNull(xUser.getPassword2())) {
-			httpServletResponse.setStatus(AjaxJson.CODE_ERROR);
         	return AjaxJson.getError("此账号尚未设置密码，无法登陆");
         }
         String md5Password = SystemObject.getPasswordMd5(xUser.getId(), password);
         if(!xUser.getPassword2().equals(md5Password)){
-			httpServletResponse.setStatus(AjaxJson.CODE_ERROR);
         	return AjaxJson.getError("密码错误");
         }
         
