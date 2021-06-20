@@ -33,6 +33,13 @@
 		`pw` = #{pw}
 		where `id` = #{userId}
 	</update>
+	<update id="updatePasswordAndMail">
+		update `x_user` set
+				`password` = #{password},
+				`pw` = #{pw},
+		        `mail` = #{mail}
+		where `id` = #{userId}
+	</update>
 	<!-- 自己改自己 -->
 	<!-- <delete id="updateBy">
 		update `x_user` set

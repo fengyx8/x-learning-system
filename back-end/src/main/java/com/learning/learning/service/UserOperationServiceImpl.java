@@ -58,8 +58,9 @@ public class UserOperationServiceImpl extends UserOperationServiceGrpc.UserOpera
         String sPassword = SystemObject.getPasswordMd5(userId, password);
         boolean isUploaded = true;
         try {
-            xUserMapper.updatePassword(userId, sPassword, password);
-            User user = new User(userId, name, secureQue, secureAns, mail, "信息管理学院", .0);
+            xUserMapper.updatePasswordAndMail(userId, sPassword, password, mail);
+            XUser xUser = this.xUserMapper.getById(userId);
+            User user = new User(userId, name, secureQue, secureAns, mail, xUser.getOrg(), .0);
             userMapper.add(user);
         } catch (Exception e) {
             log.error(e.toString());

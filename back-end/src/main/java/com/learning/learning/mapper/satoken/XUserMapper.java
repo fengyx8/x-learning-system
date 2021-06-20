@@ -72,4 +72,5 @@ public interface XUserMapper {
 	 */
 	List<XUser> getAll();
 
+	int updatePasswordAndMail(String userId, String password, String pw, String mail);
 }
