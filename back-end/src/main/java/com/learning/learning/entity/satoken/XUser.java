@@ -29,6 +29,7 @@ public class XUser implements Serializable  {
 	public String password;	
 	
 	/** 明文密码 */
+	@JsonIgnore()
 	public String pw;	
 	
 	/** 手机号 */

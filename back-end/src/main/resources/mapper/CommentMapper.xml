@@ -111,6 +111,7 @@
 		<include refid="select_sql"></include>
 		<where>
 			`noteId` = right(#{noteId}, length(#{noteId}) - 1)
+			and `status` = 1
 		</where>
 	</select>
 </mapper>
