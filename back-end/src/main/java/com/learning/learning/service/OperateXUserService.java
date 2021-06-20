@@ -27,10 +27,10 @@ public class OperateXUserService {
         this.config = config;
     }
 
-    public boolean insertXUser(String userId, String name, String password, String createByAid) {
+    public boolean insertXUser(String userId, String name, String password, String createByAid, String org) {
         try {
             String sPassword = SecureUtil.md5(config.getMd5Salt() + userId + password).toUpperCase();
-            xUserMapper.add(userId, name, sPassword, password, createByAid);
+            xUserMapper.add(userId, name, 2, sPassword, password, "", createByAid, org);
         } catch (Exception e) {
             log.warn(e.toString());
             return false;

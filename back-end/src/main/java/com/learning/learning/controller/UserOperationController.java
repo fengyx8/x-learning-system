@@ -134,7 +134,6 @@ public class UserOperationController {
         if (isUploaded) {
             return AjaxJson.getSuccess();
         } else {
-            httpServletResponse.setStatus(AjaxJson.CODE_ERROR);
             return AjaxJson.getError("重置失败，请联系管理员。");
         }
     }

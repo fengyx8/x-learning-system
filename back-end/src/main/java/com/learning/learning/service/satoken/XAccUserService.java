@@ -11,16 +11,20 @@ import com.learning.learning.util.sg.AjaxJson;
 import com.learning.learning.util.sg.NbUtil;
 import com.learning.learning.util.sg.WebNbUtil;
 import com.learning.learning.util.so.SoMap;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletResponse;
 import java.sql.Timestamp;
+import java.util.Random;
+import java.util.Set;
 
 /**
  * service：XUser账号相关
  * @author jbk-xiao
  *
  */
+@Slf4j
 @Service
 public class XAccUserService {
 	private final XAccUserMapper xAccUserMapper;
@@ -35,6 +39,23 @@ public class XAccUserService {
 		this.xRolePermissionService = xRolePermissionService;
 	}
 
+	public String registerManager(String name, String password, String mail, String org) {
+		Set<String> ids = this.xUserMapper.getIdSet();
+		log.info("idList: {}", ids.toString());
+		String userId;
+		do {
+			userId = "1" + (int) (Math.random() * 100000);
+		} while (ids.contains(userId));
+		String sPassword = SystemObject.getPasswordMd5(userId, password);
+
+		try {
+			this.xUserMapper.add(userId, name, 1, sPassword, password, mail, "-1", org);
+		} catch (Exception e) {
+			log.error(e.toString());
+			return "";
+		}
+		return userId;
+	}
 
 	/**
 	  * 登录 

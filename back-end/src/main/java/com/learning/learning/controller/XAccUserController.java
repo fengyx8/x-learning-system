@@ -32,7 +32,6 @@ import javax.servlet.http.HttpServletResponse;
 public class XAccUserController {
 
     private final XAccUserService xAccUserService;
-
     private final XRolePermissionService xRolePermissionService;
 
     public XAccUserController(XAccUserService xAccUserService, XRolePermissionService xRolePermissionService) {
@@ -40,6 +39,23 @@ public class XAccUserController {
         this.xRolePermissionService = xRolePermissionService;
     }
 
+    @ApiOperation(value = "注册管理员用户")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "name", value = "管理员姓名", required = true, paramType = "query"),
+            @ApiImplicitParam(name = "password", value = "账户密码", required = true, paramType = "query"),
+            @ApiImplicitParam(name = "mail", value = "用户邮箱", required = true, paramType = "query"),
+            @ApiImplicitParam(name = "org", value = "用户所属组织", required = true, paramType = "query")
+    })
+    @PostMapping("/registerManager")
+    public AjaxJson registerManager(@RequestParam("name") String name, @RequestParam("password") String password,
+                                    @RequestParam("mail") String mail, @RequestParam("org") String org) {
+        String userId = this.xAccUserService.registerManager(name, password, mail, org);
+        if (userId.isEmpty()) {
+            return AjaxJson.getError("注册失败，请稍后再试。");
+        } else {
+            return AjaxJson.getSuccessData(userId);
+        }
+    }
 
     /**
      * 账号、密码登录

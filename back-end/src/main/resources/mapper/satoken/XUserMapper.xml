@@ -6,11 +6,13 @@
 	<!-- 增 -->
 	<insert id="add">
 		insert into
-		`x_user`(`id`, `name`, `role_id`, `password`, `pw`, `create_by_aid`, `create_time`)
-		values (#{userId}, #{name}, 2, #{password}, #{pw}, #{createByAid}, now())
+		`x_user`(`id`, `name`, `role_id`, `password`, `pw`, `mail`, `create_by_aid`, `create_time`, `org`)
+		values (#{userId}, #{name}, #{roleId}, #{password}, #{pw}, #{mail}, #{createByAid}, now(), #{org})
 	</insert>
 
-
+	<select id="getIdSet" resultType="java.lang.String">
+		select `id` from `x_user`;
+	</select>
 	<!-- 删 -->
 	<delete id="delete">
 		delete from `x_user` where `id` = #{id}
@@ -56,12 +58,13 @@
 		<result property="loginIp" column="login_ip" />
 		<result property="loginCount" column="login_count" />
 		<result property="roleName" column="role_name" />
+		<result property="org" column="org" />
 	</resultMap>
 	
 	<!-- 查询sql -->
 	<sql id="select_sql">
 		select `id`, `name`, `avatar`, `password`, `pw`, `mail`, `role_id`, `status`, `create_by_aid`,
-		       `create_time`, `login_time`, `login_ip`, `login_count`,
+		       `create_time`, `login_time`, `login_ip`, `login_count`, `org`,
 		(select `name` from `x_role` where `id` = `x_user`.`role_id`) as `role_name`
 		from `x_user`
 	</sql>

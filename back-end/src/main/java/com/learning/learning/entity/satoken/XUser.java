@@ -56,7 +56,8 @@ public class XUser implements Serializable  {
 	/** 登陆次数 */
 	public Integer loginCount;	
 	
-	
+	/** 所属组织*/
+	public String org;
 	// -------- 额外字段 
 	
 	/** 所属角色名称   */

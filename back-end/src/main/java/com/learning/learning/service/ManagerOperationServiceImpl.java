@@ -9,6 +9,7 @@ import com.learning.learning.grpc.ManagerOperationServiceGrpc;
 import com.learning.learning.mapper.CommentMapper;
 import com.learning.learning.mapper.NoteMapper;
 import com.learning.learning.mapper.UserMapper;
+import com.learning.learning.mapper.satoken.XUserMapper;
 import io.grpc.stub.StreamObserver;
 import lombok.extern.slf4j.Slf4j;
 import org.lognet.springboot.grpc.GRpcService;
@@ -32,12 +33,14 @@ public class ManagerOperationServiceImpl extends ManagerOperationServiceGrpc.Man
     private final UserMapper userMapper;
     private final OperateXUserService operateXUserService;
     private final OperateXUsersService operateXUsersService;
-    public ManagerOperationServiceImpl(NoteMapper noteMapper, CommentMapper commentMapper, UserMapper userMapper, OperateXUserService operateXUserService, OperateXUsersService operateXUsersService) {
+    private final XUserMapper xUserMapper;
+    public ManagerOperationServiceImpl(NoteMapper noteMapper, CommentMapper commentMapper, UserMapper userMapper, OperateXUserService operateXUserService, OperateXUsersService operateXUsersService, XUserMapper xUserMapper) {
         this.noteMapper = noteMapper;
         this.commentMapper = commentMapper;
         this.userMapper = userMapper;
         this.operateXUserService = operateXUserService;
         this.operateXUsersService = operateXUsersService;
+        this.xUserMapper = xUserMapper;
     }
 
     @Override
@@ -88,8 +91,11 @@ public class ManagerOperationServiceImpl extends ManagerOperationServiceGrpc.Man
         XUser xUser = null;
         switch (operation) {
             case INSERT:
+                String loginId = request.getLoginId();
+                xUser = this.xUserMapper.getById(loginId);
                 isComplete = this.operateXUserService.insertXUser(request.getUserId(), request.getName(),
-                        request.getPassword(), request.getLoginId());
+                        request.getPassword(), loginId, xUser.getOrg());
+                xUser = null;
                 break;
             case DELETE:
                 isComplete = this.operateXUserService.deleteXUser(request.getUserId());
@@ -120,7 +126,9 @@ public class ManagerOperationServiceImpl extends ManagerOperationServiceGrpc.Man
         List<XUser> xUsers = null;
         switch (operation) {
             case INSERT:
-                isComplete = this.operateXUsersService.insertXUsers(request.getXUsersInfo(), request.getLoginId());
+                String loginId = request.getLoginId();
+                XUser xUser = this.xUserMapper.getById(loginId);
+                isComplete = this.operateXUsersService.insertXUsers(request.getXUsersInfo(), loginId, xUser.getOrg());
                 break;
             case DELETE:
                 isComplete = this.operateXUsersService.deleteXUsers(request.getUserId());

@@ -32,12 +32,12 @@ public class OperateXUsersService {
         this.operateXUserService = operateXUserService;
     }
 
-    public boolean insertXUsers(String xUsersInfo, String createByAid) {
+    public boolean insertXUsers(String xUsersInfo, String createByAid, String org) {
         List<Map<String, String>> xUsers = gson.fromJson(xUsersInfo,
                 new TypeToken<List<Map<String, String>>>() {}.getType());
         try {
             for (Map<String, String> xUser : xUsers) {
-                operateXUserService.insertXUser(xUser.get("userId"), xUser.get("name"), xUser.get("password"), createByAid);
+                operateXUserService.insertXUser(xUser.get("userId"), xUser.get("name"), xUser.get("password"), createByAid, org);
             }
         } catch (Exception e) {
             log.error(e.toString());

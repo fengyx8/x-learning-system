@@ -5,6 +5,7 @@ import com.learning.learning.util.so.SoMap;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * Mapper: 系统管理员表
@@ -18,8 +19,13 @@ public interface XUserMapper {
 	 *
 	 * @return
 	 */
-	int add(String userId, String name, String password, String pw, String createByAid);
+	int add(String userId, String name, int roleId, String password, String pw, String mail, String createByAid, String org);
 
+	/**
+	 * 查询所有已存在Id
+	 * @return
+	 */
+	Set<String> getIdSet();
 	/**
 	 * 删 
 	 * @param id
