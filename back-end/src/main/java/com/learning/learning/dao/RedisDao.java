@@ -31,7 +31,7 @@ public class RedisDao {
     static int pageRecord = 20;
     public int pageNum = 0;
     final JedisUtil jedisUtil;
-    Jedis jedis;
+//    Jedis jedis;
 
     @Autowired
     public RedisDao(JedisUtil jedisUtil) {
@@ -70,10 +70,31 @@ public class RedisDao {
         List<String> list = new ArrayList<>();
         try{
             Process proc;
-            proc = Runtime.getRuntime().exec("D:\\python3.7.9\\python F:\\x-learning-system\\x-learning-system\\back-end\\src\\main\\resources\\segmentation.py " + query);
-            BufferedReader in = new BufferedReader(new InputStreamReader(proc.getInputStream(), "gbk"));
-            String line = null;
+            String osName = System.getProperties().getProperty("os.name");
+            String pyFile;
+            BufferedReader in;
+            BufferedReader er;
+            if (osName.contains("Windows")) {
+                pyFile = this.getClass().getResource("/segmentation.py")
+                        .toString().replaceFirst("file:/", "");
+                log.info("osName: {}, python script path: {}, query: {}", osName, pyFile, query);
+                proc = Runtime.getRuntime().exec("python " + pyFile + " " + query);
+                in = new BufferedReader(new InputStreamReader(proc.getInputStream(), "gbk"));
+                er = new BufferedReader(new InputStreamReader(proc.getErrorStream(), "gbk"));
+            } else {
+                pyFile = this.getClass().getResource("/segmentation.py")
+                        .toString().replaceFirst("file:", "");
+                log.info("osName: {}, python script path: {}, query: {}", osName, pyFile, query);
+                proc = Runtime.getRuntime().exec("python3 " + pyFile + " " + query);
+                in = new BufferedReader(new InputStreamReader(proc.getInputStream(), "utf-8"));
+                er = new BufferedReader(new InputStreamReader(proc.getErrorStream(), "utf-8"));
+            }
+            String line;
+            while ((line = er.readLine()) != null) {
+                log.warn("errorLine: {}", line);
+            }
             while ((line = in.readLine()) != null) {
+                log.info("===line: {}", line);
                 list.addAll(Arrays.asList(line.split(" ")));
             }
             in.close();
@@ -99,7 +120,8 @@ public class RedisDao {
      * @return
      */
     public ArrayList<String> getIDListByYear(String query) {
-        ArrayList<String> res = new ArrayList<String>();
+        Jedis jedis = jedisUtil.getClient();
+        ArrayList<String> res = new ArrayList<>();
         ArrayList<String> keys = new ArrayList<>();
         try {
             keys.addAll(fuzzySearchQueryByKeys(query, 3));
@@ -116,6 +138,8 @@ public class RedisDao {
             }
         } catch (NullPointerException e) {
             e.printStackTrace();
+        } finally {
+            jedis.close();
         }
         return res;
     }
@@ -126,12 +150,15 @@ public class RedisDao {
      * @return
      */
     public ArrayList<String> getIDListByType(String query) {
-        ArrayList<String> res = new ArrayList<String>();
+        Jedis jedis = jedisUtil.getClient();
+        ArrayList<String> res = new ArrayList<>();
         jedis.select(2);
         try {
             res.addAll(jedis.smembers(query));
         } catch (NullPointerException e) {
             e.printStackTrace();
+        } finally {
+            jedis.close();
         }
         return res;
     }
@@ -161,6 +188,7 @@ public class RedisDao {
     public List<String> fuzzySearchList(String query, int db) {
         log.info("使用方法fuzzySearchList");
         long startTime = System.currentTimeMillis();
+        Jedis jedis = jedisUtil.getClient();
         List<String> keys = new ArrayList<>(fuzzySearchQueryByKeys(query, db));
         jedis.select(db);
         log.info("模糊匹配到keys：" + keys.toString());
@@ -184,6 +212,7 @@ public class RedisDao {
         }
         long finishQueryTime = System.currentTimeMillis();
         log.info("Jedis process time:" + (finishQueryTime - startTime));
+        jedis.close();
         return result;
     }
 
@@ -194,6 +223,7 @@ public class RedisDao {
      */
     public List<String> jedisScan(String pattern, int database) {
         long startTime = System.currentTimeMillis();
+        Jedis jedis = jedisUtil.getClient();
         jedis.select(database);
         String cursor = ScanParams.SCAN_POINTER_START;
         List<String> keys = new ArrayList<>();
@@ -212,6 +242,7 @@ public class RedisDao {
         }
         long finishTime = System.currentTimeMillis();
         log.info("jedisScan process time:" + (finishTime - startTime));
+        jedis.close();
         return keys;
     }
 
@@ -224,7 +255,7 @@ public class RedisDao {
      * @return List<String>
      */
     public ListAndPage getIDListOnPage(String keyword, String type, String year, int page){
-        jedis = jedisUtil.getClient();
+        Jedis jedis = jedisUtil.getClient();
         Boolean first = true;
         ArrayList<String> list = new ArrayList<String>();
         ArrayList<String> list1 = new ArrayList<String>();
@@ -282,7 +313,7 @@ public class RedisDao {
     public String getWordCloud(){
         StringBuilder sb = new StringBuilder();
         sb.append("{\"wordCloud\": [");
-        jedis = jedisUtil.getClient();
+        Jedis jedis = jedisUtil.getClient();
         jedis.select(5);
         List<String> wordAl = new ArrayList<>(jedis.zrange("WordCloud", -50, -1));
         if (wordAl.size() == 0) {
@@ -291,15 +322,15 @@ public class RedisDao {
         for(int i=0; i<wordAl.size(); i++){
             if(i == wordAl.size()-1){
                 sb.append("{\"word\":");
-                sb.append("\""+wordAl.get(i)+"\",");
+                sb.append("\"").append(wordAl.get(i)).append("\",");
                 sb.append("\"count\":");
-                sb.append(jedis.get(wordAl.get(i))+"}]}");
+                sb.append(jedis.get(wordAl.get(i))).append("}]}");
             }
             else {
                 sb.append("{\"word\":");
-                sb.append("\"" + wordAl.get(i) + "\",");
+                sb.append("\"").append(wordAl.get(i)).append("\",");
                 sb.append("\"count\":");
-                sb.append(jedis.get(wordAl.get(i)) + "},");
+                sb.append(jedis.get(wordAl.get(i))).append("},");
             }
         }
         jedis.close();
@@ -309,7 +340,7 @@ public class RedisDao {
     public String getGraph(){
         StringBuilder sb = new StringBuilder();
         sb.append("{\"geo\": [");
-        jedis = jedisUtil.getClient();
+        Jedis jedis = jedisUtil.getClient();
         jedis.select(4);
         List<String> graphList = new ArrayList<>();
         Set<String> s = jedis.keys("*");
@@ -321,19 +352,19 @@ public class RedisDao {
             sb.append("{");
             String key = it.next();
             if(it.hasNext()) {
-                sb.append("\"lng\":" + jedis.hget(key, "log") + ",");
-                sb.append("\"lat\":" + jedis.hget(key, "lat") + ",");
-                sb.append("\"name\":\"" + key + "\",");
-                sb.append("\"level\":" + jedis.hget(key, "level") + ",");
-                sb.append("\"freq\":" + jedis.hget(key, "freq"));
+                sb.append("\"lng\":").append(jedis.hget(key, "log")).append(",");
+                sb.append("\"lat\":").append(jedis.hget(key, "lat")).append(",");
+                sb.append("\"name\":\"").append(key).append("\",");
+                sb.append("\"level\":").append(jedis.hget(key, "level")).append(",");
+                sb.append("\"freq\":").append(jedis.hget(key, "freq"));
                 sb.append("},");
             }
             else{
-                sb.append("\"lng\":" + jedis.hget(key, "log") + ",");
-                sb.append("\"lat\":" + jedis.hget(key, "lat") + ",");
-                sb.append("\"name\":\"" + key + "\",");
-                sb.append("\"level\":" + jedis.hget(key, "level") + ",");
-                sb.append("\"freq\":" + jedis.hget(key, "freq"));
+                sb.append("\"lng\":").append(jedis.hget(key, "log")).append(",");
+                sb.append("\"lat\":").append(jedis.hget(key, "lat")).append(",");
+                sb.append("\"name\":\"").append(key).append("\",");
+                sb.append("\"level\":").append(jedis.hget(key, "level")).append(",");
+                sb.append("\"freq\":").append(jedis.hget(key, "freq"));
                 sb.append("}]}");
             }
         }
@@ -342,7 +373,7 @@ public class RedisDao {
     }
 
     public String getCalender(String date) {
-        jedis = jedisUtil.getClient();
+        Jedis jedis = jedisUtil.getClient();
         jedis.select(3);
         StringBuilder sb = new StringBuilder();
         List<String> keys = fuzzySearchQueryByKeys(date, 3);
@@ -354,9 +385,9 @@ public class RedisDao {
         for (int i = 0; i < keys.size(); i++) {
             sb.append("{");
             sb.append("\"title\":");
-            sb.append("\""+jedis.scard(keys.get(i))+"\",");
+            sb.append("\"").append(jedis.scard(keys.get(i))).append("\",");
             sb.append("\"start\":");
-            sb.append("\""+keys.get(i).split(" ")[0]+"\"");
+            sb.append("\"").append(keys.get(i).split(" ")[0]).append("\"");
             if(i == keys.size() - 1){
                 sb.append("}");
             } else {
@@ -367,6 +398,7 @@ public class RedisDao {
 //            res.add(map);
         }
         sb.append("]");
+        jedis.close();
         return sb.toString();
     }
 }

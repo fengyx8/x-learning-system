@@ -23,7 +23,7 @@ public interface NewsMapper {
      * @param id
      * @return Query
      */
-    @Select("SELECT * FROM News WHERE id = #{id}")
+    @Select("SELECT * FROM news WHERE id = #{id}")
     List<News> selectNewsByNewsId(@Param("id") String id);
 
 }

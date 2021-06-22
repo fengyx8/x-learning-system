@@ -48,6 +48,8 @@ public class GetUserInfoService {
         XUser xUser = this.xUserMapper.getById(userId);
         userInfo.setUserId(userId);
         userInfo.setName(xUser.getName());
+        userInfo.setMail(xUser.getMail());
+        userInfo.setOrg(xUser.getOrg());
         userInfo.setNotes(noteMapper.getAllList());
         userInfo.setComments(commentMapper.getAllList());
         return gson.toJson(userInfo);

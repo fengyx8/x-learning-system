@@ -4,7 +4,7 @@
 
     <select id="selectNewsByNewsIds" parameterType="java.util.List" resultType="News">
         select *
-        from `News`
+        from `news`
         where `id` in
         <foreach collection="id" item="id" index="index"
                  open="(" close=")" separator=",">
