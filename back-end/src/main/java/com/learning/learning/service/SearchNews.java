@@ -35,7 +35,9 @@ public class SearchNews {
         //redis方法，传入一个(title,page)，返回list
         ListAndPage lp = redisDao.getIDListOnPage(keyword, type, year, Integer.parseInt(page));
         if (lp == null){
-            return null;
+            String nullStr;
+            nullStr = "{\"totalPages\":"+0+","+"\"totalRecords\":"+0+","+"\"lists\":[]}";
+            return nullStr;
         }
         log.info("searchNewsByTitle result:" + lp.getList().toString());
         //mysql方法
