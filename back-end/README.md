@@ -10,9 +10,11 @@
 
 ### 2. 初始配置
 
-- 在`MySQL`中运行`back-end`目录下的`init.sql`脚本初始化数据库
+- 在`MySQL`中运行`back-end`目录下的`init.sql`脚本初始化数据库结构
+- 在`MySQL`中运行`back-end`目录下的`community-data.sql`脚本导入社群部分初始测试数据
 - 通过运行`import_data/src/main/java/com/example/rwredis/`路径下的`Write2Redis.java`,`WriteQuestion2Mysql.java`,`WriteNews2Mysql.java`,将数据录入数据库中
 - 将`back-end/src/main/resources/application.yml`等三个文件内的数据库配置改为实际配置
+- 执行`pip install jieba`安装运行所需的切词工具
 
 ### 3. 编译运行
 
